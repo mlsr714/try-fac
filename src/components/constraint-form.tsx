@@ -19,11 +19,12 @@ import {
   dietOptions,
   mealTypeOptions,
   difficultyOptions,
+  type ConstraintFormValues,
   type GenerateIdeasResponse,
 } from "@/lib/schemas/generation";
 
 interface ConstraintFormProps {
-  onSuccess?: (data: GenerateIdeasResponse) => void;
+  onSuccess?: (data: GenerateIdeasResponse, constraints: ConstraintFormValues) => void;
 }
 
 interface FieldErrors {
@@ -117,7 +118,7 @@ export function ConstraintForm({ onSuccess }: ConstraintFormProps) {
       }
 
       const data = (await response.json()) as GenerateIdeasResponse;
-      onSuccess?.(data);
+      onSuccess?.(data, result.data);
     } catch {
       // Could show a toast here, but for now just re-enable the button
     } finally {

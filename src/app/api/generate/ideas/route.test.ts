@@ -1,5 +1,68 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi, beforeEach } from "vitest";
 import { POST } from "./route";
+
+// Mock the AI SDK
+vi.mock("ai", () => ({
+  generateText: vi.fn(),
+  Output: {
+    object: vi.fn((opts: unknown) => opts),
+  },
+  gateway: vi.fn((model: string) => model),
+}));
+
+// Mock Clerk auth
+vi.mock("@clerk/nextjs/server", () => ({
+  auth: vi.fn().mockResolvedValue({ userId: "test-user-id" }),
+}));
+
+// Mock the database
+vi.mock("@/db", () => ({
+  db: {
+    select: vi.fn().mockReturnValue({
+      from: vi.fn().mockReturnValue({
+        where: vi.fn().mockResolvedValue([]),
+      }),
+    }),
+  },
+}));
+
+vi.mock("@/db/schema", () => ({
+  pantryItems: { name: "name", userId: "user_id" },
+}));
+
+vi.mock("drizzle-orm", () => ({
+  eq: vi.fn(),
+}));
+
+const mockGenerateText = vi.mocked(
+  (await import("ai")).generateText
+);
+
+const mockIdeas = {
+  ideas: [
+    {
+      title: "Vegan Dinner Bowl",
+      description:
+        "A hearty plant-based dinner bowl packed with roasted vegetables and quinoa.",
+      estimatedTime: "25 min",
+      tools: ["Baking sheet", "Mixing bowl"],
+    },
+    {
+      title: "Tofu Stir-Fry",
+      description:
+        "Crispy tofu with seasonal vegetables in a savory soy-ginger sauce.",
+      estimatedTime: "20 min",
+      tools: ["Wok", "Cutting board"],
+    },
+    {
+      title: "Chickpea Curry",
+      description:
+        "A warming spiced chickpea curry with coconut milk and fresh herbs.",
+      estimatedTime: "30 min",
+      tools: ["Saucepan", "Chef's knife"],
+    },
+  ],
+};
 
 function createRequest(body: unknown) {
   return new Request("http://localhost:3100/api/generate/ideas", {
@@ -10,7 +73,14 @@ function createRequest(body: unknown) {
 }
 
 describe("POST /api/generate/ideas", () => {
-  it("returns 3 mock ideas for valid constraints", async () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+    mockGenerateText.mockResolvedValue({
+      output: mockIdeas,
+    } as ReturnType<typeof mockGenerateText> extends Promise<infer T> ? T : never);
+  });
+
+  it("returns 3 ideas for valid constraints", async () => {
     const request = createRequest({
       diet: "Vegan",
       mealType: "Dinner",
@@ -79,7 +149,7 @@ describe("POST /api/generate/ideas", () => {
     expect(response.status).toBe(400);
   });
 
-  it("ideas reflect the selected constraints", async () => {
+  it("calls generateText with correct model and output schema", async () => {
     const request = createRequest({
       diet: "Keto",
       mealType: "Lunch",
@@ -88,20 +158,19 @@ describe("POST /api/generate/ideas", () => {
       servings: 2,
       ingredients: "chicken, avocado",
       additionalInstructions: "Extra spicy",
-      includePantryItems: true,
+      includePantryItems: false,
     });
 
-    const response = await POST(request);
-    expect(response.status).toBe(200);
+    await POST(request);
 
-    const data = await response.json();
-    expect(data.ideas).toHaveLength(3);
-
-    // Mock data uses constraint values in titles/descriptions
-    const allText = data.ideas
-      .map((i: { title: string; description: string }) => `${i.title} ${i.description}`)
-      .join(" ");
-    expect(allText).toContain("Lunch");
+    expect(mockGenerateText).toHaveBeenCalledTimes(1);
+    const callArgs = mockGenerateText.mock.calls[0][0];
+    expect(callArgs.prompt).toContain("Keto");
+    expect(callArgs.prompt).toContain("Lunch");
+    expect(callArgs.prompt).toContain("Hard");
+    expect(callArgs.prompt).toContain("45");
+    expect(callArgs.prompt).toContain("chicken, avocado");
+    expect(callArgs.prompt).toContain("Extra spicy");
   });
 
   it("accepts minimal valid constraints (optional fields omitted)", async () => {
@@ -118,5 +187,70 @@ describe("POST /api/generate/ideas", () => {
 
     const data = await response.json();
     expect(data.ideas).toHaveLength(3);
+  });
+
+  it("returns 500 when AI fails to generate output", async () => {
+    mockGenerateText.mockResolvedValue({
+      output: null,
+    } as ReturnType<typeof mockGenerateText> extends Promise<infer T> ? T : never);
+
+    const request = createRequest({
+      diet: "Vegan",
+      mealType: "Dinner",
+      difficulty: "Easy",
+      maxCookingTime: 30,
+      servings: 4,
+    });
+
+    const response = await POST(request);
+    expect(response.status).toBe(500);
+  });
+
+  it("includes pantry items in prompt when toggle is on", async () => {
+    const { db } = await import("@/db");
+    vi.mocked(db.select).mockReturnValue({
+      from: vi.fn().mockReturnValue({
+        where: vi.fn().mockResolvedValue([
+          { name: "Rice" },
+          { name: "Olive Oil" },
+          { name: "Garlic" },
+        ]),
+      }),
+    } as unknown as ReturnType<typeof db.select>);
+
+    const request = createRequest({
+      diet: "Vegan",
+      mealType: "Dinner",
+      difficulty: "Easy",
+      maxCookingTime: 30,
+      servings: 4,
+      includePantryItems: true,
+    });
+
+    await POST(request);
+
+    expect(mockGenerateText).toHaveBeenCalledTimes(1);
+    const callArgs = mockGenerateText.mock.calls[0][0];
+    expect(callArgs.prompt).toContain("Rice");
+    expect(callArgs.prompt).toContain("Olive Oil");
+    expect(callArgs.prompt).toContain("Garlic");
+    expect(callArgs.prompt).toContain("Pantry Items");
+  });
+
+  it("does not include pantry section when toggle is off", async () => {
+    const request = createRequest({
+      diet: "Vegan",
+      mealType: "Dinner",
+      difficulty: "Easy",
+      maxCookingTime: 30,
+      servings: 4,
+      includePantryItems: false,
+    });
+
+    await POST(request);
+
+    expect(mockGenerateText).toHaveBeenCalledTimes(1);
+    const callArgs = mockGenerateText.mock.calls[0][0];
+    expect(callArgs.prompt).not.toContain("Pantry Items");
   });
 });

@@ -417,7 +417,13 @@ describe("ConstraintForm", () => {
     await user.click(submitButton);
 
     await waitFor(() => {
-      expect(onSuccess).toHaveBeenCalledWith(mockData);
+      expect(onSuccess).toHaveBeenCalledWith(mockData, expect.objectContaining({
+        diet: "No Restriction",
+        mealType: "Breakfast",
+        difficulty: "Easy",
+        maxCookingTime: 30,
+        servings: 4,
+      }));
     });
   });
 });

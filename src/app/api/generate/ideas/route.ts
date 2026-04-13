@@ -1,5 +1,65 @@
 import { NextResponse } from "next/server";
-import { constraintFormSchema } from "@/lib/schemas/generation";
+import { auth } from "@clerk/nextjs/server";
+import { generateText, Output } from "ai";
+import { gateway } from "ai";
+import { z } from "zod";
+import {
+  constraintFormSchema,
+  recipeIdeaSchema,
+} from "@/lib/schemas/generation";
+import { db } from "@/db";
+import { pantryItems } from "@/db/schema";
+import { eq } from "drizzle-orm";
+
+const ideasOutputSchema = z.object({
+  ideas: z
+    .array(recipeIdeaSchema)
+    .length(3)
+    .describe("Exactly 3 recipe ideas"),
+});
+
+function buildPrompt(
+  constraints: z.infer<typeof constraintFormSchema>,
+  pantryItemNames: string[]
+): string {
+  const lines: string[] = [
+    "Generate exactly 3 creative recipe ideas based on the following constraints:",
+    "",
+    `Diet: ${constraints.diet}`,
+    `Meal Type: ${constraints.mealType}`,
+    `Difficulty: ${constraints.difficulty}`,
+    `Max Active Cooking Time: ${constraints.maxCookingTime} minutes`,
+    `Servings: ${constraints.servings}`,
+  ];
+
+  if (constraints.ingredients && constraints.ingredients.trim()) {
+    lines.push(`Available Ingredients: ${constraints.ingredients}`);
+  }
+
+  if (pantryItemNames.length > 0) {
+    lines.push(`Pantry Items: ${pantryItemNames.join(", ")}`);
+  }
+
+  if (
+    constraints.additionalInstructions &&
+    constraints.additionalInstructions.trim()
+  ) {
+    lines.push(`Additional Instructions: ${constraints.additionalInstructions}`);
+  }
+
+  lines.push("");
+  lines.push(
+    "Each recipe idea must have a title, a short description (1-2 sentences), an estimated active cooking time (e.g. '25 min'), and a list of required cooking tools."
+  );
+  lines.push(
+    "All ideas MUST respect the diet constraint strictly. For example, Vegan means no animal products whatsoever."
+  );
+  lines.push(
+    "The estimated time should not exceed the max active cooking time."
+  );
+
+  return lines.join("\n");
+}
 
 export async function POST(request: Request) {
   try {
@@ -13,32 +73,45 @@ export async function POST(request: Request) {
       );
     }
 
-    // Mock response — will be connected to AI in the next feature
-    const mockIdeas = {
-      ideas: [
-        {
-          title: `${result.data.diet} ${result.data.mealType} Bowl`,
-          description: `A delicious ${result.data.difficulty.toLowerCase()}-level ${result.data.mealType.toLowerCase()} that fits your dietary preferences. Ready in under ${result.data.maxCookingTime} minutes.`,
-          estimatedTime: `${result.data.maxCookingTime} min`,
-          tools: ["Mixing bowl", "Skillet"],
-        },
-        {
-          title: `Quick ${result.data.mealType} Delight`,
-          description: `A crowd-pleasing ${result.data.mealType.toLowerCase()} for ${result.data.servings} people. Simple ingredients, amazing flavor.`,
-          estimatedTime: `${Math.max(15, result.data.maxCookingTime - 10)} min`,
-          tools: ["Cutting board", "Saucepan"],
-        },
-        {
-          title: `Chef's ${result.data.difficulty} ${result.data.mealType}`,
-          description: `An impressive ${result.data.diet.toLowerCase()} dish that showcases your cooking skills with minimal effort.`,
-          estimatedTime: `${Math.max(10, result.data.maxCookingTime - 5)} min`,
-          tools: ["Baking sheet", "Chef's knife"],
-        },
-      ],
-    };
+    const constraints = result.data;
 
-    return NextResponse.json(mockIdeas);
-  } catch {
+    // Fetch pantry items if toggle is on
+    let pantryItemNames: string[] = [];
+    if (constraints.includePantryItems) {
+      try {
+        const { userId } = await auth();
+        if (userId) {
+          const items = await db
+            .select({ name: pantryItems.name })
+            .from(pantryItems)
+            .where(eq(pantryItems.userId, userId));
+          pantryItemNames = items.map((item) => item.name);
+        }
+      } catch {
+        // If auth or DB fails for pantry, continue without pantry items
+      }
+    }
+
+    const prompt = buildPrompt(constraints, pantryItemNames);
+
+    const { output } = await generateText({
+      model: gateway("openai/gpt-4o-mini"),
+      output: Output.object({
+        schema: ideasOutputSchema,
+      }),
+      prompt,
+    });
+
+    if (!output) {
+      return NextResponse.json(
+        { error: "Failed to generate ideas" },
+        { status: 500 }
+      );
+    }
+
+    return NextResponse.json(output);
+  } catch (error) {
+    console.error("Error generating ideas:", error);
     return NextResponse.json(
       { error: "Failed to process request" },
       { status: 500 }
