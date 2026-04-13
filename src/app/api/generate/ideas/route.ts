@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
-import { generateText, Output } from "ai";
+import { streamText, Output } from "ai";
 import { gateway } from "ai";
 import { z } from "zod";
 import {
@@ -101,7 +101,7 @@ export async function POST(request: Request) {
 
     const prompt = buildPrompt(constraints, pantryItemNames);
 
-    const { output } = await generateText({
+    const streamResult = streamText({
       model: gateway("openai/gpt-4o-mini"),
       output: Output.object({
         schema: ideasOutputSchema,
@@ -109,14 +109,7 @@ export async function POST(request: Request) {
       prompt,
     });
 
-    if (!output) {
-      return NextResponse.json(
-        { error: "Failed to generate ideas" },
-        { status: 500 }
-      );
-    }
-
-    return NextResponse.json(output);
+    return streamResult.toTextStreamResponse();
   } catch (error) {
     console.error("Error generating ideas:", error);
     return NextResponse.json(

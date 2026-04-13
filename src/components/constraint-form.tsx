@@ -20,12 +20,12 @@ import {
   mealTypeOptions,
   difficultyOptions,
   type ConstraintFormValues,
-  type GenerateIdeasResponse,
 } from "@/lib/schemas/generation";
 
 interface ConstraintFormProps {
-  onSuccess?: (data: GenerateIdeasResponse, constraints: ConstraintFormValues) => void;
+  onSubmit?: (constraints: ConstraintFormValues) => void;
   initialValues?: Partial<ConstraintFormValues>;
+  isSubmitting?: boolean;
 }
 
 interface FieldErrors {
@@ -36,7 +36,7 @@ interface FieldErrors {
   servings?: string;
 }
 
-export function ConstraintForm({ onSuccess, initialValues }: ConstraintFormProps) {
+export function ConstraintForm({ onSubmit, initialValues, isSubmitting: externalIsSubmitting }: ConstraintFormProps) {
   const [diet, setDiet] = useState<string>(initialValues?.diet ?? dietOptions[0]);
   const [mealType, setMealType] = useState<string>(initialValues?.mealType ?? mealTypeOptions[0]);
   const [difficulty, setDifficulty] = useState<string>(initialValues?.difficulty ?? difficultyOptions[0]);
@@ -54,9 +54,9 @@ export function ConstraintForm({ onSuccess, initialValues }: ConstraintFormProps
     initialValues?.includePantryItems ?? false
   );
   const [errors, setErrors] = useState<FieldErrors>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const isSubmitting = externalIsSubmitting ?? false;
 
-  async function handleSubmit(e: React.FormEvent) {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
     if (isSubmitting) return;
@@ -113,26 +113,7 @@ export function ConstraintForm({ onSuccess, initialValues }: ConstraintFormProps
       return;
     }
 
-    setIsSubmitting(true);
-
-    try {
-      const response = await fetch("/api/generate/ideas", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(result.data),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to generate ideas");
-      }
-
-      const data = (await response.json()) as GenerateIdeasResponse;
-      onSuccess?.(data, result.data);
-    } catch {
-      // Could show a toast here, but for now just re-enable the button
-    } finally {
-      setIsSubmitting(false);
-    }
+    onSubmit?.(result.data);
   }
 
   return (

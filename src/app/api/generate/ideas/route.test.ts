@@ -2,8 +2,11 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { POST } from "./route";
 
 // Mock the AI SDK
+const mockToTextStreamResponse = vi.fn();
+const mockStreamText = vi.fn();
+
 vi.mock("ai", () => ({
-  generateText: vi.fn(),
+  streamText: (...args: unknown[]) => mockStreamText(...args),
   Output: {
     object: vi.fn((opts: unknown) => opts),
   },
@@ -34,36 +37,6 @@ vi.mock("drizzle-orm", () => ({
   eq: vi.fn(),
 }));
 
-const mockGenerateText = vi.mocked(
-  (await import("ai")).generateText
-);
-
-const mockIdeas = {
-  ideas: [
-    {
-      title: "Vegan Dinner Bowl",
-      description:
-        "A hearty plant-based dinner bowl packed with roasted vegetables and quinoa.",
-      estimatedTime: "25 min",
-      tools: ["Baking sheet", "Mixing bowl"],
-    },
-    {
-      title: "Tofu Stir-Fry",
-      description:
-        "Crispy tofu with seasonal vegetables in a savory soy-ginger sauce.",
-      estimatedTime: "20 min",
-      tools: ["Wok", "Cutting board"],
-    },
-    {
-      title: "Chickpea Curry",
-      description:
-        "A warming spiced chickpea curry with coconut milk and fresh herbs.",
-      estimatedTime: "30 min",
-      tools: ["Saucepan", "Chef's knife"],
-    },
-  ],
-};
-
 function createRequest(body: unknown) {
   return new Request("http://localhost:3100/api/generate/ideas", {
     method: "POST",
@@ -75,12 +48,17 @@ function createRequest(body: unknown) {
 describe("POST /api/generate/ideas", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    mockGenerateText.mockResolvedValue({
-      output: mockIdeas,
-    } as ReturnType<typeof mockGenerateText> extends Promise<infer T> ? T : never);
+    mockToTextStreamResponse.mockReturnValue(
+      new Response("streaming content", {
+        headers: { "Content-Type": "text/plain; charset=utf-8" },
+      })
+    );
+    mockStreamText.mockReturnValue({
+      toTextStreamResponse: mockToTextStreamResponse,
+    });
   });
 
-  it("returns 3 ideas for valid constraints", async () => {
+  it("returns a streaming response for valid constraints", async () => {
     const request = createRequest({
       diet: "Vegan",
       mealType: "Dinner",
@@ -94,20 +72,7 @@ describe("POST /api/generate/ideas", () => {
 
     const response = await POST(request);
     expect(response.status).toBe(200);
-
-    const data = await response.json();
-    expect(data.ideas).toHaveLength(3);
-
-    // Each idea has the expected shape
-    for (const idea of data.ideas) {
-      expect(idea).toHaveProperty("title");
-      expect(idea).toHaveProperty("description");
-      expect(idea).toHaveProperty("estimatedTime");
-      expect(idea).toHaveProperty("tools");
-      expect(typeof idea.title).toBe("string");
-      expect(typeof idea.description).toBe("string");
-      expect(Array.isArray(idea.tools)).toBe(true);
-    }
+    expect(response.headers.get("Content-Type")).toContain("text/plain");
   });
 
   it("returns 400 for invalid constraints (missing required fields)", async () => {
@@ -149,7 +114,7 @@ describe("POST /api/generate/ideas", () => {
     expect(response.status).toBe(400);
   });
 
-  it("calls generateText with correct model and output schema", async () => {
+  it("calls streamText with correct model and output schema", async () => {
     const request = createRequest({
       diet: "Keto",
       mealType: "Lunch",
@@ -163,14 +128,31 @@ describe("POST /api/generate/ideas", () => {
 
     await POST(request);
 
-    expect(mockGenerateText).toHaveBeenCalledTimes(1);
-    const callArgs = mockGenerateText.mock.calls[0][0];
+    expect(mockStreamText).toHaveBeenCalledTimes(1);
+    const callArgs = mockStreamText.mock.calls[0][0];
     expect(callArgs.prompt).toContain("Keto");
     expect(callArgs.prompt).toContain("Lunch");
     expect(callArgs.prompt).toContain("Hard");
     expect(callArgs.prompt).toContain("45");
     expect(callArgs.prompt).toContain("chicken, avocado");
     expect(callArgs.prompt).toContain("Extra spicy");
+    expect(callArgs.output).toBeDefined();
+  });
+
+  it("calls toTextStreamResponse on the stream result", async () => {
+    const request = createRequest({
+      diet: "Vegan",
+      mealType: "Dinner",
+      difficulty: "Easy",
+      maxCookingTime: 30,
+      servings: 4,
+      includePantryItems: false,
+    });
+
+    await POST(request);
+
+    expect(mockStreamText).toHaveBeenCalledTimes(1);
+    expect(mockToTextStreamResponse).toHaveBeenCalledTimes(1);
   });
 
   it("accepts minimal valid constraints (optional fields omitted)", async () => {
@@ -184,26 +166,6 @@ describe("POST /api/generate/ideas", () => {
 
     const response = await POST(request);
     expect(response.status).toBe(200);
-
-    const data = await response.json();
-    expect(data.ideas).toHaveLength(3);
-  });
-
-  it("returns 500 when AI fails to generate output", async () => {
-    mockGenerateText.mockResolvedValue({
-      output: null,
-    } as ReturnType<typeof mockGenerateText> extends Promise<infer T> ? T : never);
-
-    const request = createRequest({
-      diet: "Vegan",
-      mealType: "Dinner",
-      difficulty: "Easy",
-      maxCookingTime: 30,
-      servings: 4,
-    });
-
-    const response = await POST(request);
-    expect(response.status).toBe(500);
   });
 
   it("includes pantry items in prompt when toggle is on", async () => {
@@ -229,8 +191,8 @@ describe("POST /api/generate/ideas", () => {
 
     await POST(request);
 
-    expect(mockGenerateText).toHaveBeenCalledTimes(1);
-    const callArgs = mockGenerateText.mock.calls[0][0];
+    expect(mockStreamText).toHaveBeenCalledTimes(1);
+    const callArgs = mockStreamText.mock.calls[0][0];
     expect(callArgs.prompt).toContain("Rice");
     expect(callArgs.prompt).toContain("Olive Oil");
     expect(callArgs.prompt).toContain("Garlic");
@@ -249,8 +211,8 @@ describe("POST /api/generate/ideas", () => {
 
     await POST(request);
 
-    expect(mockGenerateText).toHaveBeenCalledTimes(1);
-    const callArgs = mockGenerateText.mock.calls[0][0];
+    expect(mockStreamText).toHaveBeenCalledTimes(1);
+    const callArgs = mockStreamText.mock.calls[0][0];
     expect(callArgs.prompt).not.toContain("Pantry Items");
   });
 
@@ -267,8 +229,8 @@ describe("POST /api/generate/ideas", () => {
 
     await POST(request);
 
-    expect(mockGenerateText).toHaveBeenCalledTimes(1);
-    const callArgs = mockGenerateText.mock.calls[0][0];
+    expect(mockStreamText).toHaveBeenCalledTimes(1);
+    const callArgs = mockStreamText.mock.calls[0][0];
     expect(callArgs.prompt).toContain("Refinement");
     expect(callArgs.prompt).toContain("Make it more Mediterranean");
   });
@@ -285,8 +247,8 @@ describe("POST /api/generate/ideas", () => {
 
     await POST(request);
 
-    expect(mockGenerateText).toHaveBeenCalledTimes(1);
-    const callArgs = mockGenerateText.mock.calls[0][0];
+    expect(mockStreamText).toHaveBeenCalledTimes(1);
+    const callArgs = mockStreamText.mock.calls[0][0];
     expect(callArgs.prompt).not.toContain("Refinement");
   });
 
@@ -303,12 +265,12 @@ describe("POST /api/generate/ideas", () => {
 
     await POST(request);
 
-    expect(mockGenerateText).toHaveBeenCalledTimes(1);
-    const callArgs = mockGenerateText.mock.calls[0][0];
+    expect(mockStreamText).toHaveBeenCalledTimes(1);
+    const callArgs = mockStreamText.mock.calls[0][0];
     expect(callArgs.prompt).not.toContain("Refinement");
   });
 
-  it("returns 3 ideas when refinement text is provided", async () => {
+  it("returns streaming response when refinement text is provided", async () => {
     const request = createRequest({
       diet: "Keto",
       mealType: "Lunch",
@@ -321,8 +283,41 @@ describe("POST /api/generate/ideas", () => {
 
     const response = await POST(request);
     expect(response.status).toBe(200);
+    expect(response.headers.get("Content-Type")).toContain("text/plain");
+  });
 
-    const data = await response.json();
-    expect(data.ideas).toHaveLength(3);
+  it("returns 500 when streamText throws", async () => {
+    mockStreamText.mockImplementation(() => {
+      throw new Error("AI error");
+    });
+
+    const request = createRequest({
+      diet: "Vegan",
+      mealType: "Dinner",
+      difficulty: "Easy",
+      maxCookingTime: 30,
+      servings: 4,
+      includePantryItems: false,
+    });
+
+    const response = await POST(request);
+    expect(response.status).toBe(500);
+  });
+
+  it("uses gpt-4o-mini model for ideas generation", async () => {
+    const request = createRequest({
+      diet: "Vegan",
+      mealType: "Dinner",
+      difficulty: "Easy",
+      maxCookingTime: 30,
+      servings: 4,
+      includePantryItems: false,
+    });
+
+    await POST(request);
+
+    expect(mockStreamText).toHaveBeenCalledTimes(1);
+    const callArgs = mockStreamText.mock.calls[0][0];
+    expect(callArgs.model).toBe("openai/gpt-4o-mini");
   });
 });

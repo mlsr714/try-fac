@@ -1,9 +1,11 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
+import { experimental_useObject as useObject } from "@ai-sdk/react";
 import { ConstraintForm } from "@/components/constraint-form";
 import { IdeaCards } from "@/components/idea-cards";
 import { RecipeStream } from "@/components/recipe-stream";
+import { generateIdeasResponseSchema } from "@/lib/schemas/generation";
 import type {
   GenerateIdeasResponse,
   RecipeIdea,
@@ -23,18 +25,27 @@ export default function GeneratePage() {
   // Key to force re-render of child components on wizard reset
   const [wizardKey, setWizardKey] = useState(0);
   const isInitialMount = useRef(true);
+  const pendingConstraints = useRef<ConstraintFormValues | null>(null);
 
-  // Reset wizard state to Step 1 on fresh navigation (re-entry)
+  const { object: streamedIdeas, submit: submitIdeas, isLoading: isStreamingIdeas, stop: stopIdeas } = useObject({
+    api: "/api/generate/ideas",
+    schema: generateIdeasResponseSchema,
+    onFinish: ({ object: finishedObject }) => {
+      if (finishedObject) {
+        setIdeas(finishedObject);
+        setIsRefining(false);
+      }
+    },
+    onError: () => {
+      setIsRefining(false);
+    },
+  });
+
+  // Set initial history state on mount — wizard already starts at clean state
+  // via useState defaults (step=1, ideas=null, etc.) so no setState needed.
   useEffect(() => {
     if (isInitialMount.current) {
       isInitialMount.current = false;
-      // Always reset to clean state on mount — ensures wizard resets on re-entry
-      setStep(1);
-      setIdeas(null);
-      setConstraints(null);
-      setSelectedIdea(null);
-      setIsRefining(false);
-      setWizardKey((k) => k + 1);
       window.history.replaceState({ wizardStep: 1 }, "");
     }
   }, []);
@@ -64,18 +75,23 @@ export default function GeneratePage() {
     return () => window.removeEventListener("popstate", handlePopState);
   }, []);
 
+  // Stop streaming on unmount to prevent stale data
+  useEffect(() => {
+    return () => {
+      stopIdeas();
+    };
+  }, [stopIdeas]);
+
   const navigateToStep = useCallback((newStep: WizardStep) => {
     window.history.pushState({ wizardStep: newStep }, "");
     setStep(newStep);
   }, []);
 
-  function handleIdeasGenerated(
-    data: GenerateIdeasResponse,
-    formValues: ConstraintFormValues
-  ) {
-    setIdeas(data);
+  function handleConstraintSubmit(formValues: ConstraintFormValues) {
     setConstraints(formValues);
+    pendingConstraints.current = formValues;
     navigateToStep(2);
+    submitIdeas(formValues);
   }
 
   function handleSelectIdea(idea: RecipeIdea) {
@@ -83,33 +99,29 @@ export default function GeneratePage() {
     navigateToStep(4);
   }
 
-  async function handleRefine(refinementText: string) {
+  function handleRefine(refinementText: string) {
     if (!constraints) return;
 
     setIsRefining(true);
 
-    try {
-      const response = await fetch("/api/generate/ideas", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...constraints,
-          refinementText,
-        }),
-      });
+    const refinedConstraints = {
+      ...constraints,
+      refinementText,
+    };
 
-      if (!response.ok) {
-        throw new Error("Failed to refine ideas");
-      }
-
-      const data = (await response.json()) as GenerateIdeasResponse;
-      setIdeas(data);
-    } catch {
-      // Error handling — ideas remain unchanged on failure
-    } finally {
-      setIsRefining(false);
-    }
+    submitIdeas(refinedConstraints);
   }
+
+  // Use streamed ideas while loading, fall back to finalized ideas
+  const displayIdeas = isStreamingIdeas && streamedIdeas?.ideas
+    ? streamedIdeas.ideas.filter((idea): idea is RecipeIdea =>
+        idea != null &&
+        typeof idea.title === "string" &&
+        typeof idea.description === "string" &&
+        typeof idea.estimatedTime === "string" &&
+        Array.isArray(idea.tools)
+      )
+    : ideas?.ideas ?? [];
 
   const stepDescriptions: Record<WizardStep, string> = {
     1: "Define your preferences and constraints to generate personalized recipe ideas.",
@@ -125,17 +137,19 @@ export default function GeneratePage() {
         {step === 1 && (
           <div className="mx-auto max-w-2xl">
             <ConstraintForm
-              onSuccess={handleIdeasGenerated}
+              onSubmit={handleConstraintSubmit}
               initialValues={constraints ?? undefined}
+              isSubmitting={isStreamingIdeas}
             />
           </div>
         )}
-        {step === 2 && ideas && (
+        {step === 2 && (
           <IdeaCards
-            ideas={ideas.ideas}
+            ideas={displayIdeas}
             onSelect={handleSelectIdea}
             onRefine={handleRefine}
-            isRefining={isRefining}
+            isRefining={isRefining || isStreamingIdeas}
+            disabled={isStreamingIdeas}
           />
         )}
         {step === 4 && selectedIdea && constraints && (
