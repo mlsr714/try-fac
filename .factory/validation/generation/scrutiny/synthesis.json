@@ -1,0 +1,81 @@
+{
+  "milestone": "generation",
+  "round": 1,
+  "status": "fail",
+  "validatorsRun": {
+    "test": {
+      "passed": true,
+      "command": "npm run test",
+      "exitCode": 0
+    },
+    "typecheck": {
+      "passed": true,
+      "command": "npx tsc --noEmit",
+      "exitCode": 0
+    },
+    "lint": {
+      "passed": true,
+      "command": "npx eslint .",
+      "exitCode": 0
+    }
+  },
+  "reviewsSummary": {
+    "total": 5,
+    "passed": 3,
+    "failed": 2,
+    "failedFeatures": [
+      "generation-ai-ideas",
+      "generation-full-recipe"
+    ]
+  },
+  "blockingIssues": [
+    {
+      "featureId": "generation-ai-ideas",
+      "severity": "blocking",
+      "description": "Ideas API route uses buffered `generateText` instead of streaming `streamText`, violating the feature contract and mission AI streaming convention."
+    },
+    {
+      "featureId": "generation-full-recipe",
+      "severity": "blocking",
+      "description": "Saved-recipe success link points to `/recipes/${savedRecipeId}` but `/recipes/[id]` route is not present in this milestone commit, so direct URL access behavior is not actually satisfied."
+    }
+  ],
+  "appliedUpdates": [],
+  "suggestedGuidanceUpdates": [
+    {
+      "target": "skills/fullstack-worker",
+      "suggestion": "Clarify TDD requirement as either strict (must fail-first) with enforceable checks, or relax it to allow test-after-implementation workflows with explicit disclosure.",
+      "evidence": "Constraint-form, AI-ideas, refinement, and full-recipe reviews all observed implementation edits preceding test creation/updates while handoff feedback still reported followedProcedure=true.",
+      "isSystemic": true
+    },
+    {
+      "target": "AGENTS.md",
+      "suggestion": "Add explicit reviewer/worker checklist item that AI route handlers expected to stream must use `streamText` and include a test assertion for streaming behavior.",
+      "evidence": "Feature generation-ai-ideas implemented `generateText` in `src/app/api/generate/ideas/route.ts` despite mission/library guidance indicating streaming AI endpoints.",
+      "isSystemic": false
+    },
+    {
+      "target": "mission feature planning",
+      "suggestion": "Align milestone contracts with route availability so generation features do not require `/recipes` direct-detail behaviors before recipes routes are implemented, or explicitly add that dependency to generation scope.",
+      "evidence": "generation-full-recipe and generation-cross-flows referenced `/recipes` direct/list behaviors while `recipes-list-and-detail` is in pending conversion milestone.",
+      "isSystemic": true
+    },
+    {
+      "target": "AGENTS.md",
+      "suggestion": "Document where validator workers should retrieve Clerk test credentials (or required setup path) for authenticated manual checks.",
+      "evidence": "Constraint-form review noted protected-route manual checks were limited by sign-in redirect and no credential source documented in shared library docs.",
+      "isSystemic": false
+    }
+  ],
+  "rejectedObservations": [
+    {
+      "observation": "Repeated TDD-process mismatch notes across multiple feature reviews.",
+      "reason": "duplicate"
+    },
+    {
+      "observation": "Repeated generation/conversion sequencing mismatch notes from more than one review.",
+      "reason": "duplicate"
+    }
+  ],
+  "previousRound": null
+}

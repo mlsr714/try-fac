@@ -1,0 +1,33 @@
+{
+  "featureId": "generation-full-recipe",
+  "reviewedAt": "2026-04-13T13:30:39Z",
+  "commitId": "d4e796b37b0d07f084309bfdad23ccf5bcddab9c",
+  "transcriptSkeletonReviewed": true,
+  "diffReviewed": true,
+  "status": "fail",
+  "codeReview": {
+    "summary": "Step 4 streaming generation, progressive display, auto-save action wiring, and back-navigation state handling are implemented, but a required behavior remains unmet: the saved recipe link points to a route that does not exist in this feature commit, so direct URL access is not actually available.",
+    "issues": [
+      {
+        "file": "src/components/recipe-stream.tsx",
+        "line": 107,
+        "severity": "blocking",
+        "description": "The success state links to `/recipes/${savedRecipeId}`, but commit `d4e796b` does not include `src/app/recipes/[id]/page.tsx` (or `/recipes/page.tsx`). This fails expected behavior #9: \"Saved recipe accessible via direct URL.\""
+      }
+    ]
+  },
+  "sharedStateObservations": [
+    {
+      "area": "conventions",
+      "observation": "Feature contract sequencing is inconsistent: generation-full-recipe requires direct URL accessibility for saved recipes, but recipe list/detail routes are scheduled in a later conversion-milestone feature.",
+      "evidence": "features.json: generation-full-recipe expectedBehavior includes \"Saved recipe accessible via direct URL\"; features.json: recipes-list-and-detail is milestone `conversion` and status `pending`; commit d4e796b only adds a link in src/components/recipe-stream.tsx:107."
+    },
+    {
+      "area": "skills",
+      "observation": "The fullstack-worker skill's strict tests-first (red phase) procedure was not followed in order, but handoff skillFeedback still reports followedProcedure=true.",
+      "evidence": "SKILL.md section \"3. Write Tests First (TDD)\" vs transcript skeleton ordering: Edit calls on src/components/constraint-form.tsx, src/app/generate/page.tsx, and src/components/recipe-stream.tsx occur before edits in src/components/recipe-stream.test.tsx."
+    }
+  ],
+  "addressesFailureFrom": null,
+  "summary": "Reviewed feature generation-full-recipe using handoff, transcript skeleton, skill guidance, and commit d4e796b diff. Found one blocking gap: saved-recipe direct URL behavior is not fulfilled because the linked `/recipes/[id]` route is absent in this commit."
+}
