@@ -1,0 +1,26 @@
+{
+  "featureId": "fix-ideas-route-streaming",
+  "reviewedAt": "2026-04-13T13:56:15Z",
+  "commitId": "f8d1b0eb49cefc5bb781324073c8b50fbef82bde",
+  "transcriptSkeletonReviewed": true,
+  "diffReviewed": true,
+  "status": "pass",
+  "codeReview": {
+    "summary": "Reviewed both the original failing implementation (commit 4127f38148b9868c8beac85b43d6d4631c355697) and the fix implementation (commit f8d1b0eb49cefc5bb781324073c8b50fbef82bde), plus both transcript skeletons. The prior blocking issue is resolved: `src/app/api/generate/ideas/route.ts` now uses `streamText` with structured output and returns a streaming response (`toTextStreamResponse`), and the client now consumes the stream via `experimental_useObject` in `src/app/generate/page.tsx` to render ideas progressively during generation/refinement. No remaining blocking or high-confidence non-blocking code defects were identified in this fix scope.",
+    "issues": []
+  },
+  "sharedStateObservations": [
+    {
+      "area": "skills",
+      "observation": "fullstack-worker procedure adherence appears over-reported: the fix session did not follow required TDD ordering and did not run agent-browser manual verification, yet `skillFeedback.followedProcedure` is true.",
+      "evidence": "Session 87f9ec8b-0792-416b-98a8-3b9bb8c904a0 transcript skeleton shows code edits on `src/app/api/generate/ideas/route.ts` before recreating `route.test.ts` (Edit steps before Create), and contains no `agent-browser` invocation; handoff marks `skillFeedback.followedProcedure: true`."
+    },
+    {
+      "area": "conventions",
+      "observation": "Streaming response convention is ambiguous for object-streaming endpoints: mission guidance prescribes `toUIMessageStreamResponse()`, while this fix uses `toTextStreamResponse()` with `useObject`, which appears valid for this flow.",
+      "evidence": "Mission AGENTS.md AI section says route handlers should use `streamText()` + `toUIMessageStreamResponse()`. Fix route returns `streamResult.toTextStreamResponse()` in `src/app/api/generate/ideas/route.ts` to support `experimental_useObject` in `src/app/generate/page.tsx`."
+    }
+  ],
+  "addressesFailureFrom": ".factory/validation/generation/scrutiny/reviews/generation-ai-ideas.json",
+  "summary": "Re-run review passed. The original blocking issue from generation-ai-ideas (non-streaming `generateText`) is fixed by commit f8d1b0eb49cefc5bb781324073c8b50fbef82bde, and transcript/diff review for both original and fix features found no remaining feature-scope defects."
+}
