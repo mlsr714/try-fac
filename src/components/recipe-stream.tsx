@@ -21,13 +21,23 @@ export function RecipeStream({ idea, constraints }: RecipeStreamProps) {
   const [isSaving, setIsSaving] = useState(false);
   const hasSubmitted = useRef(false);
   const hasSaved = useRef(false);
+  const isMounted = useRef(true);
+
+  // Track mount status for safe state updates after async operations
+  useEffect(() => {
+    isMounted.current = true;
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
 
   const handleSave = useCallback(async (recipe: FullRecipe) => {
-    if (hasSaved.current) return;
+    if (hasSaved.current || !isMounted.current) return;
     hasSaved.current = true;
     setIsSaving(true);
     try {
       const result = await saveRecipe(recipe);
+      if (!isMounted.current) return;
       if ("id" in result) {
         setSavedRecipeId(result.id);
       } else {
@@ -35,18 +45,22 @@ export function RecipeStream({ idea, constraints }: RecipeStreamProps) {
         hasSaved.current = false;
       }
     } catch {
+      if (!isMounted.current) return;
       setSaveError("Failed to save recipe");
       hasSaved.current = false;
     } finally {
-      setIsSaving(false);
+      if (isMounted.current) {
+        setIsSaving(false);
+      }
     }
   }, []);
 
-  const { object, submit, isLoading, error } = useObject({
+  const { object, submit, stop, isLoading, error } = useObject({
     api: "/api/generate/recipe",
     schema: fullRecipeSchema,
     onFinish: async ({ object: finishedObject }) => {
-      if (finishedObject) {
+      // Only save if the component is still mounted (user hasn't navigated away)
+      if (finishedObject && isMounted.current) {
         await handleSave(finishedObject);
       }
     },
@@ -61,6 +75,13 @@ export function RecipeStream({ idea, constraints }: RecipeStreamProps) {
       submit({ idea, constraints });
     }
   }, [idea, constraints, submit]);
+
+  // Stop streaming on unmount to prevent corrupt/partial data
+  useEffect(() => {
+    return () => {
+      stop();
+    };
+  }, [stop]);
 
   // Loading state before any data arrives
   if (!object && isLoading && !error) {

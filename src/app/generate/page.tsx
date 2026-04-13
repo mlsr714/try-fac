@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { ConstraintForm } from "@/components/constraint-form";
 import { IdeaCards } from "@/components/idea-cards";
 import { RecipeStream } from "@/components/recipe-stream";
@@ -20,10 +20,21 @@ export default function GeneratePage() {
   );
   const [selectedIdea, setSelectedIdea] = useState<RecipeIdea | null>(null);
   const [isRefining, setIsRefining] = useState(false);
+  // Key to force re-render of child components on wizard reset
+  const [wizardKey, setWizardKey] = useState(0);
+  const isInitialMount = useRef(true);
 
-  // Set initial history state on mount
+  // Reset wizard state to Step 1 on fresh navigation (re-entry)
   useEffect(() => {
-    if (!window.history.state?.wizardStep) {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      // Always reset to clean state on mount — ensures wizard resets on re-entry
+      setStep(1);
+      setIdeas(null);
+      setConstraints(null);
+      setSelectedIdea(null);
+      setIsRefining(false);
+      setWizardKey((k) => k + 1);
       window.history.replaceState({ wizardStep: 1 }, "");
     }
   }, []);
@@ -41,6 +52,11 @@ export default function GeneratePage() {
       } else {
         // If no wizard state, we're going back before the wizard started
         setStep(1);
+        setIdeas(null);
+        setConstraints(null);
+        setSelectedIdea(null);
+        setIsRefining(false);
+        setWizardKey((k) => k + 1);
       }
     }
 
@@ -123,7 +139,7 @@ export default function GeneratePage() {
           />
         )}
         {step === 4 && selectedIdea && constraints && (
-          <RecipeStream idea={selectedIdea} constraints={constraints} />
+          <RecipeStream key={wizardKey} idea={selectedIdea} constraints={constraints} />
         )}
       </div>
     </div>

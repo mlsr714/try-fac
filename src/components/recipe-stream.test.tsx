@@ -21,6 +21,7 @@ vi.mock("next/link", () => ({
 
 // Mock experimental_useObject from @ai-sdk/react
 const mockSubmit = vi.fn();
+const mockStop = vi.fn();
 const mockUseObject = vi.fn();
 
 vi.mock("@ai-sdk/react", () => ({
@@ -54,12 +55,14 @@ describe("RecipeStream", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     mockSubmit.mockClear();
+    mockStop.mockClear();
   });
 
   it("shows loading state before any data arrives", () => {
     mockUseObject.mockReturnValue({
       object: undefined,
       submit: mockSubmit,
+      stop: mockStop,
       isLoading: true,
       error: undefined,
     });
@@ -74,6 +77,7 @@ describe("RecipeStream", () => {
     mockUseObject.mockReturnValue({
       object: undefined,
       submit: mockSubmit,
+      stop: mockStop,
       isLoading: true,
       error: undefined,
     });
@@ -94,6 +98,7 @@ describe("RecipeStream", () => {
         servings: 4,
       },
       submit: mockSubmit,
+      stop: mockStop,
       isLoading: true,
       error: undefined,
     });
@@ -110,6 +115,7 @@ describe("RecipeStream", () => {
     mockUseObject.mockReturnValue({
       object: undefined,
       submit: mockSubmit,
+      stop: mockStop,
       isLoading: false,
       error: new Error("Stream failed"),
     });
@@ -135,6 +141,7 @@ describe("RecipeStream", () => {
         thermomixInstructions: null,
       },
       submit: mockSubmit,
+      stop: mockStop,
       isLoading: false,
       error: undefined,
     });
@@ -175,10 +182,73 @@ describe("RecipeStream", () => {
     expect(link).toHaveAttribute("href", "/recipes/saved-recipe-123");
   });
 
+  it("calls stop on unmount to prevent corrupt data on navigation away", () => {
+    mockUseObject.mockReturnValue({
+      object: {
+        title: "Vegan Buddha Bowl",
+      },
+      submit: mockSubmit,
+      stop: mockStop,
+      isLoading: true,
+      error: undefined,
+    });
+
+    const { unmount } = render(
+      <RecipeStream idea={mockIdea} constraints={mockConstraints} />
+    );
+
+    expect(mockStop).not.toHaveBeenCalled();
+    unmount();
+    expect(mockStop).toHaveBeenCalled();
+  });
+
+  it("does not save recipe when component unmounts during streaming", async () => {
+    const { saveRecipe } = await import("@/actions/save-recipe");
+    vi.mocked(saveRecipe).mockClear();
+
+    mockUseObject.mockReturnValue({
+      object: undefined,
+      submit: mockSubmit,
+      stop: mockStop,
+      isLoading: true,
+      error: undefined,
+    });
+
+    const { unmount } = render(
+      <RecipeStream idea={mockIdea} constraints={mockConstraints} />
+    );
+
+    // Unmount before onFinish can be called
+    unmount();
+
+    // Get the onFinish callback
+    const useObjectCall = mockUseObject.mock.calls[0][0];
+    if (useObjectCall?.onFinish) {
+      await useObjectCall.onFinish({
+        object: {
+          title: "Vegan Buddha Bowl",
+          summary: "A hearty plant-based bowl.",
+          servings: 4,
+          activeTime: "25 min",
+          totalTime: "35 min",
+          ingredients: [],
+          instructions: [],
+          nutrition: { calories: 450, protein: 15, carbs: 65, fat: 12 },
+          tools: [],
+          thermomixInstructions: null,
+        },
+      });
+    }
+
+    // saveRecipe should not be called after unmount
+    expect(saveRecipe).not.toHaveBeenCalled();
+  });
+
   it("configures useObject with correct API endpoint and schema", () => {
     mockUseObject.mockReturnValue({
       object: undefined,
       submit: mockSubmit,
+      stop: mockStop,
       isLoading: true,
       error: undefined,
     });
