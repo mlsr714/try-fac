@@ -112,7 +112,63 @@ describe("IdeaCards", () => {
     ).toBeInTheDocument();
   });
 
-  it("calls onRefine when Refine button is clicked", async () => {
+  it("clicking Refine reveals a text input for refinement instructions", async () => {
+    const user = userEvent.setup();
+
+    render(
+      <IdeaCards ideas={mockIdeas} onSelect={vi.fn()} onRefine={vi.fn()} />
+    );
+
+    await user.click(screen.getByRole("button", { name: /refine/i }));
+
+    expect(
+      screen.getByLabelText(/refinement instructions/i)
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /submit refinement/i })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /cancel/i })
+    ).toBeInTheDocument();
+  });
+
+  it("submit refinement button is disabled when refinement text is empty", async () => {
+    const user = userEvent.setup();
+
+    render(
+      <IdeaCards ideas={mockIdeas} onSelect={vi.fn()} onRefine={vi.fn()} />
+    );
+
+    await user.click(screen.getByRole("button", { name: /refine/i }));
+
+    const submitBtn = screen.getByRole("button", {
+      name: /submit refinement/i,
+    });
+    expect(submitBtn).toBeDisabled();
+  });
+
+  it("shows validation error when submitting empty refinement text", async () => {
+    const user = userEvent.setup();
+
+    render(
+      <IdeaCards ideas={mockIdeas} onSelect={vi.fn()} onRefine={vi.fn()} />
+    );
+
+    await user.click(screen.getByRole("button", { name: /refine/i }));
+
+    // Type whitespace only
+    const textarea = screen.getByLabelText(/refinement instructions/i);
+    await user.type(textarea, "   ");
+    // Clear to make it empty again — the button should remain disabled
+    await user.clear(textarea);
+
+    const submitBtn = screen.getByRole("button", {
+      name: /submit refinement/i,
+    });
+    expect(submitBtn).toBeDisabled();
+  });
+
+  it("calls onRefine with the trimmed refinement text on submit", async () => {
     const onRefine = vi.fn();
     const user = userEvent.setup();
 
@@ -121,7 +177,38 @@ describe("IdeaCards", () => {
     );
 
     await user.click(screen.getByRole("button", { name: /refine/i }));
-    expect(onRefine).toHaveBeenCalledTimes(1);
+
+    const textarea = screen.getByLabelText(/refinement instructions/i);
+    await user.type(textarea, "  Make it more Mediterranean  ");
+
+    await user.click(
+      screen.getByRole("button", { name: /submit refinement/i })
+    );
+
+    expect(onRefine).toHaveBeenCalledWith("Make it more Mediterranean");
+  });
+
+  it("cancel button hides refinement input", async () => {
+    const user = userEvent.setup();
+
+    render(
+      <IdeaCards ideas={mockIdeas} onSelect={vi.fn()} onRefine={vi.fn()} />
+    );
+
+    await user.click(screen.getByRole("button", { name: /refine/i }));
+    expect(
+      screen.getByLabelText(/refinement instructions/i)
+    ).toBeInTheDocument();
+
+    await user.click(screen.getByRole("button", { name: /cancel/i }));
+    expect(
+      screen.queryByLabelText(/refinement instructions/i)
+    ).not.toBeInTheDocument();
+
+    // Refine button should be visible again
+    expect(
+      screen.getByRole("button", { name: /refine/i })
+    ).toBeInTheDocument();
   });
 
   it("disables buttons when disabled prop is true", () => {
@@ -140,6 +227,35 @@ describe("IdeaCards", () => {
     }
 
     expect(screen.getByRole("button", { name: /refine/i })).toBeDisabled();
+  });
+
+  it("disables select buttons and refinement submit during refining", () => {
+    render(
+      <IdeaCards
+        ideas={mockIdeas}
+        onSelect={vi.fn()}
+        onRefine={vi.fn()}
+        isRefining={true}
+      />
+    );
+
+    const selectButtons = screen.getAllByRole("button", { name: /select/i });
+    for (const btn of selectButtons) {
+      expect(btn).toBeDisabled();
+    }
+  });
+
+  it("shows loading state during refinement", () => {
+    render(
+      <IdeaCards
+        ideas={mockIdeas}
+        onSelect={vi.fn()}
+        onRefine={vi.fn()}
+        isRefining={true}
+      />
+    );
+
+    expect(screen.getByText(/refining/i)).toBeInTheDocument();
   });
 
   it("shows 'No special tools' when tools array is empty", () => {
@@ -161,5 +277,26 @@ describe("IdeaCards", () => {
     );
 
     expect(screen.getByText("No special tools")).toBeInTheDocument();
+  });
+
+  it("can select idea after refinement flow (onSelect still works)", async () => {
+    const onSelect = vi.fn();
+    const onRefine = vi.fn();
+    const user = userEvent.setup();
+
+    render(
+      <IdeaCards
+        ideas={mockIdeas}
+        onSelect={onSelect}
+        onRefine={onRefine}
+        isRefining={false}
+      />
+    );
+
+    // Select buttons should be enabled
+    const selectButtons = screen.getAllByRole("button", { name: /select/i });
+    await user.click(selectButtons[0]);
+
+    expect(onSelect).toHaveBeenCalledWith(mockIdeas[0]);
   });
 });

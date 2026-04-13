@@ -47,6 +47,13 @@ function buildPrompt(
     lines.push(`Additional Instructions: ${constraints.additionalInstructions}`);
   }
 
+  if (constraints.refinementText && constraints.refinementText.trim()) {
+    lines.push("");
+    lines.push(
+      `Refinement: The user wants to refine the previous ideas with this instruction: "${constraints.refinementText}". Generate 3 NEW and DIFFERENT recipe ideas that incorporate this refinement while still respecting all the original constraints above.`
+    );
+  }
+
   lines.push("");
   lines.push(
     "Each recipe idea must have a title, a short description (1-2 sentences), an estimated active cooking time (e.g. '25 min'), and a list of required cooking tools."

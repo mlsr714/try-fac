@@ -35,6 +35,7 @@ export const constraintFormSchema = z.object({
   ingredients: z.string().optional().default(""),
   additionalInstructions: z.string().optional().default(""),
   includePantryItems: z.boolean().default(false),
+  refinementText: z.string().optional(),
 });
 
 export type ConstraintFormValues = z.infer<typeof constraintFormSchema>;

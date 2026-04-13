@@ -253,4 +253,76 @@ describe("POST /api/generate/ideas", () => {
     const callArgs = mockGenerateText.mock.calls[0][0];
     expect(callArgs.prompt).not.toContain("Pantry Items");
   });
+
+  it("includes refinement text in prompt when provided", async () => {
+    const request = createRequest({
+      diet: "Vegan",
+      mealType: "Dinner",
+      difficulty: "Easy",
+      maxCookingTime: 30,
+      servings: 4,
+      includePantryItems: false,
+      refinementText: "Make it more Mediterranean",
+    });
+
+    await POST(request);
+
+    expect(mockGenerateText).toHaveBeenCalledTimes(1);
+    const callArgs = mockGenerateText.mock.calls[0][0];
+    expect(callArgs.prompt).toContain("Refinement");
+    expect(callArgs.prompt).toContain("Make it more Mediterranean");
+  });
+
+  it("does not include refinement section when refinementText is not provided", async () => {
+    const request = createRequest({
+      diet: "Vegan",
+      mealType: "Dinner",
+      difficulty: "Easy",
+      maxCookingTime: 30,
+      servings: 4,
+      includePantryItems: false,
+    });
+
+    await POST(request);
+
+    expect(mockGenerateText).toHaveBeenCalledTimes(1);
+    const callArgs = mockGenerateText.mock.calls[0][0];
+    expect(callArgs.prompt).not.toContain("Refinement");
+  });
+
+  it("does not include refinement section when refinementText is empty string", async () => {
+    const request = createRequest({
+      diet: "Vegan",
+      mealType: "Dinner",
+      difficulty: "Easy",
+      maxCookingTime: 30,
+      servings: 4,
+      includePantryItems: false,
+      refinementText: "",
+    });
+
+    await POST(request);
+
+    expect(mockGenerateText).toHaveBeenCalledTimes(1);
+    const callArgs = mockGenerateText.mock.calls[0][0];
+    expect(callArgs.prompt).not.toContain("Refinement");
+  });
+
+  it("returns 3 ideas when refinement text is provided", async () => {
+    const request = createRequest({
+      diet: "Keto",
+      mealType: "Lunch",
+      difficulty: "Medium",
+      maxCookingTime: 45,
+      servings: 2,
+      includePantryItems: false,
+      refinementText: "More Asian-inspired",
+    });
+
+    const response = await POST(request);
+    expect(response.status).toBe(200);
+
+    const data = await response.json();
+    expect(data.ideas).toHaveLength(3);
+  });
 });

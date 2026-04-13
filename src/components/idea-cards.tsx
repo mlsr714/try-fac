@@ -1,7 +1,9 @@
 "use client";
 
-import { Clock, Wrench } from "lucide-react";
+import { useState } from "react";
+import { Clock, Wrench, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Card,
   CardContent,
@@ -15,8 +17,9 @@ import type { RecipeIdea } from "@/lib/schemas/generation";
 interface IdeaCardsProps {
   ideas: RecipeIdea[];
   onSelect: (idea: RecipeIdea) => void;
-  onRefine: () => void;
+  onRefine: (refinementText: string) => void;
   disabled?: boolean;
+  isRefining?: boolean;
 }
 
 export function IdeaCards({
@@ -24,7 +27,37 @@ export function IdeaCards({
   onSelect,
   onRefine,
   disabled = false,
+  isRefining = false,
 }: IdeaCardsProps) {
+  const [showRefinementInput, setShowRefinementInput] = useState(false);
+  const [refinementText, setRefinementText] = useState("");
+  const [refinementError, setRefinementError] = useState("");
+
+  function handleRefineClick() {
+    setShowRefinementInput(true);
+  }
+
+  function handleRefinementSubmit() {
+    const trimmed = refinementText.trim();
+    if (!trimmed) {
+      setRefinementError("Please enter refinement instructions");
+      return;
+    }
+    setRefinementError("");
+    onRefine(trimmed);
+    // After submitting, reset the input for next refinement
+    setRefinementText("");
+    setShowRefinementInput(false);
+  }
+
+  function handleCancelRefinement() {
+    setShowRefinementInput(false);
+    setRefinementText("");
+    setRefinementError("");
+  }
+
+  const isDisabled = disabled || isRefining;
+
   return (
     <div className="space-y-6">
       <div className="grid gap-4 md:grid-cols-3">
@@ -52,7 +85,7 @@ export function IdeaCards({
               <Button
                 className="w-full"
                 onClick={() => onSelect(idea)}
-                disabled={disabled}
+                disabled={isDisabled}
               >
                 Select
               </Button>
@@ -60,11 +93,63 @@ export function IdeaCards({
           </Card>
         ))}
       </div>
-      <div className="flex justify-center">
-        <Button variant="outline" onClick={onRefine} disabled={disabled}>
-          Refine
-        </Button>
-      </div>
+
+      {showRefinementInput ? (
+        <div className="mx-auto max-w-lg space-y-3">
+          <Textarea
+            placeholder="e.g. Make it more Mediterranean"
+            value={refinementText}
+            onChange={(e) => {
+              setRefinementText(e.target.value);
+              if (refinementError) setRefinementError("");
+            }}
+            disabled={isRefining}
+            aria-label="Refinement instructions"
+          />
+          {refinementError && (
+            <p className="text-sm text-destructive">{refinementError}</p>
+          )}
+          <div className="flex justify-center gap-3">
+            <Button
+              variant="outline"
+              onClick={handleCancelRefinement}
+              disabled={isRefining}
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={handleRefinementSubmit}
+              disabled={isRefining || refinementText.trim().length === 0}
+            >
+              {isRefining ? (
+                <>
+                  <Loader2 className="mr-2 size-4 animate-spin" />
+                  Refining...
+                </>
+              ) : (
+                "Submit Refinement"
+              )}
+            </Button>
+          </div>
+        </div>
+      ) : (
+        <div className="flex justify-center">
+          <Button
+            variant="outline"
+            onClick={handleRefineClick}
+            disabled={isDisabled}
+          >
+            {isRefining ? (
+              <>
+                <Loader2 className="mr-2 size-4 animate-spin" />
+                Refining...
+              </>
+            ) : (
+              "Refine"
+            )}
+          </Button>
+        </div>
+      )}
     </div>
   );
 }

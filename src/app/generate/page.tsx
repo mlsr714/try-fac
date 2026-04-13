@@ -12,8 +12,11 @@ import type {
 export default function GeneratePage() {
   const [step, setStep] = useState<1 | 2>(1);
   const [ideas, setIdeas] = useState<GenerateIdeasResponse | null>(null);
-  const [, setConstraints] = useState<ConstraintFormValues | null>(null);
+  const [constraints, setConstraints] = useState<ConstraintFormValues | null>(
+    null
+  );
   const [, setSelectedIdea] = useState<RecipeIdea | null>(null);
+  const [isRefining, setIsRefining] = useState(false);
 
   function handleIdeasGenerated(
     data: GenerateIdeasResponse,
@@ -29,9 +32,32 @@ export default function GeneratePage() {
     // Step 3/4 will be implemented in a future feature
   }
 
-  function handleRefine() {
-    // Refinement will be implemented in a future feature (generation-refinement)
-    // For now this is a placeholder
+  async function handleRefine(refinementText: string) {
+    if (!constraints) return;
+
+    setIsRefining(true);
+
+    try {
+      const response = await fetch("/api/generate/ideas", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...constraints,
+          refinementText,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to refine ideas");
+      }
+
+      const data = (await response.json()) as GenerateIdeasResponse;
+      setIdeas(data);
+    } catch {
+      // Error handling — ideas remain unchanged on failure
+    } finally {
+      setIsRefining(false);
+    }
   }
 
   return (
@@ -53,6 +79,7 @@ export default function GeneratePage() {
             ideas={ideas.ideas}
             onSelect={handleSelectIdea}
             onRefine={handleRefine}
+            isRefining={isRefining}
           />
         )}
       </div>
