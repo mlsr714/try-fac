@@ -1,0 +1,26 @@
+{
+  "featureId": "landing-page-and-layout",
+  "reviewedAt": "2026-04-13T08:41:07Z",
+  "commitId": "cd14e5c",
+  "transcriptSkeletonReviewed": true,
+  "diffReviewed": true,
+  "status": "pass",
+  "codeReview": {
+    "summary": "The feature implementation matches the requested landing page and responsive app-wide header behavior (public landing hero/CTAs, signed-in-only nav links, active-link styling, auth-aware logo target, and mobile hamburger navigation). I did not find any high-confidence correctness defects in the reviewed diff.",
+    "issues": []
+  },
+  "sharedStateObservations": [
+    {
+      "area": "conventions",
+      "observation": "A key UI composition convention appears undocumented: this codebase's shadcn/base-ui setup uses `render` instead of Radix-style `asChild`. The worker initially implemented with the wrong pattern and then corrected it.",
+      "evidence": "Transcript skeleton shows a discovery step (`Grep` for `asChild|render=`) followed by note 'base-ui uses `render` prop instead of `asChild`' and corrective edits to `src/app/page.tsx` and `src/components/header.tsx`. This convention is not called out in mission `AGENTS.md` or `.factory/library/*`."
+    },
+    {
+      "area": "skills",
+      "observation": "The `fullstack-worker` skill says to run a failing red-phase test before implementation, but the transcript shows tests were first executed after implementation. This suggests either procedure drift or that the skill/checklist could better enforce evidencing TDD steps.",
+      "evidence": "In transcript order: `Create src/app/page.test.tsx` -> implement page/header -> first `Execute npx vitest run --reporter=verbose` occurs after implementation. Handoff still reports `skillFeedback.followedProcedure: true`."
+    }
+  ],
+  "addressesFailureFrom": null,
+  "summary": "Reviewed feature `landing-page-and-layout` at commit `cd14e5c` using the handoff, transcript skeleton, and commit diff. Result: pass, with no high-confidence correctness issues found. Added two shared-state observations (UI composition convention documentation gap and TDD procedure/evidence mismatch)."
+}

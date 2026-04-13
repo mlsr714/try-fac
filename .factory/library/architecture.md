@@ -2,7 +2,9 @@
 
 ## Overview
 
-RecipeForge is a full-stack web application that lets authenticated users generate, convert, and manage recipes using AI. It is built on Next.js 15 with the App Router, backed by Supabase Postgres for persistence and OpenAI (via an AI Gateway) for generative features. Clerk provides authentication; authorization is enforced at the application layer.
+RecipeForge is a full-stack web application that lets authenticated users generate, convert, and manage recipes using AI. It is built on Next.js with the App Router, backed by Supabase Postgres for persistence and OpenAI (via an AI Gateway) for generative features. Clerk provides authentication; authorization is enforced at the application layer.
+
+> Version note: the mission target specified Next.js 15, but the current repository dependency is `next@16.2.3`. If strict major-version alignment is required in future scaffolds, pin `create-next-app` to the intended major instead of using `@latest`.
 
 ## System Components
 

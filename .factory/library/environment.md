@@ -29,8 +29,10 @@ Environment variables, external dependencies, and setup notes.
 ## Key Gotchas
 
 - Supabase pooler uses Transaction mode: MUST use `{ prepare: false }` in postgres.js client
-- `cookies()` is async in Next.js 15 — always `await` it
-- `auth()` from Clerk is async in Next.js 15 — always `await` it
+- `cookies()` is async in modern Next.js (15+) — always `await` it
+- `auth()` from Clerk is async in modern Next.js (15+) — always `await` it
 - AI Gateway uses `gateway('openai/gpt-4o')` import from `ai` package — NOT `@ai-sdk/openai`
 - `convertToModelMessages()` is async in AI SDK v6
 - Messages use `parts[]` array, not `content` string in AI SDK v6
+- `@clerk/nextjs` v7: prefer `<Show whenSignedIn>` / `<Show whenSignedOut>` patterns; `SignedIn`/`SignedOut` imports may be unavailable
+- This repo's shadcn/base-ui composition pattern often uses `render` props for trigger/content composition (not Radix-style `asChild`)

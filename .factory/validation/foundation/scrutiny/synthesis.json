@@ -1,0 +1,91 @@
+{
+  "milestone": "foundation",
+  "round": 1,
+  "status": "fail",
+  "validatorsRun": {
+    "test": {
+      "passed": true,
+      "command": "npx vitest run --reporter=verbose",
+      "exitCode": 0
+    },
+    "typecheck": {
+      "passed": true,
+      "command": "npx tsc --noEmit",
+      "exitCode": 0
+    },
+    "lint": {
+      "passed": true,
+      "command": "npx eslint .",
+      "exitCode": 0
+    }
+  },
+  "reviewsSummary": {
+    "total": 5,
+    "passed": 3,
+    "failed": 2,
+    "failedFeatures": [
+      "scaffold-nextjs-project",
+      "clerk-auth-setup"
+    ]
+  },
+  "blockingIssues": [
+    {
+      "featureId": "scaffold-nextjs-project",
+      "severity": "blocking",
+      "description": "Feature contract required a Next.js 15 scaffold, but the implemented dependency is `next@16.2.3` in package.json."
+    },
+    {
+      "featureId": "clerk-auth-setup",
+      "severity": "blocking",
+      "description": "User sync behavior is implemented but never invoked in runtime code, so first authenticated access does not create/update the corresponding users table row."
+    }
+  ],
+  "appliedUpdates": [
+    {
+      "target": "library",
+      "description": "Updated `.factory/library/architecture.md` with a factual version note documenting mission target (Next.js 15) vs current dependency (`next@16.2.3`) and pinning guidance for future scaffolds.",
+      "sourceFeature": "scaffold-nextjs-project"
+    },
+    {
+      "target": "library",
+      "description": "Updated `.factory/library/environment.md` to document Clerk v7 auth-component nuance (`Show` patterns vs legacy `SignedIn`/`SignedOut` imports).",
+      "sourceFeature": "clerk-auth-setup"
+    },
+    {
+      "target": "library",
+      "description": "Updated `.factory/library/environment.md` to document this repo's shadcn/base-ui composition convention using `render` props instead of Radix-style `asChild` in common trigger/content patterns.",
+      "sourceFeature": "landing-page-and-layout"
+    }
+  ],
+  "suggestedGuidanceUpdates": [
+    {
+      "target": "AGENTS.md",
+      "suggestion": "Align lint guidance with executable project commands by replacing `npx next lint` with `npx eslint .` for this mission.",
+      "evidence": "Mission AGENTS.md instructs `npx next lint`, while `.factory/services.yaml` defines lint as `npx eslint .`; multiple reviewers flagged this mismatch.",
+      "isSystemic": true
+    },
+    {
+      "target": "skill:fullstack-worker",
+      "suggestion": "Add explicit exceptions for infrastructure/operations-only features so strict TDD-first and mandatory browser/manual-validation steps are not treated as universal requirements.",
+      "evidence": "Scaffolding and DB-only features repeatedly reported procedure mismatch/deviations around mandatory red-phase tests and manual browser checks.",
+      "isSystemic": true
+    },
+    {
+      "target": "skill:fullstack-worker",
+      "suggestion": "Tighten procedure-evidence requirements so `skillFeedback.followedProcedure` cannot be marked true when required steps (e.g., mandatory reads or TDD order) were skipped.",
+      "evidence": "Multiple reviews observed transcript/skill-feedback inconsistencies (missing required reads and tests executed only after implementation while feedback still reported full adherence).",
+      "isSystemic": true
+    }
+  ],
+  "rejectedObservations": [
+    {
+      "observation": "Lint command mismatch between mission guidance and services.yaml.",
+      "reason": "duplicate"
+    },
+    {
+      "observation": "General TDD order mismatch observations without concrete correctness impact on feature output.",
+      "reason": "ambiguous"
+    }
+  ],
+  "previousRound": null
+}

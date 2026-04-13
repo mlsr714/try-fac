@@ -1,0 +1,33 @@
+{
+  "featureId": "scaffold-nextjs-project",
+  "reviewedAt": "2026-04-13T08:37:05Z",
+  "commitId": "5ed2d9b",
+  "transcriptSkeletonReviewed": true,
+  "diffReviewed": true,
+  "status": "fail",
+  "codeReview": {
+    "summary": "The scaffold implementation is mostly complete (Drizzle, Vitest, scripts, and shadcn artifacts are present), but it violates a core requirement by using Next.js 16 instead of the required Next.js 15.",
+    "issues": [
+      {
+        "file": "package.json",
+        "line": 24,
+        "severity": "blocking",
+        "description": "Feature requirement explicitly calls for a Next.js 15 project, but dependency is pinned to `next: 16.2.3`. This is a direct mismatch with the feature description/expected behavior and can introduce incompatible runtime/API behavior relative to the mission contract."
+      }
+    ]
+  },
+  "sharedStateObservations": [
+    {
+      "area": "knowledge",
+      "observation": "Mission/library state assumes Next.js 15 while the scaffold command `create-next-app@latest` now resolves to Next.js 16, creating version drift unless explicitly pinned.",
+      "evidence": "Feature description in mission features.json requires Next.js 15; implemented commit sets `package.json` `next` to `16.2.3` (line 24). `.factory/library/architecture.md` also states the app is built on Next.js 15."
+    },
+    {
+      "area": "skills",
+      "observation": "The fullstack-worker skill's required TDD-first step is not a good fit for pure scaffolding features; worker had to deviate and document that deviation.",
+      "evidence": "Transcript/handoff `skillFeedback.deviations` records skipping TDD for this infrastructure-only feature and suggests updating skill guidance."
+    }
+  ],
+  "addressesFailureFrom": null,
+  "summary": "Reviewed feature `scaffold-nextjs-project` (commit `5ed2d9b`) against mission expectations and transcript evidence. Found one blocking correctness issue: the project is on Next.js 16, not the required Next.js 15. Report marked as fail."
+}
