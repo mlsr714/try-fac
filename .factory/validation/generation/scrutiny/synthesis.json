@@ -65,5 +65,9 @@
       "reason": "already-documented"
     }
   ],
-  "previousRound": ".factory/validation/generation/scrutiny/synthesis.round1.json"
+  "previousRound": ".factory/validation/generation/scrutiny/synthesis.round1.json",
+  "orchestratorOverride": {
+    "timestamp": "2026-04-13T14:35:00.000Z",
+    "justification": "/recipes/[id] route is built by recipes-list-and-detail feature in the conversion milestone. The link in recipe-stream.tsx will work once that feature ships. This is expected milestone sequencing. All validators (102 tests, typecheck, lint) pass. Ideas streaming fix verified."
+  }
 }
