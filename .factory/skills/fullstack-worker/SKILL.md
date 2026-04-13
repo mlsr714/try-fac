@@ -55,7 +55,7 @@ Run `npx vitest run --reporter=verbose` and fix until all tests pass.
 Run all three:
 ```bash
 npx tsc --noEmit          # Typecheck
-npx next lint             # Lint
+npx eslint .              # Lint
 npx vitest run            # Tests
 ```
 Fix any failures before proceeding.
