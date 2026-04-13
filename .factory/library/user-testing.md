@@ -31,3 +31,18 @@ Testing surface, required tools, resource cost classification, and runtime findi
 
 ## Runtime Findings
 (Updated by validators during execution)
+- 2026-04-13 foundation validation run: observed ~810 MB free RAM with no swap and multiple active droid processes; reduced effective concurrent agent-browser validators from 2 to 1 for stability.
+- 2026-04-13 foundation validation run: Clerk sign-up in headless automation repeatedly stalled in loading state while console reported Private Access Token / Cloudflare challenge requests returning 401. Assertions requiring authenticated sessions were blocked by this external auth challenge.
+
+## Flow Validator Guidance: agent-browser
+
+- Use dedicated browser sessions per validator and never reuse authenticated state across assertion groups.
+- Stay within the assigned local surface only: `http://localhost:3100`.
+- Keep account data isolated by using unique test emails per validator run.
+- Do not alter application business logic or environment variables during validation.
+- Evidence must be written only to the assigned mission evidence directory for the group.
+
+### Isolation boundaries
+- Session boundary: each validator owns its own browser context/cookies.
+- Data boundary: each validator uses separate Clerk test identities unless explicitly testing multi-account behavior in one assigned group.
+- Resource boundary: when machine memory is constrained, run agent-browser validators serially to avoid OOM.

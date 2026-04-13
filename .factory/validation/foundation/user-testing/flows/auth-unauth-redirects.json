@@ -1,0 +1,155 @@
+{
+  "groupId": "auth-unauth-redirects",
+  "testedAt": "2026-04-13T09:00:12Z",
+  "isolation": {
+    "appUrl": "http://localhost:3100",
+    "browserContext": "fresh unauthenticated session",
+    "signedInDuringRun": false
+  },
+  "toolsUsed": [
+    "agent-browser"
+  ],
+  "assertions": [
+    {
+      "id": "VAL-AUTH-006",
+      "title": "Unauthenticated user is redirected from /dashboard to sign-in",
+      "status": "pass",
+      "steps": [
+        {
+          "action": "Navigate to /dashboard in fresh unauthenticated browser session",
+          "expected": "Redirect to /sign-in (or Clerk sign-in URL)",
+          "observed": "URL became /sign-in?redirect_url=http%3A%2F%2Flocalhost%3A3100%2Fdashboard"
+        },
+        {
+          "action": "Inspect rendered page",
+          "expected": "Dashboard content not visible",
+          "observed": "Sign-in page rendered; protected dashboard page not displayed"
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "foundation/auth-unauth-redirects/VAL-AUTH-006-dashboard-redirect.png"
+        ],
+        "consoleErrors": "none",
+        "network": "agent-browser request log shows document request to /dashboard followed by document request to /sign-in?redirect_url=.../dashboard"
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-AUTH-007",
+      "title": "Unauthenticated user is redirected from /generate to sign-in",
+      "status": "pass",
+      "steps": [
+        {
+          "action": "Navigate to /generate in same unauthenticated session",
+          "expected": "Redirect to /sign-in",
+          "observed": "URL became /sign-in?redirect_url=http%3A%2F%2Flocalhost%3A3100%2Fgenerate"
+        },
+        {
+          "action": "Inspect rendered page",
+          "expected": "Generate page content not visible",
+          "observed": "Sign-in page rendered; generate flow content not displayed"
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "foundation/auth-unauth-redirects/VAL-AUTH-007-generate-redirect.png"
+        ],
+        "consoleErrors": "none",
+        "network": "agent-browser request log shows document request to /generate followed by document request to /sign-in?redirect_url=.../generate"
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-AUTH-008",
+      "title": "Unauthenticated user is redirected from /convert to sign-in",
+      "status": "pass",
+      "steps": [
+        {
+          "action": "Navigate to /convert in unauthenticated session",
+          "expected": "Redirect to /sign-in",
+          "observed": "URL became /sign-in?redirect_url=http%3A%2F%2Flocalhost%3A3100%2Fconvert"
+        },
+        {
+          "action": "Inspect rendered page",
+          "expected": "Convert page content not visible",
+          "observed": "Sign-in page rendered; convert page content not displayed"
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "foundation/auth-unauth-redirects/VAL-AUTH-008-convert-redirect.png"
+        ],
+        "consoleErrors": "none",
+        "network": "agent-browser request log shows document request to /convert followed by document request to /sign-in?redirect_url=.../convert"
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-AUTH-009",
+      "title": "Unauthenticated user is redirected from /recipes to sign-in",
+      "status": "pass",
+      "steps": [
+        {
+          "action": "Navigate to /recipes in unauthenticated session",
+          "expected": "Redirect to /sign-in",
+          "observed": "URL became /sign-in?redirect_url=http%3A%2F%2Flocalhost%3A3100%2Frecipes"
+        },
+        {
+          "action": "Inspect rendered page",
+          "expected": "Recipes content not visible",
+          "observed": "Sign-in page rendered; protected recipes list not displayed"
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "foundation/auth-unauth-redirects/VAL-AUTH-009-recipes-redirect.png"
+        ],
+        "consoleErrors": "none",
+        "network": "agent-browser request log shows document request to /recipes followed by document request to /sign-in?redirect_url=.../recipes"
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-AUTH-010",
+      "title": "Unauthenticated user is redirected from /pantry to sign-in",
+      "status": "pass",
+      "steps": [
+        {
+          "action": "Navigate to /pantry in unauthenticated session",
+          "expected": "Redirect to /sign-in",
+          "observed": "URL became /sign-in?redirect_url=http%3A%2F%2Flocalhost%3A3100%2Fpantry"
+        },
+        {
+          "action": "Inspect rendered page",
+          "expected": "Pantry content not visible",
+          "observed": "Sign-in page rendered; protected pantry content not displayed"
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "foundation/auth-unauth-redirects/VAL-AUTH-010-pantry-redirect.png"
+        ],
+        "consoleErrors": "none",
+        "network": "agent-browser request log shows document request to /pantry followed by document request to /sign-in?redirect_url=.../pantry"
+      },
+      "issues": null
+    }
+  ],
+  "frictions": [
+    {
+      "description": "agent-browser request logs for this run did not expose explicit HTTP response status codes (302/307), only request method/URL/type sequence.",
+      "resolved": true,
+      "resolution": "Validated redirect behavior using final URL and request sequence from protected route to sign-in redirect URL.",
+      "affectedAssertions": [
+        "VAL-AUTH-006",
+        "VAL-AUTH-007",
+        "VAL-AUTH-008",
+        "VAL-AUTH-009",
+        "VAL-AUTH-010"
+      ]
+    }
+  ],
+  "blockers": [],
+  "summary": "Tested 5 unauthenticated protected-route redirect assertions; all 5 passed."
+}

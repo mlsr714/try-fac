@@ -1,0 +1,510 @@
+{
+  "groupId": "foundation-nav-dashboard",
+  "testedAt": "2026-04-13T10:47:44Z",
+  "isolation": {
+    "appUrl": "http://localhost:3100",
+    "browserContext": "fresh dedicated session (agent-browser --session foundation-nav-dashboard)",
+    "missionDir": "/root/.factory/missions/1417e725-972e-4dd0-a683-c2965f2f6b3f",
+    "testAccountAttempted": "factory.foundation.nav.1776077172@example.com"
+  },
+  "toolsUsed": [
+    "agent-browser",
+    "curl"
+  ],
+  "assertions": [
+    {
+      "id": "VAL-AUTH-019",
+      "title": "Protected routes remain accessible after sign-in",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Open /sign-up and submit a unique account (factory.foundation.nav.1776077172@example.com).",
+          "expected": "Account is created and user is redirected to /dashboard.",
+          "observed": "Submission never completed; /sign-up remained with disabled fields and Loading button for >20s."
+        },
+        {
+          "action": "Inspect browser console after the stuck sign-up state.",
+          "expected": "No blocking auth challenge errors.",
+          "observed": "Console logged \"Request for the Private Access Token challenge\" and a 401 from Cloudflare challenge platform."
+        },
+        {
+          "action": "Retry prerequisite via /sign-in using the same new email.",
+          "expected": "If signup succeeded, sign-in should proceed to authenticated routes.",
+          "observed": "Sign-in returned \"Couldn't find your account.\", confirming sign-up prerequisite did not complete."
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "foundation/foundation-nav-dashboard/auth-signup-stuck-loading.png",
+          "foundation/foundation-nav-dashboard/auth-signup-loading-after-retry.png",
+          "foundation/foundation-nav-dashboard/auth-signin-account-not-found.png"
+        ],
+        "consoleErrors": "Blocked by external auth challenge: Private Access Token challenge with 401 (see auth-console.log).",
+        "network": "Cloudflare challenge resource returned 401 during sign-up; auth flow did not progress to dashboard."
+      },
+      "issues": "Authentication prerequisite blocked by external challenge; unable to establish authenticated session required for this assertion."
+    },
+    {
+      "id": "VAL-AUTH-020",
+      "title": "Dashboard shows quick actions for authenticated user",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Open /sign-up and submit a unique account (factory.foundation.nav.1776077172@example.com).",
+          "expected": "Account is created and user is redirected to /dashboard.",
+          "observed": "Submission never completed; /sign-up remained with disabled fields and Loading button for >20s."
+        },
+        {
+          "action": "Inspect browser console after the stuck sign-up state.",
+          "expected": "No blocking auth challenge errors.",
+          "observed": "Console logged \"Request for the Private Access Token challenge\" and a 401 from Cloudflare challenge platform."
+        },
+        {
+          "action": "Retry prerequisite via /sign-in using the same new email.",
+          "expected": "If signup succeeded, sign-in should proceed to authenticated routes.",
+          "observed": "Sign-in returned \"Couldn't find your account.\", confirming sign-up prerequisite did not complete."
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "foundation/foundation-nav-dashboard/auth-signup-stuck-loading.png",
+          "foundation/foundation-nav-dashboard/auth-signup-loading-after-retry.png",
+          "foundation/foundation-nav-dashboard/auth-signin-account-not-found.png"
+        ],
+        "consoleErrors": "Blocked by external auth challenge: Private Access Token challenge with 401 (see auth-console.log).",
+        "network": "Cloudflare challenge resource returned 401 during sign-up; auth flow did not progress to dashboard."
+      },
+      "issues": "Authentication prerequisite blocked by external challenge; unable to establish authenticated session required for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-016",
+      "title": "Dashboard Link in Header Navigates to /dashboard",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Open /sign-up and submit a unique account (factory.foundation.nav.1776077172@example.com).",
+          "expected": "Account is created and user is redirected to /dashboard.",
+          "observed": "Submission never completed; /sign-up remained with disabled fields and Loading button for >20s."
+        },
+        {
+          "action": "Inspect browser console after the stuck sign-up state.",
+          "expected": "No blocking auth challenge errors.",
+          "observed": "Console logged \"Request for the Private Access Token challenge\" and a 401 from Cloudflare challenge platform."
+        },
+        {
+          "action": "Retry prerequisite via /sign-in using the same new email.",
+          "expected": "If signup succeeded, sign-in should proceed to authenticated routes.",
+          "observed": "Sign-in returned \"Couldn't find your account.\", confirming sign-up prerequisite did not complete."
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "foundation/foundation-nav-dashboard/auth-signup-stuck-loading.png",
+          "foundation/foundation-nav-dashboard/auth-signup-loading-after-retry.png",
+          "foundation/foundation-nav-dashboard/auth-signin-account-not-found.png"
+        ],
+        "consoleErrors": "Blocked by external auth challenge: Private Access Token challenge with 401 (see auth-console.log).",
+        "network": "Cloudflare challenge resource returned 401 during sign-up; auth flow did not progress to dashboard."
+      },
+      "issues": "Authentication prerequisite blocked by external challenge; unable to establish authenticated session required for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-017",
+      "title": "Generate Link in Header Navigates to /generate",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Open /sign-up and submit a unique account (factory.foundation.nav.1776077172@example.com).",
+          "expected": "Account is created and user is redirected to /dashboard.",
+          "observed": "Submission never completed; /sign-up remained with disabled fields and Loading button for >20s."
+        },
+        {
+          "action": "Inspect browser console after the stuck sign-up state.",
+          "expected": "No blocking auth challenge errors.",
+          "observed": "Console logged \"Request for the Private Access Token challenge\" and a 401 from Cloudflare challenge platform."
+        },
+        {
+          "action": "Retry prerequisite via /sign-in using the same new email.",
+          "expected": "If signup succeeded, sign-in should proceed to authenticated routes.",
+          "observed": "Sign-in returned \"Couldn't find your account.\", confirming sign-up prerequisite did not complete."
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "foundation/foundation-nav-dashboard/auth-signup-stuck-loading.png",
+          "foundation/foundation-nav-dashboard/auth-signup-loading-after-retry.png",
+          "foundation/foundation-nav-dashboard/auth-signin-account-not-found.png"
+        ],
+        "consoleErrors": "Blocked by external auth challenge: Private Access Token challenge with 401 (see auth-console.log).",
+        "network": "Cloudflare challenge resource returned 401 during sign-up; auth flow did not progress to dashboard."
+      },
+      "issues": "Authentication prerequisite blocked by external challenge; unable to establish authenticated session required for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-018",
+      "title": "Convert Link in Header Navigates to /convert",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Open /sign-up and submit a unique account (factory.foundation.nav.1776077172@example.com).",
+          "expected": "Account is created and user is redirected to /dashboard.",
+          "observed": "Submission never completed; /sign-up remained with disabled fields and Loading button for >20s."
+        },
+        {
+          "action": "Inspect browser console after the stuck sign-up state.",
+          "expected": "No blocking auth challenge errors.",
+          "observed": "Console logged \"Request for the Private Access Token challenge\" and a 401 from Cloudflare challenge platform."
+        },
+        {
+          "action": "Retry prerequisite via /sign-in using the same new email.",
+          "expected": "If signup succeeded, sign-in should proceed to authenticated routes.",
+          "observed": "Sign-in returned \"Couldn't find your account.\", confirming sign-up prerequisite did not complete."
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "foundation/foundation-nav-dashboard/auth-signup-stuck-loading.png",
+          "foundation/foundation-nav-dashboard/auth-signup-loading-after-retry.png",
+          "foundation/foundation-nav-dashboard/auth-signin-account-not-found.png"
+        ],
+        "consoleErrors": "Blocked by external auth challenge: Private Access Token challenge with 401 (see auth-console.log).",
+        "network": "Cloudflare challenge resource returned 401 during sign-up; auth flow did not progress to dashboard."
+      },
+      "issues": "Authentication prerequisite blocked by external challenge; unable to establish authenticated session required for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-019",
+      "title": "Recipes Link in Header Navigates to /recipes",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Open /sign-up and submit a unique account (factory.foundation.nav.1776077172@example.com).",
+          "expected": "Account is created and user is redirected to /dashboard.",
+          "observed": "Submission never completed; /sign-up remained with disabled fields and Loading button for >20s."
+        },
+        {
+          "action": "Inspect browser console after the stuck sign-up state.",
+          "expected": "No blocking auth challenge errors.",
+          "observed": "Console logged \"Request for the Private Access Token challenge\" and a 401 from Cloudflare challenge platform."
+        },
+        {
+          "action": "Retry prerequisite via /sign-in using the same new email.",
+          "expected": "If signup succeeded, sign-in should proceed to authenticated routes.",
+          "observed": "Sign-in returned \"Couldn't find your account.\", confirming sign-up prerequisite did not complete."
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "foundation/foundation-nav-dashboard/auth-signup-stuck-loading.png",
+          "foundation/foundation-nav-dashboard/auth-signup-loading-after-retry.png",
+          "foundation/foundation-nav-dashboard/auth-signin-account-not-found.png"
+        ],
+        "consoleErrors": "Blocked by external auth challenge: Private Access Token challenge with 401 (see auth-console.log).",
+        "network": "Cloudflare challenge resource returned 401 during sign-up; auth flow did not progress to dashboard."
+      },
+      "issues": "Authentication prerequisite blocked by external challenge; unable to establish authenticated session required for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-020",
+      "title": "Pantry Link in Header Navigates to /pantry",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Open /sign-up and submit a unique account (factory.foundation.nav.1776077172@example.com).",
+          "expected": "Account is created and user is redirected to /dashboard.",
+          "observed": "Submission never completed; /sign-up remained with disabled fields and Loading button for >20s."
+        },
+        {
+          "action": "Inspect browser console after the stuck sign-up state.",
+          "expected": "No blocking auth challenge errors.",
+          "observed": "Console logged \"Request for the Private Access Token challenge\" and a 401 from Cloudflare challenge platform."
+        },
+        {
+          "action": "Retry prerequisite via /sign-in using the same new email.",
+          "expected": "If signup succeeded, sign-in should proceed to authenticated routes.",
+          "observed": "Sign-in returned \"Couldn't find your account.\", confirming sign-up prerequisite did not complete."
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "foundation/foundation-nav-dashboard/auth-signup-stuck-loading.png",
+          "foundation/foundation-nav-dashboard/auth-signup-loading-after-retry.png",
+          "foundation/foundation-nav-dashboard/auth-signin-account-not-found.png"
+        ],
+        "consoleErrors": "Blocked by external auth challenge: Private Access Token challenge with 401 (see auth-console.log).",
+        "network": "Cloudflare challenge resource returned 401 during sign-up; auth flow did not progress to dashboard."
+      },
+      "issues": "Authentication prerequisite blocked by external challenge; unable to establish authenticated session required for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-021",
+      "title": "Logo in Header Navigates to Landing or Dashboard",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Open /sign-up and submit a unique account (factory.foundation.nav.1776077172@example.com).",
+          "expected": "Account is created and user is redirected to /dashboard.",
+          "observed": "Submission never completed; /sign-up remained with disabled fields and Loading button for >20s."
+        },
+        {
+          "action": "Inspect browser console after the stuck sign-up state.",
+          "expected": "No blocking auth challenge errors.",
+          "observed": "Console logged \"Request for the Private Access Token challenge\" and a 401 from Cloudflare challenge platform."
+        },
+        {
+          "action": "Retry prerequisite via /sign-in using the same new email.",
+          "expected": "If signup succeeded, sign-in should proceed to authenticated routes.",
+          "observed": "Sign-in returned \"Couldn't find your account.\", confirming sign-up prerequisite did not complete."
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "foundation/foundation-nav-dashboard/auth-signup-stuck-loading.png",
+          "foundation/foundation-nav-dashboard/auth-signup-loading-after-retry.png",
+          "foundation/foundation-nav-dashboard/auth-signin-account-not-found.png"
+        ],
+        "consoleErrors": "Blocked by external auth challenge: Private Access Token challenge with 401 (see auth-console.log).",
+        "network": "Cloudflare challenge resource returned 401 during sign-up; auth flow did not progress to dashboard."
+      },
+      "issues": "Authentication prerequisite blocked by external challenge; unable to establish authenticated session required for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-022",
+      "title": "Header Nav Links Have Active State Indicators",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Open /sign-up and submit a unique account (factory.foundation.nav.1776077172@example.com).",
+          "expected": "Account is created and user is redirected to /dashboard.",
+          "observed": "Submission never completed; /sign-up remained with disabled fields and Loading button for >20s."
+        },
+        {
+          "action": "Inspect browser console after the stuck sign-up state.",
+          "expected": "No blocking auth challenge errors.",
+          "observed": "Console logged \"Request for the Private Access Token challenge\" and a 401 from Cloudflare challenge platform."
+        },
+        {
+          "action": "Retry prerequisite via /sign-in using the same new email.",
+          "expected": "If signup succeeded, sign-in should proceed to authenticated routes.",
+          "observed": "Sign-in returned \"Couldn't find your account.\", confirming sign-up prerequisite did not complete."
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "foundation/foundation-nav-dashboard/auth-signup-stuck-loading.png",
+          "foundation/foundation-nav-dashboard/auth-signup-loading-after-retry.png",
+          "foundation/foundation-nav-dashboard/auth-signin-account-not-found.png"
+        ],
+        "consoleErrors": "Blocked by external auth challenge: Private Access Token challenge with 401 (see auth-console.log).",
+        "network": "Cloudflare challenge resource returned 401 during sign-up; auth flow did not progress to dashboard."
+      },
+      "issues": "Authentication prerequisite blocked by external challenge; unable to establish authenticated session required for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-024",
+      "title": "Dashboard \"Generate\" Quick Action Navigates to /generate",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Open /sign-up and submit a unique account (factory.foundation.nav.1776077172@example.com).",
+          "expected": "Account is created and user is redirected to /dashboard.",
+          "observed": "Submission never completed; /sign-up remained with disabled fields and Loading button for >20s."
+        },
+        {
+          "action": "Inspect browser console after the stuck sign-up state.",
+          "expected": "No blocking auth challenge errors.",
+          "observed": "Console logged \"Request for the Private Access Token challenge\" and a 401 from Cloudflare challenge platform."
+        },
+        {
+          "action": "Retry prerequisite via /sign-in using the same new email.",
+          "expected": "If signup succeeded, sign-in should proceed to authenticated routes.",
+          "observed": "Sign-in returned \"Couldn't find your account.\", confirming sign-up prerequisite did not complete."
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "foundation/foundation-nav-dashboard/auth-signup-stuck-loading.png",
+          "foundation/foundation-nav-dashboard/auth-signup-loading-after-retry.png",
+          "foundation/foundation-nav-dashboard/auth-signin-account-not-found.png"
+        ],
+        "consoleErrors": "Blocked by external auth challenge: Private Access Token challenge with 401 (see auth-console.log).",
+        "network": "Cloudflare challenge resource returned 401 during sign-up; auth flow did not progress to dashboard."
+      },
+      "issues": "Authentication prerequisite blocked by external challenge; unable to establish authenticated session required for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-025",
+      "title": "Dashboard \"Convert\" Quick Action Navigates to /convert",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Open /sign-up and submit a unique account (factory.foundation.nav.1776077172@example.com).",
+          "expected": "Account is created and user is redirected to /dashboard.",
+          "observed": "Submission never completed; /sign-up remained with disabled fields and Loading button for >20s."
+        },
+        {
+          "action": "Inspect browser console after the stuck sign-up state.",
+          "expected": "No blocking auth challenge errors.",
+          "observed": "Console logged \"Request for the Private Access Token challenge\" and a 401 from Cloudflare challenge platform."
+        },
+        {
+          "action": "Retry prerequisite via /sign-in using the same new email.",
+          "expected": "If signup succeeded, sign-in should proceed to authenticated routes.",
+          "observed": "Sign-in returned \"Couldn't find your account.\", confirming sign-up prerequisite did not complete."
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "foundation/foundation-nav-dashboard/auth-signup-stuck-loading.png",
+          "foundation/foundation-nav-dashboard/auth-signup-loading-after-retry.png",
+          "foundation/foundation-nav-dashboard/auth-signin-account-not-found.png"
+        ],
+        "consoleErrors": "Blocked by external auth challenge: Private Access Token challenge with 401 (see auth-console.log).",
+        "network": "Cloudflare challenge resource returned 401 during sign-up; auth flow did not progress to dashboard."
+      },
+      "issues": "Authentication prerequisite blocked by external challenge; unable to establish authenticated session required for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-026",
+      "title": "Dashboard \"Recipes\" Quick Action Navigates to /recipes",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Open /sign-up and submit a unique account (factory.foundation.nav.1776077172@example.com).",
+          "expected": "Account is created and user is redirected to /dashboard.",
+          "observed": "Submission never completed; /sign-up remained with disabled fields and Loading button for >20s."
+        },
+        {
+          "action": "Inspect browser console after the stuck sign-up state.",
+          "expected": "No blocking auth challenge errors.",
+          "observed": "Console logged \"Request for the Private Access Token challenge\" and a 401 from Cloudflare challenge platform."
+        },
+        {
+          "action": "Retry prerequisite via /sign-in using the same new email.",
+          "expected": "If signup succeeded, sign-in should proceed to authenticated routes.",
+          "observed": "Sign-in returned \"Couldn't find your account.\", confirming sign-up prerequisite did not complete."
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "foundation/foundation-nav-dashboard/auth-signup-stuck-loading.png",
+          "foundation/foundation-nav-dashboard/auth-signup-loading-after-retry.png",
+          "foundation/foundation-nav-dashboard/auth-signin-account-not-found.png"
+        ],
+        "consoleErrors": "Blocked by external auth challenge: Private Access Token challenge with 401 (see auth-console.log).",
+        "network": "Cloudflare challenge resource returned 401 during sign-up; auth flow did not progress to dashboard."
+      },
+      "issues": "Authentication prerequisite blocked by external challenge; unable to establish authenticated session required for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-027",
+      "title": "Dashboard \"Pantry\" Quick Action Navigates to /pantry",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Open /sign-up and submit a unique account (factory.foundation.nav.1776077172@example.com).",
+          "expected": "Account is created and user is redirected to /dashboard.",
+          "observed": "Submission never completed; /sign-up remained with disabled fields and Loading button for >20s."
+        },
+        {
+          "action": "Inspect browser console after the stuck sign-up state.",
+          "expected": "No blocking auth challenge errors.",
+          "observed": "Console logged \"Request for the Private Access Token challenge\" and a 401 from Cloudflare challenge platform."
+        },
+        {
+          "action": "Retry prerequisite via /sign-in using the same new email.",
+          "expected": "If signup succeeded, sign-in should proceed to authenticated routes.",
+          "observed": "Sign-in returned \"Couldn't find your account.\", confirming sign-up prerequisite did not complete."
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "foundation/foundation-nav-dashboard/auth-signup-stuck-loading.png",
+          "foundation/foundation-nav-dashboard/auth-signup-loading-after-retry.png",
+          "foundation/foundation-nav-dashboard/auth-signin-account-not-found.png"
+        ],
+        "consoleErrors": "Blocked by external auth challenge: Private Access Token challenge with 401 (see auth-console.log).",
+        "network": "Cloudflare challenge resource returned 401 during sign-up; auth flow did not progress to dashboard."
+      },
+      "issues": "Authentication prerequisite blocked by external challenge; unable to establish authenticated session required for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-028",
+      "title": "All Dashboard Quick Actions Are Visible and Distinct",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Open /sign-up and submit a unique account (factory.foundation.nav.1776077172@example.com).",
+          "expected": "Account is created and user is redirected to /dashboard.",
+          "observed": "Submission never completed; /sign-up remained with disabled fields and Loading button for >20s."
+        },
+        {
+          "action": "Inspect browser console after the stuck sign-up state.",
+          "expected": "No blocking auth challenge errors.",
+          "observed": "Console logged \"Request for the Private Access Token challenge\" and a 401 from Cloudflare challenge platform."
+        },
+        {
+          "action": "Retry prerequisite via /sign-in using the same new email.",
+          "expected": "If signup succeeded, sign-in should proceed to authenticated routes.",
+          "observed": "Sign-in returned \"Couldn't find your account.\", confirming sign-up prerequisite did not complete."
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "foundation/foundation-nav-dashboard/auth-signup-stuck-loading.png",
+          "foundation/foundation-nav-dashboard/auth-signup-loading-after-retry.png",
+          "foundation/foundation-nav-dashboard/auth-signin-account-not-found.png"
+        ],
+        "consoleErrors": "Blocked by external auth challenge: Private Access Token challenge with 401 (see auth-console.log).",
+        "network": "Cloudflare challenge resource returned 401 during sign-up; auth flow did not progress to dashboard."
+      },
+      "issues": "Authentication prerequisite blocked by external challenge; unable to establish authenticated session required for this assertion."
+    }
+  ],
+  "frictions": [
+    {
+      "description": "Clerk sign-up in headless agent-browser stalled indefinitely after submit, requiring repeated retries and log inspection not described in user-testing guidance.",
+      "resolved": false,
+      "resolution": "Retried sign-up and sign-in, waited additional time, and captured blocker evidence (screenshots + console log).",
+      "affectedAssertions": [
+        "VAL-AUTH-019",
+        "VAL-AUTH-020",
+        "VAL-CROSS-016",
+        "VAL-CROSS-017",
+        "VAL-CROSS-018",
+        "VAL-CROSS-019",
+        "VAL-CROSS-020",
+        "VAL-CROSS-021",
+        "VAL-CROSS-022",
+        "VAL-CROSS-024",
+        "VAL-CROSS-025",
+        "VAL-CROSS-026",
+        "VAL-CROSS-027",
+        "VAL-CROSS-028"
+      ]
+    }
+  ],
+  "blockers": [
+    {
+      "description": "External auth challenge blocked account creation: sign-up remained loading and console showed Private Access Token challenge with 401 from Cloudflare challenge platform.",
+      "affectedAssertions": [
+        "VAL-AUTH-019",
+        "VAL-AUTH-020",
+        "VAL-CROSS-016",
+        "VAL-CROSS-017",
+        "VAL-CROSS-018",
+        "VAL-CROSS-019",
+        "VAL-CROSS-020",
+        "VAL-CROSS-021",
+        "VAL-CROSS-022",
+        "VAL-CROSS-024",
+        "VAL-CROSS-025",
+        "VAL-CROSS-026",
+        "VAL-CROSS-027",
+        "VAL-CROSS-028"
+      ],
+      "quickFixAttempted": "Retried sign-up with a unique email, waited >20s, retried via /sign-in, captured console/errors; still blocked."
+    }
+  ],
+  "summary": "Tested 14 assigned assertions. All 14 are blocked because authenticated dashboard/header access could not be established due to external auth challenge failure during sign-up."
+}

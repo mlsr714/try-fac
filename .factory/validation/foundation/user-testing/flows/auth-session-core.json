@@ -1,0 +1,247 @@
+{
+  "groupId": "auth-session-core",
+  "testedAt": "2026-04-13T09:15:37Z",
+  "isolation": {
+    "appUrl": "http://localhost:3100",
+    "browserContext": "fresh dedicated agent-browser session for this group (session reset once during troubleshooting)",
+    "assignedBoundary": "local app only; no external namespaces",
+    "attemptedSignUpEmails": [
+      "foundation.core.20260413090242@example.com",
+      "foundation.core.20260413090242@test.com",
+      "foundation.core.20260413091127+clerk_test@example.com"
+    ]
+  },
+  "toolsUsed": [
+    "agent-browser"
+  ],
+  "assertions": [
+    {
+      "id": "VAL-AUTH-011",
+      "title": "Successful sign-up redirects to dashboard",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Navigate to /sign-up and submit unique email/password",
+          "expected": "Redirect to /dashboard with authenticated content",
+          "observed": "Form entered persistent 'Loading' state on /sign-up and never redirected"
+        },
+        {
+          "action": "Retry sign-up with alternate unique emails and fresh session",
+          "expected": "At least one successful sign-up completion",
+          "observed": "All retries stalled; console logged Private Access Token challenge with 401"
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "foundation/auth-session-core/VAL-AUTH-011-signup-form.png",
+          "foundation/auth-session-core/VAL-AUTH-011-signup-clerk-test-email-attempt.png"
+        ],
+        "consoleErrors": "PAT challenge observed with 'Failed to load resource: ... 401' (see VAL-AUTH-011-console.txt)",
+        "network": "Sign-up did not complete; console indicates challenge request 401"
+      },
+      "issues": "Blocked by Clerk/Cloudflare private access token challenge behavior in this automation environment; sign-up never completed."
+    },
+    {
+      "id": "VAL-AUTH-012",
+      "title": "Successful sign-in redirects to dashboard",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Attempt sign-in with credentials from attempted VAL-AUTH-011 account",
+          "expected": "Redirect to /dashboard",
+          "observed": "Stayed on /sign-in with 'Couldn't find your account'"
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "foundation/auth-session-core/VAL-AUTH-012-signin-attempt-account-not-found.png"
+        ],
+        "consoleErrors": "Failed to load resource: status 422 (see VAL-AUTH-012-console.txt)",
+        "network": "Sign-in attempt returned 422; no authenticated session established"
+      },
+      "issues": "Blocked because prerequisite account creation in VAL-AUTH-011 never succeeded."
+    },
+    {
+      "id": "VAL-AUTH-013",
+      "title": "Header displays user avatar when signed in",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Establish authenticated session and open /dashboard",
+          "expected": "Header shows user avatar/UserButton",
+          "observed": "Could not establish authenticated session due blocked sign-up/sign-in prerequisite"
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "foundation/auth-session-core/VAL-AUTH-012-signin-attempt-account-not-found.png"
+        ],
+        "consoleErrors": "n/a (blocked by missing authenticated session)",
+        "network": "n/a (blocked by prerequisite)"
+      },
+      "issues": "Blocked by inability to authenticate test user."
+    },
+    {
+      "id": "VAL-AUTH-014",
+      "title": "Header displays user name when signed in",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Establish authenticated session and inspect protected-page header",
+          "expected": "Header displays signed-in user's name/email",
+          "observed": "Could not establish authenticated session"
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "foundation/auth-session-core/VAL-AUTH-012-signin-attempt-account-not-found.png"
+        ],
+        "consoleErrors": "n/a (blocked by missing authenticated session)",
+        "network": "n/a (blocked by prerequisite)"
+      },
+      "issues": "Blocked by inability to authenticate test user."
+    },
+    {
+      "id": "VAL-AUTH-016",
+      "title": "Sign-out returns user to landing page",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Sign in then trigger sign-out flow",
+          "expected": "Redirect to / and protected routes require auth again",
+          "observed": "Could not sign in, so sign-out flow could not be executed"
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "foundation/auth-session-core/VAL-AUTH-012-signin-attempt-account-not-found.png"
+        ],
+        "consoleErrors": "n/a (blocked by missing authenticated session)",
+        "network": "n/a (blocked by prerequisite)"
+      },
+      "issues": "Blocked by inability to authenticate test user."
+    },
+    {
+      "id": "VAL-AUTH-021",
+      "title": "Sign-in page redirects already-authenticated user",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Navigate to /sign-in while authenticated",
+          "expected": "Redirect away from /sign-in to /dashboard",
+          "observed": "No authenticated session available to execute prerequisite state"
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "foundation/auth-session-core/VAL-AUTH-012-signin-attempt-account-not-found.png"
+        ],
+        "consoleErrors": "n/a (blocked by missing authenticated session)",
+        "network": "n/a (blocked by prerequisite)"
+      },
+      "issues": "Blocked by inability to authenticate test user."
+    },
+    {
+      "id": "VAL-AUTH-022",
+      "title": "Sign-up page redirects already-authenticated user",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Navigate to /sign-up while authenticated",
+          "expected": "Redirect away from /sign-up to /dashboard",
+          "observed": "No authenticated session available to execute prerequisite state"
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "foundation/auth-session-core/VAL-AUTH-011-signup-clerk-test-email-attempt.png"
+        ],
+        "consoleErrors": "n/a (blocked by missing authenticated session)",
+        "network": "n/a (blocked by prerequisite)"
+      },
+      "issues": "Blocked by inability to authenticate test user."
+    },
+    {
+      "id": "VAL-AUTH-024",
+      "title": "Invalid sign-in credentials show error",
+      "status": "pass",
+      "steps": [
+        {
+          "action": "Navigate to /sign-in and enter invalid email/password",
+          "expected": "Error message shown and no dashboard redirect",
+          "observed": "Inline error 'Couldn't find your account' shown; URL remained /sign-in"
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "foundation/auth-session-core/VAL-AUTH-024-invalid-credentials-error.png"
+        ],
+        "consoleErrors": "One expected auth request error: status 422 after invalid credentials (see VAL-AUTH-024-console.txt)",
+        "network": "Invalid sign-in request returned 422; page remained on /sign-in"
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-AUTH-026",
+      "title": "Session persists across page reloads",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Sign in, open protected page, then reload",
+          "expected": "Remain authenticated on /dashboard after reload",
+          "observed": "Could not reach authenticated state due blocked sign-up/sign-in prerequisite"
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "foundation/auth-session-core/VAL-AUTH-012-signin-attempt-account-not-found.png"
+        ],
+        "consoleErrors": "n/a (blocked by missing authenticated session)",
+        "network": "n/a (blocked by prerequisite)"
+      },
+      "issues": "Blocked by inability to authenticate test user."
+    }
+  ],
+  "frictions": [
+    {
+      "description": "Submitting Clerk sign-up repeatedly entered an indefinite Loading state in agent-browser headless runs, and console showed Private Access Token challenge activity.",
+      "resolved": false,
+      "resolution": "Tried fresh session reset and alternate unique emails including +clerk_test format; behavior persisted.",
+      "affectedAssertions": [
+        "VAL-AUTH-011",
+        "VAL-AUTH-012",
+        "VAL-AUTH-013",
+        "VAL-AUTH-014",
+        "VAL-AUTH-016",
+        "VAL-AUTH-021",
+        "VAL-AUTH-022",
+        "VAL-AUTH-026"
+      ]
+    },
+    {
+      "description": "Headed browser retry for sign-up was unavailable because this environment has no X server/$DISPLAY.",
+      "resolved": true,
+      "resolution": "Returned to headless session and continued evidence capture.",
+      "affectedAssertions": [
+        "VAL-AUTH-011"
+      ]
+    }
+  ],
+  "blockers": [
+    {
+      "description": "Unable to complete sign-up in assigned automation environment; sign-up requests remained in loading state with PAT challenge-related 401 in console, preventing creation of the required unique account.",
+      "affectedAssertions": [
+        "VAL-AUTH-011",
+        "VAL-AUTH-012",
+        "VAL-AUTH-013",
+        "VAL-AUTH-014",
+        "VAL-AUTH-016",
+        "VAL-AUTH-021",
+        "VAL-AUTH-022",
+        "VAL-AUTH-026"
+      ],
+      "quickFixAttempted": "Retried sign-up multiple times with different unique emails/domains, reset browser session, attempted headed mode (not available), and retried in fresh headless context."
+    }
+  ],
+  "summary": "Tested 9 assigned assertions: 1 passed (VAL-AUTH-024), 8 blocked due sign-up/authentication prerequisite failure in this environment, 0 failed."
+}

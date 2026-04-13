@@ -1,0 +1,147 @@
+{
+  "milestone": "foundation",
+  "round": 1,
+  "status": "fail",
+  "assertionsSummary": {
+    "total": 37,
+    "passed": 13,
+    "failed": 0,
+    "blocked": 24
+  },
+  "passedAssertions": [
+    "VAL-AUTH-001",
+    "VAL-AUTH-002",
+    "VAL-AUTH-003",
+    "VAL-AUTH-004",
+    "VAL-AUTH-005",
+    "VAL-AUTH-006",
+    "VAL-AUTH-007",
+    "VAL-AUTH-008",
+    "VAL-AUTH-009",
+    "VAL-AUTH-010",
+    "VAL-AUTH-015",
+    "VAL-AUTH-024",
+    "VAL-AUTH-027"
+  ],
+  "failedAssertions": [],
+  "blockedAssertions": [
+    {
+      "id": "VAL-AUTH-011",
+      "blockedBy": "Blocked by Clerk/Cloudflare private access token challenge behavior in this automation environment; sign-up never completed."
+    },
+    {
+      "id": "VAL-AUTH-012",
+      "blockedBy": "Blocked because prerequisite account creation in VAL-AUTH-011 never succeeded."
+    },
+    {
+      "id": "VAL-AUTH-013",
+      "blockedBy": "Blocked by inability to authenticate test user."
+    },
+    {
+      "id": "VAL-AUTH-014",
+      "blockedBy": "Blocked by inability to authenticate test user."
+    },
+    {
+      "id": "VAL-AUTH-016",
+      "blockedBy": "Blocked by inability to authenticate test user."
+    },
+    {
+      "id": "VAL-AUTH-017",
+      "blockedBy": "Blocked by external Clerk/Cloudflare challenge behavior in this automation environment; prerequisite successful first login could not be completed to validate DB sync contract."
+    },
+    {
+      "id": "VAL-AUTH-019",
+      "blockedBy": "Authentication prerequisite blocked by external challenge; unable to establish authenticated session required for this assertion."
+    },
+    {
+      "id": "VAL-AUTH-020",
+      "blockedBy": "Authentication prerequisite blocked by external challenge; unable to establish authenticated session required for this assertion."
+    },
+    {
+      "id": "VAL-AUTH-021",
+      "blockedBy": "Blocked by inability to authenticate test user."
+    },
+    {
+      "id": "VAL-AUTH-022",
+      "blockedBy": "Blocked by inability to authenticate test user."
+    },
+    {
+      "id": "VAL-AUTH-026",
+      "blockedBy": "Blocked by inability to authenticate test user."
+    },
+    {
+      "id": "VAL-AUTH-028",
+      "blockedBy": "Blocked by inability to establish two authenticated accounts in the assigned environment, so user-to-user recipes/pantry isolation could not be executed through the real UI flow."
+    },
+    {
+      "id": "VAL-CROSS-016",
+      "blockedBy": "Authentication prerequisite blocked by external challenge; unable to establish authenticated session required for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-017",
+      "blockedBy": "Authentication prerequisite blocked by external challenge; unable to establish authenticated session required for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-018",
+      "blockedBy": "Authentication prerequisite blocked by external challenge; unable to establish authenticated session required for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-019",
+      "blockedBy": "Authentication prerequisite blocked by external challenge; unable to establish authenticated session required for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-020",
+      "blockedBy": "Authentication prerequisite blocked by external challenge; unable to establish authenticated session required for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-021",
+      "blockedBy": "Authentication prerequisite blocked by external challenge; unable to establish authenticated session required for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-022",
+      "blockedBy": "Authentication prerequisite blocked by external challenge; unable to establish authenticated session required for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-024",
+      "blockedBy": "Authentication prerequisite blocked by external challenge; unable to establish authenticated session required for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-025",
+      "blockedBy": "Authentication prerequisite blocked by external challenge; unable to establish authenticated session required for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-026",
+      "blockedBy": "Authentication prerequisite blocked by external challenge; unable to establish authenticated session required for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-027",
+      "blockedBy": "Authentication prerequisite blocked by external challenge; unable to establish authenticated session required for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-028",
+      "blockedBy": "Authentication prerequisite blocked by external challenge; unable to establish authenticated session required for this assertion."
+    }
+  ],
+  "appliedUpdates": [
+    {
+      "target": "user-testing.md",
+      "description": "Added Flow Validator Guidance for agent-browser including isolation boundaries and session/data constraints.",
+      "source": "setup"
+    },
+    {
+      "target": "user-testing.md",
+      "description": "Documented runtime concurrency downgrade to serial validator execution due low free RAM/no swap under active load.",
+      "source": "setup"
+    },
+    {
+      "target": "user-testing.md",
+      "description": "Documented recurring Clerk sign-up blockage in headless automation due PAT/Cloudflare challenge 401 causing authenticated-flow assertions to be blocked.",
+      "source": "flow-report"
+    }
+  ],
+  "previousRound": null,
+  "orchestratorOverride": {
+    "timestamp": "2026-04-13T11:00:00.000Z",
+    "justification": "13/37 assertions passed (all public/unauth). 24 blocked by Clerk Cloudflare bot protection preventing headless sign-up. This is an environment limitation, not a code bug. Blocked assertions moved to later milestones (generation-cross-flows, conversion-cross-flows) where they will be re-attempted. Auth code verified by unit tests, typecheck, and manual code review."
+  }
+}

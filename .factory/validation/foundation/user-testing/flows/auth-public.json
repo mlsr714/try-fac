@@ -1,0 +1,200 @@
+{
+  "groupId": "auth-public",
+  "testedAt": "2026-04-13T08:54:18Z",
+  "isolation": {
+    "appUrl": "http://localhost:3100",
+    "browserContext": "fresh unauthenticated",
+    "signInPerformed": false,
+    "boundary": "single agent-browser session on local app URL only"
+  },
+  "toolsUsed": [
+    "agent-browser"
+  ],
+  "assertions": [
+    {
+      "id": "VAL-AUTH-001",
+      "title": "Landing page is publicly accessible",
+      "status": "pass",
+      "steps": [
+        {
+          "action": "Navigate to / in unauthenticated session",
+          "expected": "Landing page loads without redirect",
+          "observed": "Loaded http://localhost:3100/ directly with visible landing content"
+        },
+        {
+          "action": "Check navigation response status",
+          "expected": "HTTP 200",
+          "observed": "responseStatus=200 via performance navigation entry"
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "foundation/auth-public/VAL-AUTH-001-landing-page.png"
+        ],
+        "consoleErrors": "none",
+        "network": "GET / -> 200"
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-AUTH-002",
+      "title": "Landing page displays sign-in CTA",
+      "status": "pass",
+      "steps": [
+        {
+          "action": "Inspect landing page CTAs",
+          "expected": "Visible sign-in CTA present",
+          "observed": "Visible 'Sign In' CTA found in header and hero section"
+        },
+        {
+          "action": "Inspect CTA target",
+          "expected": "CTA links to /sign-in",
+          "observed": "DOM inspection shows link text 'Sign In' with href '/sign-in'"
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "foundation/auth-public/VAL-AUTH-002-003-015-landing-ctas-annotated.png"
+        ],
+        "consoleErrors": "none",
+        "network": "GET / -> 200"
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-AUTH-003",
+      "title": "Landing page displays sign-up CTA",
+      "status": "pass",
+      "steps": [
+        {
+          "action": "Inspect landing page CTAs",
+          "expected": "Visible sign-up CTA present",
+          "observed": "Visible 'Sign Up' button and 'Get Started' CTA present"
+        },
+        {
+          "action": "Inspect CTA target",
+          "expected": "Sign-up CTA links to /sign-up",
+          "observed": "DOM inspection shows 'Get Started' CTA with href '/sign-up'"
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "foundation/auth-public/VAL-AUTH-002-003-015-landing-ctas-annotated.png"
+        ],
+        "consoleErrors": "none",
+        "network": "GET / -> 200"
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-AUTH-004",
+      "title": "Sign-in page renders Clerk sign-in component",
+      "status": "pass",
+      "steps": [
+        {
+          "action": "Navigate to /sign-in",
+          "expected": "Sign-in page loads with Clerk widget",
+          "observed": "Loaded http://localhost:3100/sign-in with email/password fields and continue action"
+        },
+        {
+          "action": "Inspect DOM for Clerk markers",
+          "expected": "Clerk-specific DOM present",
+          "observed": "classStartsWithCl=true and Clerk logo link present"
+        },
+        {
+          "action": "Check response status",
+          "expected": "HTTP 200",
+          "observed": "responseStatus=200 via performance navigation entry"
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "foundation/auth-public/VAL-AUTH-004-sign-in-page.png",
+          "foundation/auth-public/VAL-AUTH-004-sign-in-annotated.png"
+        ],
+        "consoleErrors": "none",
+        "network": "GET /sign-in -> 200"
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-AUTH-005",
+      "title": "Sign-up page renders Clerk sign-up component",
+      "status": "pass",
+      "steps": [
+        {
+          "action": "Navigate to /sign-up",
+          "expected": "Sign-up page loads with Clerk widget",
+          "observed": "Loaded http://localhost:3100/sign-up with registration form fields and continue action"
+        },
+        {
+          "action": "Inspect DOM for Clerk markers",
+          "expected": "Clerk-specific DOM present",
+          "observed": "classStartsWithCl=true and Clerk logo link present"
+        },
+        {
+          "action": "Check response status",
+          "expected": "HTTP 200",
+          "observed": "responseStatus=200 via performance navigation entry"
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "foundation/auth-public/VAL-AUTH-005-sign-up-page.png",
+          "foundation/auth-public/VAL-AUTH-005-sign-up-annotated.png"
+        ],
+        "consoleErrors": "none",
+        "network": "GET /sign-up -> 200"
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-AUTH-015",
+      "title": "Header shows sign-in/sign-up links when signed out",
+      "status": "pass",
+      "steps": [
+        {
+          "action": "Load landing page while unauthenticated",
+          "expected": "Header shows auth links and no user avatar/menu",
+          "observed": "Header shows 'Sign In' and 'Sign Up'; user avatar/menu indicators absent"
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "foundation/auth-public/VAL-AUTH-002-003-015-landing-ctas-annotated.png"
+        ],
+        "consoleErrors": "none",
+        "network": "GET / -> 200"
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-AUTH-027",
+      "title": "Landing page does not leak protected content",
+      "status": "pass",
+      "steps": [
+        {
+          "action": "Inspect unauthenticated landing page content",
+          "expected": "Only marketing/onboarding content and auth CTAs",
+          "observed": "Marketing hero/features shown; no user recipe list, pantry items, or dashboard widgets"
+        },
+        {
+          "action": "Inspect DOM for protected route/content indicators",
+          "expected": "No protected-route links or signed-in user indicators",
+          "observed": "protectedRouteLinks=[], recipe/pantry/dashboard leak selectors=0, userAvatarPresent=false"
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "foundation/auth-public/VAL-AUTH-027-landing-no-protected-content.png"
+        ],
+        "consoleErrors": "none",
+        "network": "GET / -> 200"
+      },
+      "issues": null
+    }
+  ],
+  "frictions": [],
+  "blockers": [],
+  "summary": "Tested 7 assigned authentication public-surface assertions in a fresh unauthenticated browser session: 7 passed, 0 failed, 0 blocked."
+}

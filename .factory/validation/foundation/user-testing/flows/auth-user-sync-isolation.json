@@ -1,0 +1,106 @@
+{
+  "groupId": "auth-user-sync-isolation",
+  "testedAt": "2026-04-13T09:39:54Z",
+  "isolation": {
+    "appUrl": "http://localhost:3100",
+    "browserContext": "fresh dedicated agent-browser session auth-user-sync-isolation-1417 (reset during troubleshooting retries)",
+    "assignedBoundary": "local app surface only",
+    "attemptedAccounts": [
+      "foundation.isolation.a.202604130935@example.com",
+      "foundation.isolation.a2.202604130938@example.com",
+      "foundation.isolation.b.202604130936@example.com"
+    ]
+  },
+  "toolsUsed": [
+    "agent-browser",
+    "local read-only postgres query via node"
+  ],
+  "assertions": [
+    {
+      "id": "VAL-AUTH-017",
+      "title": "Clerk user is synced to Supabase users table on first login",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Open /sign-up and submit unique email/password for a new user",
+          "expected": "Sign-up completes and user is redirected to authenticated app",
+          "observed": "Clerk sign-up remained in disabled 'Loading' state on /sign-up and never completed"
+        },
+        {
+          "action": "Capture browser diagnostics and network activity",
+          "expected": "Successful sign-up request sequence",
+          "observed": "Console showed Private Access Token challenge activity with 401 and network showed repeated Cloudflare challenge/PAT requests"
+        },
+        {
+          "action": "Run read-only DB query: SELECT id,email,name,created_at FROM users WHERE email = <new_email>",
+          "expected": "New users row exists with matching Clerk ID/email/name",
+          "observed": "Query returned no rows for attempted sign-up email"
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "foundation/auth-user-sync-isolation/VAL-AUTH-017-signup-page-initial.png",
+          "foundation/auth-user-sync-isolation/VAL-AUTH-017-after-signup-submit-userA-retry2.png"
+        ],
+        "consoleErrors": "Private Access Token challenge warning and 401 observed (see foundation/auth-user-sync-isolation/VAL-AUTH-017-browser-console-after-signup-retry.txt)",
+        "network": "Cloudflare Turnstile/PAT challenge requests observed; no completed sign-up outcome (see foundation/auth-user-sync-isolation/VAL-AUTH-017-network-after-signup-retry2.txt and foundation/auth-user-sync-isolation/VAL-AUTH-017-db-query-userA-retry.json)"
+      },
+      "issues": "Blocked by external Clerk/Cloudflare challenge behavior in this automation environment; prerequisite successful first login could not be completed to validate DB sync contract."
+    },
+    {
+      "id": "VAL-AUTH-028",
+      "title": "User data isolation between accounts",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Attempt to create User A and sign in",
+          "expected": "Authenticated User A session available for recipes/pantry checks",
+          "observed": "User A sign-up stalled in loading; sign-in returned 'Couldn't find your account'"
+        },
+        {
+          "action": "Attempt to create User B and establish separate authenticated session",
+          "expected": "Authenticated User B session available for cross-account comparison",
+          "observed": "User B sign-up also stalled in loading with challenge behavior"
+        },
+        {
+          "action": "Navigate to /recipes and /pantry for comparison flow",
+          "expected": "User A data visible only to A; hidden from B",
+          "observed": "Could not authenticate either account; protected routes redirected to sign-in"
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "foundation/auth-user-sync-isolation/VAL-AUTH-028-userA-signin-attempt.png",
+          "foundation/auth-user-sync-isolation/VAL-AUTH-028-userB-signup-attempt.png",
+          "foundation/auth-user-sync-isolation/VAL-AUTH-028-recipes-redirect-unauthenticated.png",
+          "foundation/auth-user-sync-isolation/VAL-AUTH-028-pantry-redirect-unauthenticated.png"
+        ],
+        "consoleErrors": "PAT challenge warnings/401 and sign-in 422 observed (see foundation/auth-user-sync-isolation/VAL-AUTH-028-browser-console-signup-attempt.txt)",
+        "network": "Observed Clerk sign-in/sign-up related traffic plus Cloudflare challenge flows; authentication did not complete (see foundation/auth-user-sync-isolation/VAL-AUTH-028-network-signup-attempt.txt and foundation/auth-user-sync-isolation/VAL-AUTH-028-db-check-users.json)"
+      },
+      "issues": "Blocked by inability to establish two authenticated accounts in the assigned environment, so user-to-user recipes/pantry isolation could not be executed through the real UI flow."
+    }
+  ],
+  "frictions": [
+    {
+      "description": "Clerk sign-up repeatedly entered indefinite loading due Cloudflare Private Access Token/Turnstile challenge behavior in headless automation.",
+      "resolved": false,
+      "resolution": "Retried with fresh session resets and multiple unique emails; issue persisted.",
+      "affectedAssertions": [
+        "VAL-AUTH-017",
+        "VAL-AUTH-028"
+      ]
+    }
+  ],
+  "blockers": [
+    {
+      "description": "External auth challenge prevented successful account creation/sign-in in this isolated run, blocking both user-sync confirmation and multi-account isolation validation.",
+      "affectedAssertions": [
+        "VAL-AUTH-017",
+        "VAL-AUTH-028"
+      ],
+      "quickFixAttempted": "Used dedicated fresh browser session, retried sign-up with multiple unique emails, retried sign-in, captured diagnostics, and performed read-only DB verification queries."
+    }
+  ],
+  "summary": "Tested 2 assigned assertions: 0 passed, 0 failed, 2 blocked due external auth challenge preventing authenticated test setup."
+}
