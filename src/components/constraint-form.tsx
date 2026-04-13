@@ -25,6 +25,7 @@ import {
 
 interface ConstraintFormProps {
   onSuccess?: (data: GenerateIdeasResponse, constraints: ConstraintFormValues) => void;
+  initialValues?: Partial<ConstraintFormValues>;
 }
 
 interface FieldErrors {
@@ -35,15 +36,23 @@ interface FieldErrors {
   servings?: string;
 }
 
-export function ConstraintForm({ onSuccess }: ConstraintFormProps) {
-  const [diet, setDiet] = useState<string>(dietOptions[0]);
-  const [mealType, setMealType] = useState<string>(mealTypeOptions[0]);
-  const [difficulty, setDifficulty] = useState<string>(difficultyOptions[0]);
-  const [maxCookingTime, setMaxCookingTime] = useState("");
-  const [servings, setServings] = useState("");
-  const [ingredients, setIngredients] = useState("");
-  const [additionalInstructions, setAdditionalInstructions] = useState("");
-  const [includePantryItems, setIncludePantryItems] = useState(false);
+export function ConstraintForm({ onSuccess, initialValues }: ConstraintFormProps) {
+  const [diet, setDiet] = useState<string>(initialValues?.diet ?? dietOptions[0]);
+  const [mealType, setMealType] = useState<string>(initialValues?.mealType ?? mealTypeOptions[0]);
+  const [difficulty, setDifficulty] = useState<string>(initialValues?.difficulty ?? difficultyOptions[0]);
+  const [maxCookingTime, setMaxCookingTime] = useState(
+    initialValues?.maxCookingTime != null ? String(initialValues.maxCookingTime) : ""
+  );
+  const [servings, setServings] = useState(
+    initialValues?.servings != null ? String(initialValues.servings) : ""
+  );
+  const [ingredients, setIngredients] = useState(initialValues?.ingredients ?? "");
+  const [additionalInstructions, setAdditionalInstructions] = useState(
+    initialValues?.additionalInstructions ?? ""
+  );
+  const [includePantryItems, setIncludePantryItems] = useState(
+    initialValues?.includePantryItems ?? false
+  );
   const [errors, setErrors] = useState<FieldErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
