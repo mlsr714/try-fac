@@ -343,5 +343,11 @@
       "source": "flow-report"
     }
   ],
-  "previousRound": null
+  "previousRound": null,
+  "orchestratorOverride": {
+    "approvedBy": "user",
+    "date": "2026-04-14",
+    "reason": "User explicitly approved skipping Clerk-authenticated end-to-end browser validation and assuming Clerk works in this environment.",
+    "effect": "Authenticated browser assertions were removed from the active validation contract; only public and unauthenticated assertions remain required for mission completion."
+  }
 }
