@@ -1,0 +1,347 @@
+{
+  "milestone": "conversion",
+  "round": 1,
+  "status": "fail",
+  "assertionsSummary": {
+    "total": 81,
+    "passed": 0,
+    "failed": 0,
+    "blocked": 81
+  },
+  "passedAssertions": [],
+  "failedAssertions": [],
+  "blockedAssertions": [
+    {
+      "id": "VAL-CONV-001",
+      "blockedBy": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable."
+    },
+    {
+      "id": "VAL-CONV-002",
+      "blockedBy": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable."
+    },
+    {
+      "id": "VAL-CONV-003",
+      "blockedBy": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable."
+    },
+    {
+      "id": "VAL-CONV-004",
+      "blockedBy": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable."
+    },
+    {
+      "id": "VAL-CONV-005",
+      "blockedBy": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable."
+    },
+    {
+      "id": "VAL-CONV-006",
+      "blockedBy": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable."
+    },
+    {
+      "id": "VAL-CONV-007",
+      "blockedBy": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable."
+    },
+    {
+      "id": "VAL-CONV-008",
+      "blockedBy": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable."
+    },
+    {
+      "id": "VAL-CONV-009",
+      "blockedBy": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable."
+    },
+    {
+      "id": "VAL-CONV-010",
+      "blockedBy": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable."
+    },
+    {
+      "id": "VAL-CONV-011",
+      "blockedBy": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable."
+    },
+    {
+      "id": "VAL-CONV-012",
+      "blockedBy": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable."
+    },
+    {
+      "id": "VAL-CONV-013",
+      "blockedBy": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable."
+    },
+    {
+      "id": "VAL-CONV-014",
+      "blockedBy": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable."
+    },
+    {
+      "id": "VAL-CONV-015",
+      "blockedBy": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable."
+    },
+    {
+      "id": "VAL-CONV-016",
+      "blockedBy": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable."
+    },
+    {
+      "id": "VAL-CONV-017",
+      "blockedBy": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable."
+    },
+    {
+      "id": "VAL-CONV-018",
+      "blockedBy": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable."
+    },
+    {
+      "id": "VAL-CONV-019",
+      "blockedBy": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable."
+    },
+    {
+      "id": "VAL-CONV-020",
+      "blockedBy": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable."
+    },
+    {
+      "id": "VAL-CONV-021",
+      "blockedBy": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable."
+    },
+    {
+      "id": "VAL-CONV-022",
+      "blockedBy": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable."
+    },
+    {
+      "id": "VAL-CONV-023",
+      "blockedBy": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable."
+    },
+    {
+      "id": "VAL-CONV-024",
+      "blockedBy": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable."
+    },
+    {
+      "id": "VAL-CONV-025",
+      "blockedBy": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable."
+    },
+    {
+      "id": "VAL-CONV-026",
+      "blockedBy": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable."
+    },
+    {
+      "id": "VAL-CONV-027",
+      "blockedBy": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable."
+    },
+    {
+      "id": "VAL-CONV-028",
+      "blockedBy": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable."
+    },
+    {
+      "id": "VAL-CROSS-013",
+      "blockedBy": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-014",
+      "blockedBy": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-015",
+      "blockedBy": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-016",
+      "blockedBy": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-017",
+      "blockedBy": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-018",
+      "blockedBy": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-019",
+      "blockedBy": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-020",
+      "blockedBy": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-021",
+      "blockedBy": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-022",
+      "blockedBy": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-023",
+      "blockedBy": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-024",
+      "blockedBy": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-025",
+      "blockedBy": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-026",
+      "blockedBy": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-027",
+      "blockedBy": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-028",
+      "blockedBy": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-029",
+      "blockedBy": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-030",
+      "blockedBy": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-031",
+      "blockedBy": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-032",
+      "blockedBy": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-033",
+      "blockedBy": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-034",
+      "blockedBy": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-035",
+      "blockedBy": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-036",
+      "blockedBy": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-037",
+      "blockedBy": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-038",
+      "blockedBy": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-039",
+      "blockedBy": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-PAN-001",
+      "blockedBy": "Blocked by authentication prerequisite: /pantry is protected and redirects to /sign-in in a fresh dedicated session; Clerk sign-up submission remained stuck in Loading due to external Private Access Token/Cloudflare challenge behavior (console 401), so authenticated pantry empty-state behavior could not be reached."
+    },
+    {
+      "id": "VAL-PAN-002",
+      "blockedBy": "Blocked by authentication prerequisite: /pantry is protected and redirects to /sign-in in a fresh dedicated session; Clerk sign-up submission remained stuck in Loading due to external Private Access Token/Cloudflare challenge behavior (console 401), so authenticated pantry CRUD behavior could not be validated."
+    },
+    {
+      "id": "VAL-PAN-003",
+      "blockedBy": "Blocked by authentication prerequisite: /pantry is protected and redirects to /sign-in in a fresh dedicated session; Clerk sign-up submission remained stuck in Loading due to external Private Access Token/Cloudflare challenge behavior (console 401), so authenticated pantry CRUD behavior could not be validated."
+    },
+    {
+      "id": "VAL-PAN-004",
+      "blockedBy": "Blocked by authentication prerequisite: /pantry is protected and redirects to /sign-in in a fresh dedicated session; Clerk sign-up submission remained stuck in Loading due to external Private Access Token/Cloudflare challenge behavior (console 401), so authenticated pantry CRUD behavior could not be validated."
+    },
+    {
+      "id": "VAL-PAN-005",
+      "blockedBy": "Blocked by authentication prerequisite: /pantry is protected and redirects to /sign-in in a fresh dedicated session; Clerk sign-up submission remained stuck in Loading due to external Private Access Token/Cloudflare challenge behavior (console 401), so authenticated pantry CRUD behavior could not be validated."
+    },
+    {
+      "id": "VAL-PAN-006",
+      "blockedBy": "Blocked by authentication prerequisite: /pantry is protected and redirects to /sign-in in a fresh dedicated session; Clerk sign-up submission remained stuck in Loading due to external Private Access Token/Cloudflare challenge behavior (console 401), so authenticated pantry edit behavior could not be validated."
+    },
+    {
+      "id": "VAL-PAN-007",
+      "blockedBy": "Blocked by authentication prerequisite: /pantry is protected and redirects to /sign-in in a fresh dedicated session; Clerk sign-up submission remained stuck in Loading due to external Private Access Token/Cloudflare challenge behavior (console 401), so authenticated pantry persistence behavior could not be validated."
+    },
+    {
+      "id": "VAL-PAN-008",
+      "blockedBy": "Blocked by authentication prerequisite: /pantry is protected and redirects to /sign-in in a fresh dedicated session; Clerk sign-up submission remained stuck in Loading due to external Private Access Token/Cloudflare challenge behavior (console 401), so authenticated large-list rendering behavior could not be validated."
+    },
+    {
+      "id": "VAL-PAN-009",
+      "blockedBy": "Blocked by authentication prerequisite: /pantry is protected and redirects to /sign-in in a fresh dedicated session; Clerk sign-up submission remained stuck in Loading due to external Private Access Token/Cloudflare challenge behavior (console 401), so authenticated pantry add behavior could not be validated."
+    },
+    {
+      "id": "VAL-PAN-010",
+      "blockedBy": "Blocked by authentication prerequisite: /pantry is protected and redirects to /sign-in in a fresh dedicated session; Clerk sign-up submission remained stuck in Loading due to external Private Access Token/Cloudflare challenge behavior (console 401), so authenticated pantry validation behavior could not be validated."
+    },
+    {
+      "id": "VAL-PAN-011",
+      "blockedBy": "Blocked by authentication prerequisite: /pantry is protected and redirects to /sign-in in a fresh dedicated session; Clerk sign-up submission remained stuck in Loading due to external Private Access Token/Cloudflare challenge behavior (console 401), so authenticated pantry edit validation behavior could not be validated."
+    },
+    {
+      "id": "VAL-PAN-012",
+      "blockedBy": "Blocked by authentication prerequisite: /pantry is protected and redirects to /sign-in in a fresh dedicated session; Clerk sign-up submission remained stuck in Loading due to external Private Access Token/Cloudflare challenge behavior (console 401), so duplicate-name handling in authenticated pantry UI could not be validated."
+    },
+    {
+      "id": "VAL-REC-001",
+      "blockedBy": "Blocked by authentication prerequisite: /recipes is protected and redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remained stuck in Loading in headless automation while console logged Private Access Token/Cloudflare challenge behavior with 401, so an authenticated recipes session could not be established for recipe-list/detail management validation."
+    },
+    {
+      "id": "VAL-REC-002",
+      "blockedBy": "Blocked by authentication prerequisite: /recipes is protected and redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remained stuck in Loading in headless automation while console logged Private Access Token/Cloudflare challenge behavior with 401, so an authenticated recipes session could not be established for recipe-list/detail management validation."
+    },
+    {
+      "id": "VAL-REC-003",
+      "blockedBy": "Blocked by authentication prerequisite: /recipes is protected and redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remained stuck in Loading in headless automation while console logged Private Access Token/Cloudflare challenge behavior with 401, so an authenticated recipes session could not be established for recipe-list/detail management validation."
+    },
+    {
+      "id": "VAL-REC-004",
+      "blockedBy": "Blocked by authentication prerequisite: /recipes is protected and redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remained stuck in Loading in headless automation while console logged Private Access Token/Cloudflare challenge behavior with 401, so an authenticated recipes session could not be established for recipe-list/detail management validation."
+    },
+    {
+      "id": "VAL-REC-005",
+      "blockedBy": "Blocked by authentication prerequisite: /recipes is protected and redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remained stuck in Loading in headless automation while console logged Private Access Token/Cloudflare challenge behavior with 401, so an authenticated recipes session could not be established for recipe-list/detail management validation."
+    },
+    {
+      "id": "VAL-REC-006",
+      "blockedBy": "Blocked by authentication prerequisite: /recipes is protected and redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remained stuck in Loading in headless automation while console logged Private Access Token/Cloudflare challenge behavior with 401, so an authenticated recipes session could not be established for recipe-list/detail management validation."
+    },
+    {
+      "id": "VAL-REC-007",
+      "blockedBy": "Blocked by authentication prerequisite: /recipes is protected and redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remained stuck in Loading in headless automation while console logged Private Access Token/Cloudflare challenge behavior with 401, so an authenticated recipes session could not be established for recipe-list/detail management validation."
+    },
+    {
+      "id": "VAL-REC-008",
+      "blockedBy": "Blocked by authentication prerequisite: /recipes is protected and redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remained stuck in Loading in headless automation while console logged Private Access Token/Cloudflare challenge behavior with 401, so an authenticated recipes session could not be established for recipe-list/detail management validation."
+    },
+    {
+      "id": "VAL-REC-009",
+      "blockedBy": "Blocked by authentication prerequisite: /recipes is protected and redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remained stuck in Loading in headless automation while console logged Private Access Token/Cloudflare challenge behavior with 401, so an authenticated recipes session could not be established for recipe-list/detail management validation."
+    },
+    {
+      "id": "VAL-REC-010",
+      "blockedBy": "Blocked by authentication prerequisite: /recipes is protected and redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remained stuck in Loading in headless automation while console logged Private Access Token/Cloudflare challenge behavior with 401, so an authenticated recipes session could not be established for recipe-list/detail management validation."
+    },
+    {
+      "id": "VAL-REC-011",
+      "blockedBy": "Blocked by authentication prerequisite: /recipes is protected and redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remained stuck in Loading in headless automation while console logged Private Access Token/Cloudflare challenge behavior with 401, so an authenticated recipes session could not be established for recipe-list/detail management validation."
+    },
+    {
+      "id": "VAL-REC-012",
+      "blockedBy": "Blocked by authentication prerequisite: /recipes is protected and redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remained stuck in Loading in headless automation while console logged Private Access Token/Cloudflare challenge behavior with 401, so an authenticated recipes session could not be established for recipe-list/detail management validation."
+    },
+    {
+      "id": "VAL-REC-013",
+      "blockedBy": "Blocked by authentication prerequisite: /recipes is protected and redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remained stuck in Loading in headless automation while console logged Private Access Token/Cloudflare challenge behavior with 401, so an authenticated recipes session could not be established for recipe-list/detail management validation."
+    },
+    {
+      "id": "VAL-REC-014",
+      "blockedBy": "Blocked by authentication prerequisite: /recipes is protected and redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remained stuck in Loading in headless automation while console logged Private Access Token/Cloudflare challenge behavior with 401, so an authenticated recipes session could not be established for recipe-list/detail management validation."
+    }
+  ],
+  "appliedUpdates": [
+    {
+      "target": "user-testing.md",
+      "description": "Documented that Clerk/PAT challenge behavior persisted during conversion milestone user-testing and blocked all authenticated assertion groups (conversion, recipes, pantry, cross-flows).",
+      "source": "flow-report"
+    }
+  ],
+  "previousRound": null
+}

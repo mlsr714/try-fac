@@ -1,0 +1,948 @@
+{
+  "groupId": "cross-flows",
+  "testedAt": "2026-04-14T13:14:53Z",
+  "isolation": {
+    "appUrl": "http://localhost:3100",
+    "missionDir": "/root/.factory/missions/1417e725-972e-4dd0-a683-c2965f2f6b3f",
+    "browserSession": "agent-browser --session cross-flows-1417",
+    "attemptedSignUpEmail": "cross.flows.1776172351@example.com",
+    "credentialsScope": "unique disposable account in this validator session only"
+  },
+  "toolsUsed": [
+    "agent-browser",
+    "curl"
+  ],
+  "assertionResults": [
+    {
+      "id": "VAL-CROSS-013",
+      "title": "Convert Recipe and Verify in List",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Attempt to establish authenticated session in dedicated browser context via /sign-up with a unique test email.",
+          "expected": "Sign-up completes and redirects to /dashboard with authenticated header/navigation.",
+          "observed": "Sign-up remained on /sign-up with disabled fields and a disabled Loading button after waiting 20s."
+        },
+        {
+          "action": "Collect browser diagnostics after the stuck sign-up state.",
+          "expected": "No external auth challenge failures; session can proceed to protected flows.",
+          "observed": "Console recorded Private Access Token challenge warning and a 401 resource failure."
+        },
+        {
+          "action": "Retry sign-in using the same attempted account credentials.",
+          "expected": "If sign-up succeeded, sign-in should establish session and allow cross-flow assertions.",
+          "observed": "Sign-in stayed on /sign-in with 'Couldn't find your account' and console logged a 422 request failure."
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "conversion/cross-flows/auth-signup-form.png",
+          "conversion/cross-flows/auth-signup-after-submit-wait.png",
+          "conversion/cross-flows/auth-signin-account-not-found.png"
+        ],
+        "consoleErrors": "Private Access Token challenge warning + 401 during sign-up, then 422 on sign-in retry (see conversion/cross-flows/browser-console-after-signin.txt).",
+        "network": "Clerk sign-in request observed in network log; protected routes remained signed-out (see conversion/cross-flows/network-requests-after-signin.txt and conversion/cross-flows/protected-route-headers.txt)."
+      },
+      "issues": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-014",
+      "title": "Converted Recipe Detail Shows Thermomix Instructions",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Attempt to establish authenticated session in dedicated browser context via /sign-up with a unique test email.",
+          "expected": "Sign-up completes and redirects to /dashboard with authenticated header/navigation.",
+          "observed": "Sign-up remained on /sign-up with disabled fields and a disabled Loading button after waiting 20s."
+        },
+        {
+          "action": "Collect browser diagnostics after the stuck sign-up state.",
+          "expected": "No external auth challenge failures; session can proceed to protected flows.",
+          "observed": "Console recorded Private Access Token challenge warning and a 401 resource failure."
+        },
+        {
+          "action": "Retry sign-in using the same attempted account credentials.",
+          "expected": "If sign-up succeeded, sign-in should establish session and allow cross-flow assertions.",
+          "observed": "Sign-in stayed on /sign-in with 'Couldn't find your account' and console logged a 422 request failure."
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "conversion/cross-flows/auth-signup-form.png",
+          "conversion/cross-flows/auth-signup-after-submit-wait.png",
+          "conversion/cross-flows/auth-signin-account-not-found.png"
+        ],
+        "consoleErrors": "Private Access Token challenge warning + 401 during sign-up, then 422 on sign-in retry (see conversion/cross-flows/browser-console-after-signin.txt).",
+        "network": "Clerk sign-in request observed in network log; protected routes remained signed-out (see conversion/cross-flows/network-requests-after-signin.txt and conversion/cross-flows/protected-route-headers.txt)."
+      },
+      "issues": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-015",
+      "title": "Both Generated and Converted Recipes Coexist in List",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Attempt to establish authenticated session in dedicated browser context via /sign-up with a unique test email.",
+          "expected": "Sign-up completes and redirects to /dashboard with authenticated header/navigation.",
+          "observed": "Sign-up remained on /sign-up with disabled fields and a disabled Loading button after waiting 20s."
+        },
+        {
+          "action": "Collect browser diagnostics after the stuck sign-up state.",
+          "expected": "No external auth challenge failures; session can proceed to protected flows.",
+          "observed": "Console recorded Private Access Token challenge warning and a 401 resource failure."
+        },
+        {
+          "action": "Retry sign-in using the same attempted account credentials.",
+          "expected": "If sign-up succeeded, sign-in should establish session and allow cross-flow assertions.",
+          "observed": "Sign-in stayed on /sign-in with 'Couldn't find your account' and console logged a 422 request failure."
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "conversion/cross-flows/auth-signup-form.png",
+          "conversion/cross-flows/auth-signup-after-submit-wait.png",
+          "conversion/cross-flows/auth-signin-account-not-found.png"
+        ],
+        "consoleErrors": "Private Access Token challenge warning + 401 during sign-up, then 422 on sign-in retry (see conversion/cross-flows/browser-console-after-signin.txt).",
+        "network": "Clerk sign-in request observed in network log; protected routes remained signed-out (see conversion/cross-flows/network-requests-after-signin.txt and conversion/cross-flows/protected-route-headers.txt)."
+      },
+      "issues": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-016",
+      "title": "Dashboard Link in Header Navigates to /dashboard",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Attempt to establish authenticated session in dedicated browser context via /sign-up with a unique test email.",
+          "expected": "Sign-up completes and redirects to /dashboard with authenticated header/navigation.",
+          "observed": "Sign-up remained on /sign-up with disabled fields and a disabled Loading button after waiting 20s."
+        },
+        {
+          "action": "Collect browser diagnostics after the stuck sign-up state.",
+          "expected": "No external auth challenge failures; session can proceed to protected flows.",
+          "observed": "Console recorded Private Access Token challenge warning and a 401 resource failure."
+        },
+        {
+          "action": "Retry sign-in using the same attempted account credentials.",
+          "expected": "If sign-up succeeded, sign-in should establish session and allow cross-flow assertions.",
+          "observed": "Sign-in stayed on /sign-in with 'Couldn't find your account' and console logged a 422 request failure."
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "conversion/cross-flows/auth-signup-form.png",
+          "conversion/cross-flows/auth-signup-after-submit-wait.png",
+          "conversion/cross-flows/auth-signin-account-not-found.png"
+        ],
+        "consoleErrors": "Private Access Token challenge warning + 401 during sign-up, then 422 on sign-in retry (see conversion/cross-flows/browser-console-after-signin.txt).",
+        "network": "Clerk sign-in request observed in network log; protected routes remained signed-out (see conversion/cross-flows/network-requests-after-signin.txt and conversion/cross-flows/protected-route-headers.txt)."
+      },
+      "issues": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-017",
+      "title": "Generate Link in Header Navigates to /generate",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Attempt to establish authenticated session in dedicated browser context via /sign-up with a unique test email.",
+          "expected": "Sign-up completes and redirects to /dashboard with authenticated header/navigation.",
+          "observed": "Sign-up remained on /sign-up with disabled fields and a disabled Loading button after waiting 20s."
+        },
+        {
+          "action": "Collect browser diagnostics after the stuck sign-up state.",
+          "expected": "No external auth challenge failures; session can proceed to protected flows.",
+          "observed": "Console recorded Private Access Token challenge warning and a 401 resource failure."
+        },
+        {
+          "action": "Retry sign-in using the same attempted account credentials.",
+          "expected": "If sign-up succeeded, sign-in should establish session and allow cross-flow assertions.",
+          "observed": "Sign-in stayed on /sign-in with 'Couldn't find your account' and console logged a 422 request failure."
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "conversion/cross-flows/auth-signup-form.png",
+          "conversion/cross-flows/auth-signup-after-submit-wait.png",
+          "conversion/cross-flows/auth-signin-account-not-found.png"
+        ],
+        "consoleErrors": "Private Access Token challenge warning + 401 during sign-up, then 422 on sign-in retry (see conversion/cross-flows/browser-console-after-signin.txt).",
+        "network": "Clerk sign-in request observed in network log; protected routes remained signed-out (see conversion/cross-flows/network-requests-after-signin.txt and conversion/cross-flows/protected-route-headers.txt)."
+      },
+      "issues": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-018",
+      "title": "Convert Link in Header Navigates to /convert",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Attempt to establish authenticated session in dedicated browser context via /sign-up with a unique test email.",
+          "expected": "Sign-up completes and redirects to /dashboard with authenticated header/navigation.",
+          "observed": "Sign-up remained on /sign-up with disabled fields and a disabled Loading button after waiting 20s."
+        },
+        {
+          "action": "Collect browser diagnostics after the stuck sign-up state.",
+          "expected": "No external auth challenge failures; session can proceed to protected flows.",
+          "observed": "Console recorded Private Access Token challenge warning and a 401 resource failure."
+        },
+        {
+          "action": "Retry sign-in using the same attempted account credentials.",
+          "expected": "If sign-up succeeded, sign-in should establish session and allow cross-flow assertions.",
+          "observed": "Sign-in stayed on /sign-in with 'Couldn't find your account' and console logged a 422 request failure."
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "conversion/cross-flows/auth-signup-form.png",
+          "conversion/cross-flows/auth-signup-after-submit-wait.png",
+          "conversion/cross-flows/auth-signin-account-not-found.png"
+        ],
+        "consoleErrors": "Private Access Token challenge warning + 401 during sign-up, then 422 on sign-in retry (see conversion/cross-flows/browser-console-after-signin.txt).",
+        "network": "Clerk sign-in request observed in network log; protected routes remained signed-out (see conversion/cross-flows/network-requests-after-signin.txt and conversion/cross-flows/protected-route-headers.txt)."
+      },
+      "issues": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-019",
+      "title": "Recipes Link in Header Navigates to /recipes",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Attempt to establish authenticated session in dedicated browser context via /sign-up with a unique test email.",
+          "expected": "Sign-up completes and redirects to /dashboard with authenticated header/navigation.",
+          "observed": "Sign-up remained on /sign-up with disabled fields and a disabled Loading button after waiting 20s."
+        },
+        {
+          "action": "Collect browser diagnostics after the stuck sign-up state.",
+          "expected": "No external auth challenge failures; session can proceed to protected flows.",
+          "observed": "Console recorded Private Access Token challenge warning and a 401 resource failure."
+        },
+        {
+          "action": "Retry sign-in using the same attempted account credentials.",
+          "expected": "If sign-up succeeded, sign-in should establish session and allow cross-flow assertions.",
+          "observed": "Sign-in stayed on /sign-in with 'Couldn't find your account' and console logged a 422 request failure."
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "conversion/cross-flows/auth-signup-form.png",
+          "conversion/cross-flows/auth-signup-after-submit-wait.png",
+          "conversion/cross-flows/auth-signin-account-not-found.png"
+        ],
+        "consoleErrors": "Private Access Token challenge warning + 401 during sign-up, then 422 on sign-in retry (see conversion/cross-flows/browser-console-after-signin.txt).",
+        "network": "Clerk sign-in request observed in network log; protected routes remained signed-out (see conversion/cross-flows/network-requests-after-signin.txt and conversion/cross-flows/protected-route-headers.txt)."
+      },
+      "issues": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-020",
+      "title": "Pantry Link in Header Navigates to /pantry",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Attempt to establish authenticated session in dedicated browser context via /sign-up with a unique test email.",
+          "expected": "Sign-up completes and redirects to /dashboard with authenticated header/navigation.",
+          "observed": "Sign-up remained on /sign-up with disabled fields and a disabled Loading button after waiting 20s."
+        },
+        {
+          "action": "Collect browser diagnostics after the stuck sign-up state.",
+          "expected": "No external auth challenge failures; session can proceed to protected flows.",
+          "observed": "Console recorded Private Access Token challenge warning and a 401 resource failure."
+        },
+        {
+          "action": "Retry sign-in using the same attempted account credentials.",
+          "expected": "If sign-up succeeded, sign-in should establish session and allow cross-flow assertions.",
+          "observed": "Sign-in stayed on /sign-in with 'Couldn't find your account' and console logged a 422 request failure."
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "conversion/cross-flows/auth-signup-form.png",
+          "conversion/cross-flows/auth-signup-after-submit-wait.png",
+          "conversion/cross-flows/auth-signin-account-not-found.png"
+        ],
+        "consoleErrors": "Private Access Token challenge warning + 401 during sign-up, then 422 on sign-in retry (see conversion/cross-flows/browser-console-after-signin.txt).",
+        "network": "Clerk sign-in request observed in network log; protected routes remained signed-out (see conversion/cross-flows/network-requests-after-signin.txt and conversion/cross-flows/protected-route-headers.txt)."
+      },
+      "issues": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-021",
+      "title": "Logo in Header Navigates to Landing or Dashboard",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Attempt to establish authenticated session in dedicated browser context via /sign-up with a unique test email.",
+          "expected": "Sign-up completes and redirects to /dashboard with authenticated header/navigation.",
+          "observed": "Sign-up remained on /sign-up with disabled fields and a disabled Loading button after waiting 20s."
+        },
+        {
+          "action": "Collect browser diagnostics after the stuck sign-up state.",
+          "expected": "No external auth challenge failures; session can proceed to protected flows.",
+          "observed": "Console recorded Private Access Token challenge warning and a 401 resource failure."
+        },
+        {
+          "action": "Retry sign-in using the same attempted account credentials.",
+          "expected": "If sign-up succeeded, sign-in should establish session and allow cross-flow assertions.",
+          "observed": "Sign-in stayed on /sign-in with 'Couldn't find your account' and console logged a 422 request failure."
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "conversion/cross-flows/auth-signup-form.png",
+          "conversion/cross-flows/auth-signup-after-submit-wait.png",
+          "conversion/cross-flows/auth-signin-account-not-found.png"
+        ],
+        "consoleErrors": "Private Access Token challenge warning + 401 during sign-up, then 422 on sign-in retry (see conversion/cross-flows/browser-console-after-signin.txt).",
+        "network": "Clerk sign-in request observed in network log; protected routes remained signed-out (see conversion/cross-flows/network-requests-after-signin.txt and conversion/cross-flows/protected-route-headers.txt)."
+      },
+      "issues": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-022",
+      "title": "Header Nav Links Have Active State Indicators",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Attempt to establish authenticated session in dedicated browser context via /sign-up with a unique test email.",
+          "expected": "Sign-up completes and redirects to /dashboard with authenticated header/navigation.",
+          "observed": "Sign-up remained on /sign-up with disabled fields and a disabled Loading button after waiting 20s."
+        },
+        {
+          "action": "Collect browser diagnostics after the stuck sign-up state.",
+          "expected": "No external auth challenge failures; session can proceed to protected flows.",
+          "observed": "Console recorded Private Access Token challenge warning and a 401 resource failure."
+        },
+        {
+          "action": "Retry sign-in using the same attempted account credentials.",
+          "expected": "If sign-up succeeded, sign-in should establish session and allow cross-flow assertions.",
+          "observed": "Sign-in stayed on /sign-in with 'Couldn't find your account' and console logged a 422 request failure."
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "conversion/cross-flows/auth-signup-form.png",
+          "conversion/cross-flows/auth-signup-after-submit-wait.png",
+          "conversion/cross-flows/auth-signin-account-not-found.png"
+        ],
+        "consoleErrors": "Private Access Token challenge warning + 401 during sign-up, then 422 on sign-in retry (see conversion/cross-flows/browser-console-after-signin.txt).",
+        "network": "Clerk sign-in request observed in network log; protected routes remained signed-out (see conversion/cross-flows/network-requests-after-signin.txt and conversion/cross-flows/protected-route-headers.txt)."
+      },
+      "issues": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-023",
+      "title": "Post-Login Redirect Preserves Intended Destination",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Open /pantry while unauthenticated in dedicated session.",
+          "expected": "Redirect to /sign-in before auth, then after successful sign-in return to /pantry.",
+          "observed": "Unauthenticated redirect to /sign-in?redirect_url=.../pantry occurred."
+        },
+        {
+          "action": "Complete sign-up/sign-in to satisfy post-login redirect prerequisite.",
+          "expected": "Authenticated flow completes and lands on /pantry.",
+          "observed": "Auth could not complete: sign-up stuck Loading; sign-in retry returned account-not-found."
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "conversion/cross-flows/VAL-CROSS-023-redirect-to-signin-from-pantry.png",
+          "conversion/cross-flows/auth-signup-after-submit-wait.png",
+          "conversion/cross-flows/auth-signin-account-not-found.png"
+        ],
+        "consoleErrors": "Private Access Token challenge warning + 401 during sign-up, then 422 on sign-in retry (see conversion/cross-flows/browser-console-after-signin.txt).",
+        "network": "Redirect URL evidence in conversion/cross-flows/current-url-after-pantry-open.txt; auth diagnostics in conversion/cross-flows/network-requests-after-signin.txt."
+      },
+      "issues": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-024",
+      "title": "Dashboard \"Generate\" Quick Action Navigates to /generate",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Attempt to establish authenticated session in dedicated browser context via /sign-up with a unique test email.",
+          "expected": "Sign-up completes and redirects to /dashboard with authenticated header/navigation.",
+          "observed": "Sign-up remained on /sign-up with disabled fields and a disabled Loading button after waiting 20s."
+        },
+        {
+          "action": "Collect browser diagnostics after the stuck sign-up state.",
+          "expected": "No external auth challenge failures; session can proceed to protected flows.",
+          "observed": "Console recorded Private Access Token challenge warning and a 401 resource failure."
+        },
+        {
+          "action": "Retry sign-in using the same attempted account credentials.",
+          "expected": "If sign-up succeeded, sign-in should establish session and allow cross-flow assertions.",
+          "observed": "Sign-in stayed on /sign-in with 'Couldn't find your account' and console logged a 422 request failure."
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "conversion/cross-flows/auth-signup-form.png",
+          "conversion/cross-flows/auth-signup-after-submit-wait.png",
+          "conversion/cross-flows/auth-signin-account-not-found.png"
+        ],
+        "consoleErrors": "Private Access Token challenge warning + 401 during sign-up, then 422 on sign-in retry (see conversion/cross-flows/browser-console-after-signin.txt).",
+        "network": "Clerk sign-in request observed in network log; protected routes remained signed-out (see conversion/cross-flows/network-requests-after-signin.txt and conversion/cross-flows/protected-route-headers.txt)."
+      },
+      "issues": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-025",
+      "title": "Dashboard \"Convert\" Quick Action Navigates to /convert",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Attempt to establish authenticated session in dedicated browser context via /sign-up with a unique test email.",
+          "expected": "Sign-up completes and redirects to /dashboard with authenticated header/navigation.",
+          "observed": "Sign-up remained on /sign-up with disabled fields and a disabled Loading button after waiting 20s."
+        },
+        {
+          "action": "Collect browser diagnostics after the stuck sign-up state.",
+          "expected": "No external auth challenge failures; session can proceed to protected flows.",
+          "observed": "Console recorded Private Access Token challenge warning and a 401 resource failure."
+        },
+        {
+          "action": "Retry sign-in using the same attempted account credentials.",
+          "expected": "If sign-up succeeded, sign-in should establish session and allow cross-flow assertions.",
+          "observed": "Sign-in stayed on /sign-in with 'Couldn't find your account' and console logged a 422 request failure."
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "conversion/cross-flows/auth-signup-form.png",
+          "conversion/cross-flows/auth-signup-after-submit-wait.png",
+          "conversion/cross-flows/auth-signin-account-not-found.png"
+        ],
+        "consoleErrors": "Private Access Token challenge warning + 401 during sign-up, then 422 on sign-in retry (see conversion/cross-flows/browser-console-after-signin.txt).",
+        "network": "Clerk sign-in request observed in network log; protected routes remained signed-out (see conversion/cross-flows/network-requests-after-signin.txt and conversion/cross-flows/protected-route-headers.txt)."
+      },
+      "issues": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-026",
+      "title": "Dashboard \"Recipes\" Quick Action Navigates to /recipes",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Attempt to establish authenticated session in dedicated browser context via /sign-up with a unique test email.",
+          "expected": "Sign-up completes and redirects to /dashboard with authenticated header/navigation.",
+          "observed": "Sign-up remained on /sign-up with disabled fields and a disabled Loading button after waiting 20s."
+        },
+        {
+          "action": "Collect browser diagnostics after the stuck sign-up state.",
+          "expected": "No external auth challenge failures; session can proceed to protected flows.",
+          "observed": "Console recorded Private Access Token challenge warning and a 401 resource failure."
+        },
+        {
+          "action": "Retry sign-in using the same attempted account credentials.",
+          "expected": "If sign-up succeeded, sign-in should establish session and allow cross-flow assertions.",
+          "observed": "Sign-in stayed on /sign-in with 'Couldn't find your account' and console logged a 422 request failure."
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "conversion/cross-flows/auth-signup-form.png",
+          "conversion/cross-flows/auth-signup-after-submit-wait.png",
+          "conversion/cross-flows/auth-signin-account-not-found.png"
+        ],
+        "consoleErrors": "Private Access Token challenge warning + 401 during sign-up, then 422 on sign-in retry (see conversion/cross-flows/browser-console-after-signin.txt).",
+        "network": "Clerk sign-in request observed in network log; protected routes remained signed-out (see conversion/cross-flows/network-requests-after-signin.txt and conversion/cross-flows/protected-route-headers.txt)."
+      },
+      "issues": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-027",
+      "title": "Dashboard \"Pantry\" Quick Action Navigates to /pantry",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Attempt to establish authenticated session in dedicated browser context via /sign-up with a unique test email.",
+          "expected": "Sign-up completes and redirects to /dashboard with authenticated header/navigation.",
+          "observed": "Sign-up remained on /sign-up with disabled fields and a disabled Loading button after waiting 20s."
+        },
+        {
+          "action": "Collect browser diagnostics after the stuck sign-up state.",
+          "expected": "No external auth challenge failures; session can proceed to protected flows.",
+          "observed": "Console recorded Private Access Token challenge warning and a 401 resource failure."
+        },
+        {
+          "action": "Retry sign-in using the same attempted account credentials.",
+          "expected": "If sign-up succeeded, sign-in should establish session and allow cross-flow assertions.",
+          "observed": "Sign-in stayed on /sign-in with 'Couldn't find your account' and console logged a 422 request failure."
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "conversion/cross-flows/auth-signup-form.png",
+          "conversion/cross-flows/auth-signup-after-submit-wait.png",
+          "conversion/cross-flows/auth-signin-account-not-found.png"
+        ],
+        "consoleErrors": "Private Access Token challenge warning + 401 during sign-up, then 422 on sign-in retry (see conversion/cross-flows/browser-console-after-signin.txt).",
+        "network": "Clerk sign-in request observed in network log; protected routes remained signed-out (see conversion/cross-flows/network-requests-after-signin.txt and conversion/cross-flows/protected-route-headers.txt)."
+      },
+      "issues": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-028",
+      "title": "All Dashboard Quick Actions Are Visible and Distinct",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Attempt to establish authenticated session in dedicated browser context via /sign-up with a unique test email.",
+          "expected": "Sign-up completes and redirects to /dashboard with authenticated header/navigation.",
+          "observed": "Sign-up remained on /sign-up with disabled fields and a disabled Loading button after waiting 20s."
+        },
+        {
+          "action": "Collect browser diagnostics after the stuck sign-up state.",
+          "expected": "No external auth challenge failures; session can proceed to protected flows.",
+          "observed": "Console recorded Private Access Token challenge warning and a 401 resource failure."
+        },
+        {
+          "action": "Retry sign-in using the same attempted account credentials.",
+          "expected": "If sign-up succeeded, sign-in should establish session and allow cross-flow assertions.",
+          "observed": "Sign-in stayed on /sign-in with 'Couldn't find your account' and console logged a 422 request failure."
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "conversion/cross-flows/auth-signup-form.png",
+          "conversion/cross-flows/auth-signup-after-submit-wait.png",
+          "conversion/cross-flows/auth-signin-account-not-found.png"
+        ],
+        "consoleErrors": "Private Access Token challenge warning + 401 during sign-up, then 422 on sign-in retry (see conversion/cross-flows/browser-console-after-signin.txt).",
+        "network": "Clerk sign-in request observed in network log; protected routes remained signed-out (see conversion/cross-flows/network-requests-after-signin.txt and conversion/cross-flows/protected-route-headers.txt)."
+      },
+      "issues": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-029",
+      "title": "Delete Recipe from Detail Page",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Attempt to establish authenticated session in dedicated browser context via /sign-up with a unique test email.",
+          "expected": "Sign-up completes and redirects to /dashboard with authenticated header/navigation.",
+          "observed": "Sign-up remained on /sign-up with disabled fields and a disabled Loading button after waiting 20s."
+        },
+        {
+          "action": "Collect browser diagnostics after the stuck sign-up state.",
+          "expected": "No external auth challenge failures; session can proceed to protected flows.",
+          "observed": "Console recorded Private Access Token challenge warning and a 401 resource failure."
+        },
+        {
+          "action": "Retry sign-in using the same attempted account credentials.",
+          "expected": "If sign-up succeeded, sign-in should establish session and allow cross-flow assertions.",
+          "observed": "Sign-in stayed on /sign-in with 'Couldn't find your account' and console logged a 422 request failure."
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "conversion/cross-flows/auth-signup-form.png",
+          "conversion/cross-flows/auth-signup-after-submit-wait.png",
+          "conversion/cross-flows/auth-signin-account-not-found.png"
+        ],
+        "consoleErrors": "Private Access Token challenge warning + 401 during sign-up, then 422 on sign-in retry (see conversion/cross-flows/browser-console-after-signin.txt).",
+        "network": "Clerk sign-in request observed in network log; protected routes remained signed-out (see conversion/cross-flows/network-requests-after-signin.txt and conversion/cross-flows/protected-route-headers.txt)."
+      },
+      "issues": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-030",
+      "title": "Deleted Recipe No Longer Appears in Recipes List",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Attempt to establish authenticated session in dedicated browser context via /sign-up with a unique test email.",
+          "expected": "Sign-up completes and redirects to /dashboard with authenticated header/navigation.",
+          "observed": "Sign-up remained on /sign-up with disabled fields and a disabled Loading button after waiting 20s."
+        },
+        {
+          "action": "Collect browser diagnostics after the stuck sign-up state.",
+          "expected": "No external auth challenge failures; session can proceed to protected flows.",
+          "observed": "Console recorded Private Access Token challenge warning and a 401 resource failure."
+        },
+        {
+          "action": "Retry sign-in using the same attempted account credentials.",
+          "expected": "If sign-up succeeded, sign-in should establish session and allow cross-flow assertions.",
+          "observed": "Sign-in stayed on /sign-in with 'Couldn't find your account' and console logged a 422 request failure."
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "conversion/cross-flows/auth-signup-form.png",
+          "conversion/cross-flows/auth-signup-after-submit-wait.png",
+          "conversion/cross-flows/auth-signin-account-not-found.png"
+        ],
+        "consoleErrors": "Private Access Token challenge warning + 401 during sign-up, then 422 on sign-in retry (see conversion/cross-flows/browser-console-after-signin.txt).",
+        "network": "Clerk sign-in request observed in network log; protected routes remained signed-out (see conversion/cross-flows/network-requests-after-signin.txt and conversion/cross-flows/protected-route-headers.txt)."
+      },
+      "issues": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-031",
+      "title": "Deleted Recipe Detail Page Returns 404 or Redirect",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Attempt to establish authenticated session in dedicated browser context via /sign-up with a unique test email.",
+          "expected": "Sign-up completes and redirects to /dashboard with authenticated header/navigation.",
+          "observed": "Sign-up remained on /sign-up with disabled fields and a disabled Loading button after waiting 20s."
+        },
+        {
+          "action": "Collect browser diagnostics after the stuck sign-up state.",
+          "expected": "No external auth challenge failures; session can proceed to protected flows.",
+          "observed": "Console recorded Private Access Token challenge warning and a 401 resource failure."
+        },
+        {
+          "action": "Retry sign-in using the same attempted account credentials.",
+          "expected": "If sign-up succeeded, sign-in should establish session and allow cross-flow assertions.",
+          "observed": "Sign-in stayed on /sign-in with 'Couldn't find your account' and console logged a 422 request failure."
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "conversion/cross-flows/auth-signup-form.png",
+          "conversion/cross-flows/auth-signup-after-submit-wait.png",
+          "conversion/cross-flows/auth-signin-account-not-found.png"
+        ],
+        "consoleErrors": "Private Access Token challenge warning + 401 during sign-up, then 422 on sign-in retry (see conversion/cross-flows/browser-console-after-signin.txt).",
+        "network": "Clerk sign-in request observed in network log; protected routes remained signed-out (see conversion/cross-flows/network-requests-after-signin.txt and conversion/cross-flows/protected-route-headers.txt)."
+      },
+      "issues": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-032",
+      "title": "Delete One Recipe Does Not Affect Others",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Attempt to establish authenticated session in dedicated browser context via /sign-up with a unique test email.",
+          "expected": "Sign-up completes and redirects to /dashboard with authenticated header/navigation.",
+          "observed": "Sign-up remained on /sign-up with disabled fields and a disabled Loading button after waiting 20s."
+        },
+        {
+          "action": "Collect browser diagnostics after the stuck sign-up state.",
+          "expected": "No external auth challenge failures; session can proceed to protected flows.",
+          "observed": "Console recorded Private Access Token challenge warning and a 401 resource failure."
+        },
+        {
+          "action": "Retry sign-in using the same attempted account credentials.",
+          "expected": "If sign-up succeeded, sign-in should establish session and allow cross-flow assertions.",
+          "observed": "Sign-in stayed on /sign-in with 'Couldn't find your account' and console logged a 422 request failure."
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "conversion/cross-flows/auth-signup-form.png",
+          "conversion/cross-flows/auth-signup-after-submit-wait.png",
+          "conversion/cross-flows/auth-signin-account-not-found.png"
+        ],
+        "consoleErrors": "Private Access Token challenge warning + 401 during sign-up, then 422 on sign-in retry (see conversion/cross-flows/browser-console-after-signin.txt).",
+        "network": "Clerk sign-in request observed in network log; protected routes remained signed-out (see conversion/cross-flows/network-requests-after-signin.txt and conversion/cross-flows/protected-route-headers.txt)."
+      },
+      "issues": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-033",
+      "title": "Search Recipes Finds Generated Recipes",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Attempt to establish authenticated session in dedicated browser context via /sign-up with a unique test email.",
+          "expected": "Sign-up completes and redirects to /dashboard with authenticated header/navigation.",
+          "observed": "Sign-up remained on /sign-up with disabled fields and a disabled Loading button after waiting 20s."
+        },
+        {
+          "action": "Collect browser diagnostics after the stuck sign-up state.",
+          "expected": "No external auth challenge failures; session can proceed to protected flows.",
+          "observed": "Console recorded Private Access Token challenge warning and a 401 resource failure."
+        },
+        {
+          "action": "Retry sign-in using the same attempted account credentials.",
+          "expected": "If sign-up succeeded, sign-in should establish session and allow cross-flow assertions.",
+          "observed": "Sign-in stayed on /sign-in with 'Couldn't find your account' and console logged a 422 request failure."
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "conversion/cross-flows/auth-signup-form.png",
+          "conversion/cross-flows/auth-signup-after-submit-wait.png",
+          "conversion/cross-flows/auth-signin-account-not-found.png"
+        ],
+        "consoleErrors": "Private Access Token challenge warning + 401 during sign-up, then 422 on sign-in retry (see conversion/cross-flows/browser-console-after-signin.txt).",
+        "network": "Clerk sign-in request observed in network log; protected routes remained signed-out (see conversion/cross-flows/network-requests-after-signin.txt and conversion/cross-flows/protected-route-headers.txt)."
+      },
+      "issues": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-034",
+      "title": "Search Recipes Finds Converted Recipes",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Attempt to establish authenticated session in dedicated browser context via /sign-up with a unique test email.",
+          "expected": "Sign-up completes and redirects to /dashboard with authenticated header/navigation.",
+          "observed": "Sign-up remained on /sign-up with disabled fields and a disabled Loading button after waiting 20s."
+        },
+        {
+          "action": "Collect browser diagnostics after the stuck sign-up state.",
+          "expected": "No external auth challenge failures; session can proceed to protected flows.",
+          "observed": "Console recorded Private Access Token challenge warning and a 401 resource failure."
+        },
+        {
+          "action": "Retry sign-in using the same attempted account credentials.",
+          "expected": "If sign-up succeeded, sign-in should establish session and allow cross-flow assertions.",
+          "observed": "Sign-in stayed on /sign-in with 'Couldn't find your account' and console logged a 422 request failure."
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "conversion/cross-flows/auth-signup-form.png",
+          "conversion/cross-flows/auth-signup-after-submit-wait.png",
+          "conversion/cross-flows/auth-signin-account-not-found.png"
+        ],
+        "consoleErrors": "Private Access Token challenge warning + 401 during sign-up, then 422 on sign-in retry (see conversion/cross-flows/browser-console-after-signin.txt).",
+        "network": "Clerk sign-in request observed in network log; protected routes remained signed-out (see conversion/cross-flows/network-requests-after-signin.txt and conversion/cross-flows/protected-route-headers.txt)."
+      },
+      "issues": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-035",
+      "title": "Search Returns Empty for Deleted Recipe",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Attempt to establish authenticated session in dedicated browser context via /sign-up with a unique test email.",
+          "expected": "Sign-up completes and redirects to /dashboard with authenticated header/navigation.",
+          "observed": "Sign-up remained on /sign-up with disabled fields and a disabled Loading button after waiting 20s."
+        },
+        {
+          "action": "Collect browser diagnostics after the stuck sign-up state.",
+          "expected": "No external auth challenge failures; session can proceed to protected flows.",
+          "observed": "Console recorded Private Access Token challenge warning and a 401 resource failure."
+        },
+        {
+          "action": "Retry sign-in using the same attempted account credentials.",
+          "expected": "If sign-up succeeded, sign-in should establish session and allow cross-flow assertions.",
+          "observed": "Sign-in stayed on /sign-in with 'Couldn't find your account' and console logged a 422 request failure."
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "conversion/cross-flows/auth-signup-form.png",
+          "conversion/cross-flows/auth-signup-after-submit-wait.png",
+          "conversion/cross-flows/auth-signin-account-not-found.png"
+        ],
+        "consoleErrors": "Private Access Token challenge warning + 401 during sign-up, then 422 on sign-in retry (see conversion/cross-flows/browser-console-after-signin.txt).",
+        "network": "Clerk sign-in request observed in network log; protected routes remained signed-out (see conversion/cross-flows/network-requests-after-signin.txt and conversion/cross-flows/protected-route-headers.txt)."
+      },
+      "issues": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-036",
+      "title": "Recipes Persist After Page Refresh",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Attempt to establish authenticated session in dedicated browser context via /sign-up with a unique test email.",
+          "expected": "Sign-up completes and redirects to /dashboard with authenticated header/navigation.",
+          "observed": "Sign-up remained on /sign-up with disabled fields and a disabled Loading button after waiting 20s."
+        },
+        {
+          "action": "Collect browser diagnostics after the stuck sign-up state.",
+          "expected": "No external auth challenge failures; session can proceed to protected flows.",
+          "observed": "Console recorded Private Access Token challenge warning and a 401 resource failure."
+        },
+        {
+          "action": "Retry sign-in using the same attempted account credentials.",
+          "expected": "If sign-up succeeded, sign-in should establish session and allow cross-flow assertions.",
+          "observed": "Sign-in stayed on /sign-in with 'Couldn't find your account' and console logged a 422 request failure."
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "conversion/cross-flows/auth-signup-form.png",
+          "conversion/cross-flows/auth-signup-after-submit-wait.png",
+          "conversion/cross-flows/auth-signin-account-not-found.png"
+        ],
+        "consoleErrors": "Private Access Token challenge warning + 401 during sign-up, then 422 on sign-in retry (see conversion/cross-flows/browser-console-after-signin.txt).",
+        "network": "Clerk sign-in request observed in network log; protected routes remained signed-out (see conversion/cross-flows/network-requests-after-signin.txt and conversion/cross-flows/protected-route-headers.txt)."
+      },
+      "issues": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-037",
+      "title": "Pantry Items Persist After Page Refresh",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Attempt to establish authenticated session in dedicated browser context via /sign-up with a unique test email.",
+          "expected": "Sign-up completes and redirects to /dashboard with authenticated header/navigation.",
+          "observed": "Sign-up remained on /sign-up with disabled fields and a disabled Loading button after waiting 20s."
+        },
+        {
+          "action": "Collect browser diagnostics after the stuck sign-up state.",
+          "expected": "No external auth challenge failures; session can proceed to protected flows.",
+          "observed": "Console recorded Private Access Token challenge warning and a 401 resource failure."
+        },
+        {
+          "action": "Retry sign-in using the same attempted account credentials.",
+          "expected": "If sign-up succeeded, sign-in should establish session and allow cross-flow assertions.",
+          "observed": "Sign-in stayed on /sign-in with 'Couldn't find your account' and console logged a 422 request failure."
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "conversion/cross-flows/auth-signup-form.png",
+          "conversion/cross-flows/auth-signup-after-submit-wait.png",
+          "conversion/cross-flows/auth-signin-account-not-found.png"
+        ],
+        "consoleErrors": "Private Access Token challenge warning + 401 during sign-up, then 422 on sign-in retry (see conversion/cross-flows/browser-console-after-signin.txt).",
+        "network": "Clerk sign-in request observed in network log; protected routes remained signed-out (see conversion/cross-flows/network-requests-after-signin.txt and conversion/cross-flows/protected-route-headers.txt)."
+      },
+      "issues": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-038",
+      "title": "Sign-Out and Sign-In Preserves User Data",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Attempt to establish authenticated session in dedicated browser context via /sign-up with a unique test email.",
+          "expected": "Sign-up completes and redirects to /dashboard with authenticated header/navigation.",
+          "observed": "Sign-up remained on /sign-up with disabled fields and a disabled Loading button after waiting 20s."
+        },
+        {
+          "action": "Collect browser diagnostics after the stuck sign-up state.",
+          "expected": "No external auth challenge failures; session can proceed to protected flows.",
+          "observed": "Console recorded Private Access Token challenge warning and a 401 resource failure."
+        },
+        {
+          "action": "Retry sign-in using the same attempted account credentials.",
+          "expected": "If sign-up succeeded, sign-in should establish session and allow cross-flow assertions.",
+          "observed": "Sign-in stayed on /sign-in with 'Couldn't find your account' and console logged a 422 request failure."
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "conversion/cross-flows/auth-signup-form.png",
+          "conversion/cross-flows/auth-signup-after-submit-wait.png",
+          "conversion/cross-flows/auth-signin-account-not-found.png"
+        ],
+        "consoleErrors": "Private Access Token challenge warning + 401 during sign-up, then 422 on sign-in retry (see conversion/cross-flows/browser-console-after-signin.txt).",
+        "network": "Clerk sign-in request observed in network log; protected routes remained signed-out (see conversion/cross-flows/network-requests-after-signin.txt and conversion/cross-flows/protected-route-headers.txt)."
+      },
+      "issues": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    },
+    {
+      "id": "VAL-CROSS-039",
+      "title": "Concurrent Feature Use Does Not Cause Data Corruption",
+      "status": "blocked",
+      "steps": [
+        {
+          "action": "Attempt to establish authenticated session in dedicated browser context via /sign-up with a unique test email.",
+          "expected": "Sign-up completes and redirects to /dashboard with authenticated header/navigation.",
+          "observed": "Sign-up remained on /sign-up with disabled fields and a disabled Loading button after waiting 20s."
+        },
+        {
+          "action": "Collect browser diagnostics after the stuck sign-up state.",
+          "expected": "No external auth challenge failures; session can proceed to protected flows.",
+          "observed": "Console recorded Private Access Token challenge warning and a 401 resource failure."
+        },
+        {
+          "action": "Retry sign-in using the same attempted account credentials.",
+          "expected": "If sign-up succeeded, sign-in should establish session and allow cross-flow assertions.",
+          "observed": "Sign-in stayed on /sign-in with 'Couldn't find your account' and console logged a 422 request failure."
+        }
+      ],
+      "evidence": {
+        "screenshots": [
+          "conversion/cross-flows/auth-signup-form.png",
+          "conversion/cross-flows/auth-signup-after-submit-wait.png",
+          "conversion/cross-flows/auth-signin-account-not-found.png"
+        ],
+        "consoleErrors": "Private Access Token challenge warning + 401 during sign-up, then 422 on sign-in retry (see conversion/cross-flows/browser-console-after-signin.txt).",
+        "network": "Clerk sign-in request observed in network log; protected routes remained signed-out (see conversion/cross-flows/network-requests-after-signin.txt and conversion/cross-flows/protected-route-headers.txt)."
+      },
+      "issues": "Blocked by external Clerk/Cloudflare auth challenge in headless browser; authenticated prerequisite state could not be established for this assertion."
+    }
+  ],
+  "frictions": [
+    {
+      "description": "Clerk authentication flow in headless browser stalled on sign-up (Loading state), preventing authenticated navigation flows.",
+      "resolved": false,
+      "resolution": "Retried in same dedicated session with sign-in fallback and additional waits; behavior persisted.",
+      "affectedAssertions": [
+        "VAL-CROSS-013",
+        "VAL-CROSS-014",
+        "VAL-CROSS-015",
+        "VAL-CROSS-016",
+        "VAL-CROSS-017",
+        "VAL-CROSS-018",
+        "VAL-CROSS-019",
+        "VAL-CROSS-020",
+        "VAL-CROSS-021",
+        "VAL-CROSS-022",
+        "VAL-CROSS-023",
+        "VAL-CROSS-024",
+        "VAL-CROSS-025",
+        "VAL-CROSS-026",
+        "VAL-CROSS-027",
+        "VAL-CROSS-028",
+        "VAL-CROSS-029",
+        "VAL-CROSS-030",
+        "VAL-CROSS-031",
+        "VAL-CROSS-032",
+        "VAL-CROSS-033",
+        "VAL-CROSS-034",
+        "VAL-CROSS-035",
+        "VAL-CROSS-036",
+        "VAL-CROSS-037",
+        "VAL-CROSS-038",
+        "VAL-CROSS-039"
+      ]
+    }
+  ],
+  "blockers": [
+    {
+      "description": "External auth challenge behavior blocked account creation/sign-in in this isolated run.",
+      "affectedAssertions": [
+        "VAL-CROSS-013",
+        "VAL-CROSS-014",
+        "VAL-CROSS-015",
+        "VAL-CROSS-016",
+        "VAL-CROSS-017",
+        "VAL-CROSS-018",
+        "VAL-CROSS-019",
+        "VAL-CROSS-020",
+        "VAL-CROSS-021",
+        "VAL-CROSS-022",
+        "VAL-CROSS-023",
+        "VAL-CROSS-024",
+        "VAL-CROSS-025",
+        "VAL-CROSS-026",
+        "VAL-CROSS-027",
+        "VAL-CROSS-028",
+        "VAL-CROSS-029",
+        "VAL-CROSS-030",
+        "VAL-CROSS-031",
+        "VAL-CROSS-032",
+        "VAL-CROSS-033",
+        "VAL-CROSS-034",
+        "VAL-CROSS-035",
+        "VAL-CROSS-036",
+        "VAL-CROSS-037",
+        "VAL-CROSS-038",
+        "VAL-CROSS-039"
+      ],
+      "quickFixAttempted": "Validated redirect behavior, retried sign-up with unique email, waited 20s in loading state, retried sign-in with same credentials, captured console/network diagnostics and URLs."
+    }
+  ],
+  "summary": "Tested 27 assertions (VAL-CROSS-013..VAL-CROSS-039): 0 passed, 0 failed, 27 blocked by inability to establish authenticated session due external Clerk challenge behavior."
+}

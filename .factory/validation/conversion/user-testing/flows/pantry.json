@@ -1,0 +1,253 @@
+{
+  "groupId": "pantry",
+  "testedAt": "2026-04-14T13:08:12Z",
+  "isolation": {
+    "surface": "agent-browser",
+    "appUrl": "http://localhost:3100",
+    "missionDir": "/root/.factory/missions/1417e725-972e-4dd0-a683-c2965f2f6b3f",
+    "evidenceDir": "/root/.factory/missions/1417e725-972e-4dd0-a683-c2965f2f6b3f/evidence/conversion/pantry",
+    "browserSession": "pantry-1417",
+    "notes": "Dedicated browser session used only for pantry assertion group validation."
+  },
+  "toolsUsed": [
+    "agent-browser",
+    "curl"
+  ],
+  "assertionResults": [
+    {
+      "id": "VAL-PAN-001",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /pantry is protected and redirects to /sign-in in a fresh dedicated session; Clerk sign-up submission remained stuck in Loading due to external Private Access Token/Cloudflare challenge behavior (console 401), so authenticated pantry empty-state behavior could not be reached.",
+      "evidence": [
+        "conversion/pantry/VAL-PAN-auth-redirect-pantry.png",
+        "conversion/pantry/VAL-PAN-signup-page.png",
+        "conversion/pantry/VAL-PAN-signup-after-submit.png",
+        "conversion/pantry/VAL-PAN-signup-still-loading-after-retry-wait.png",
+        "conversion/pantry/browser-console.txt",
+        "conversion/pantry/browser-errors.txt",
+        "conversion/pantry/pantry-route-headers.txt",
+        "conversion/pantry/network-requests.txt",
+        "conversion/pantry/current-url.txt"
+      ]
+    },
+    {
+      "id": "VAL-PAN-002",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /pantry is protected and redirects to /sign-in in a fresh dedicated session; Clerk sign-up submission remained stuck in Loading due to external Private Access Token/Cloudflare challenge behavior (console 401), so authenticated pantry CRUD behavior could not be validated.",
+      "evidence": [
+        "conversion/pantry/VAL-PAN-auth-redirect-pantry.png",
+        "conversion/pantry/VAL-PAN-signup-page.png",
+        "conversion/pantry/VAL-PAN-signup-after-submit.png",
+        "conversion/pantry/VAL-PAN-signup-still-loading-after-retry-wait.png",
+        "conversion/pantry/browser-console.txt",
+        "conversion/pantry/browser-errors.txt",
+        "conversion/pantry/pantry-route-headers.txt",
+        "conversion/pantry/network-requests.txt",
+        "conversion/pantry/current-url.txt"
+      ]
+    },
+    {
+      "id": "VAL-PAN-003",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /pantry is protected and redirects to /sign-in in a fresh dedicated session; Clerk sign-up submission remained stuck in Loading due to external Private Access Token/Cloudflare challenge behavior (console 401), so authenticated pantry CRUD behavior could not be validated.",
+      "evidence": [
+        "conversion/pantry/VAL-PAN-auth-redirect-pantry.png",
+        "conversion/pantry/VAL-PAN-signup-page.png",
+        "conversion/pantry/VAL-PAN-signup-after-submit.png",
+        "conversion/pantry/VAL-PAN-signup-still-loading-after-retry-wait.png",
+        "conversion/pantry/browser-console.txt",
+        "conversion/pantry/browser-errors.txt",
+        "conversion/pantry/pantry-route-headers.txt",
+        "conversion/pantry/network-requests.txt",
+        "conversion/pantry/current-url.txt"
+      ]
+    },
+    {
+      "id": "VAL-PAN-004",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /pantry is protected and redirects to /sign-in in a fresh dedicated session; Clerk sign-up submission remained stuck in Loading due to external Private Access Token/Cloudflare challenge behavior (console 401), so authenticated pantry CRUD behavior could not be validated.",
+      "evidence": [
+        "conversion/pantry/VAL-PAN-auth-redirect-pantry.png",
+        "conversion/pantry/VAL-PAN-signup-page.png",
+        "conversion/pantry/VAL-PAN-signup-after-submit.png",
+        "conversion/pantry/VAL-PAN-signup-still-loading-after-retry-wait.png",
+        "conversion/pantry/browser-console.txt",
+        "conversion/pantry/browser-errors.txt",
+        "conversion/pantry/pantry-route-headers.txt",
+        "conversion/pantry/network-requests.txt",
+        "conversion/pantry/current-url.txt"
+      ]
+    },
+    {
+      "id": "VAL-PAN-005",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /pantry is protected and redirects to /sign-in in a fresh dedicated session; Clerk sign-up submission remained stuck in Loading due to external Private Access Token/Cloudflare challenge behavior (console 401), so authenticated pantry CRUD behavior could not be validated.",
+      "evidence": [
+        "conversion/pantry/VAL-PAN-auth-redirect-pantry.png",
+        "conversion/pantry/VAL-PAN-signup-page.png",
+        "conversion/pantry/VAL-PAN-signup-after-submit.png",
+        "conversion/pantry/VAL-PAN-signup-still-loading-after-retry-wait.png",
+        "conversion/pantry/browser-console.txt",
+        "conversion/pantry/browser-errors.txt",
+        "conversion/pantry/pantry-route-headers.txt",
+        "conversion/pantry/network-requests.txt",
+        "conversion/pantry/current-url.txt"
+      ]
+    },
+    {
+      "id": "VAL-PAN-006",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /pantry is protected and redirects to /sign-in in a fresh dedicated session; Clerk sign-up submission remained stuck in Loading due to external Private Access Token/Cloudflare challenge behavior (console 401), so authenticated pantry edit behavior could not be validated.",
+      "evidence": [
+        "conversion/pantry/VAL-PAN-auth-redirect-pantry.png",
+        "conversion/pantry/VAL-PAN-signup-page.png",
+        "conversion/pantry/VAL-PAN-signup-after-submit.png",
+        "conversion/pantry/VAL-PAN-signup-still-loading-after-retry-wait.png",
+        "conversion/pantry/browser-console.txt",
+        "conversion/pantry/browser-errors.txt",
+        "conversion/pantry/pantry-route-headers.txt",
+        "conversion/pantry/network-requests.txt",
+        "conversion/pantry/current-url.txt"
+      ]
+    },
+    {
+      "id": "VAL-PAN-007",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /pantry is protected and redirects to /sign-in in a fresh dedicated session; Clerk sign-up submission remained stuck in Loading due to external Private Access Token/Cloudflare challenge behavior (console 401), so authenticated pantry persistence behavior could not be validated.",
+      "evidence": [
+        "conversion/pantry/VAL-PAN-auth-redirect-pantry.png",
+        "conversion/pantry/VAL-PAN-signup-page.png",
+        "conversion/pantry/VAL-PAN-signup-after-submit.png",
+        "conversion/pantry/VAL-PAN-signup-still-loading-after-retry-wait.png",
+        "conversion/pantry/browser-console.txt",
+        "conversion/pantry/browser-errors.txt",
+        "conversion/pantry/pantry-route-headers.txt",
+        "conversion/pantry/network-requests.txt",
+        "conversion/pantry/current-url.txt"
+      ]
+    },
+    {
+      "id": "VAL-PAN-008",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /pantry is protected and redirects to /sign-in in a fresh dedicated session; Clerk sign-up submission remained stuck in Loading due to external Private Access Token/Cloudflare challenge behavior (console 401), so authenticated large-list rendering behavior could not be validated.",
+      "evidence": [
+        "conversion/pantry/VAL-PAN-auth-redirect-pantry.png",
+        "conversion/pantry/VAL-PAN-signup-page.png",
+        "conversion/pantry/VAL-PAN-signup-after-submit.png",
+        "conversion/pantry/VAL-PAN-signup-still-loading-after-retry-wait.png",
+        "conversion/pantry/browser-console.txt",
+        "conversion/pantry/browser-errors.txt",
+        "conversion/pantry/pantry-route-headers.txt",
+        "conversion/pantry/network-requests.txt",
+        "conversion/pantry/current-url.txt"
+      ]
+    },
+    {
+      "id": "VAL-PAN-009",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /pantry is protected and redirects to /sign-in in a fresh dedicated session; Clerk sign-up submission remained stuck in Loading due to external Private Access Token/Cloudflare challenge behavior (console 401), so authenticated pantry add behavior could not be validated.",
+      "evidence": [
+        "conversion/pantry/VAL-PAN-auth-redirect-pantry.png",
+        "conversion/pantry/VAL-PAN-signup-page.png",
+        "conversion/pantry/VAL-PAN-signup-after-submit.png",
+        "conversion/pantry/VAL-PAN-signup-still-loading-after-retry-wait.png",
+        "conversion/pantry/browser-console.txt",
+        "conversion/pantry/browser-errors.txt",
+        "conversion/pantry/pantry-route-headers.txt",
+        "conversion/pantry/network-requests.txt",
+        "conversion/pantry/current-url.txt"
+      ]
+    },
+    {
+      "id": "VAL-PAN-010",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /pantry is protected and redirects to /sign-in in a fresh dedicated session; Clerk sign-up submission remained stuck in Loading due to external Private Access Token/Cloudflare challenge behavior (console 401), so authenticated pantry validation behavior could not be validated.",
+      "evidence": [
+        "conversion/pantry/VAL-PAN-auth-redirect-pantry.png",
+        "conversion/pantry/VAL-PAN-signup-page.png",
+        "conversion/pantry/VAL-PAN-signup-after-submit.png",
+        "conversion/pantry/VAL-PAN-signup-still-loading-after-retry-wait.png",
+        "conversion/pantry/browser-console.txt",
+        "conversion/pantry/browser-errors.txt",
+        "conversion/pantry/pantry-route-headers.txt",
+        "conversion/pantry/network-requests.txt",
+        "conversion/pantry/current-url.txt"
+      ]
+    },
+    {
+      "id": "VAL-PAN-011",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /pantry is protected and redirects to /sign-in in a fresh dedicated session; Clerk sign-up submission remained stuck in Loading due to external Private Access Token/Cloudflare challenge behavior (console 401), so authenticated pantry edit validation behavior could not be validated.",
+      "evidence": [
+        "conversion/pantry/VAL-PAN-auth-redirect-pantry.png",
+        "conversion/pantry/VAL-PAN-signup-page.png",
+        "conversion/pantry/VAL-PAN-signup-after-submit.png",
+        "conversion/pantry/VAL-PAN-signup-still-loading-after-retry-wait.png",
+        "conversion/pantry/browser-console.txt",
+        "conversion/pantry/browser-errors.txt",
+        "conversion/pantry/pantry-route-headers.txt",
+        "conversion/pantry/network-requests.txt",
+        "conversion/pantry/current-url.txt"
+      ]
+    },
+    {
+      "id": "VAL-PAN-012",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /pantry is protected and redirects to /sign-in in a fresh dedicated session; Clerk sign-up submission remained stuck in Loading due to external Private Access Token/Cloudflare challenge behavior (console 401), so duplicate-name handling in authenticated pantry UI could not be validated.",
+      "evidence": [
+        "conversion/pantry/VAL-PAN-auth-redirect-pantry.png",
+        "conversion/pantry/VAL-PAN-signup-page.png",
+        "conversion/pantry/VAL-PAN-signup-after-submit.png",
+        "conversion/pantry/VAL-PAN-signup-still-loading-after-retry-wait.png",
+        "conversion/pantry/browser-console.txt",
+        "conversion/pantry/browser-errors.txt",
+        "conversion/pantry/pantry-route-headers.txt",
+        "conversion/pantry/network-requests.txt",
+        "conversion/pantry/current-url.txt"
+      ]
+    }
+  ],
+  "frictions": [
+    {
+      "description": "Clerk auth in headless browser did not complete signup in-session; submit remained stuck in Loading after valid email/password entry, preventing access to authenticated pantry UI.",
+      "resolved": false,
+      "resolution": "Retried by waiting an additional 15 seconds in the same dedicated session and captured post-submit/diagnostic evidence; issue persisted.",
+      "affectedAssertions": [
+        "VAL-PAN-001",
+        "VAL-PAN-002",
+        "VAL-PAN-003",
+        "VAL-PAN-004",
+        "VAL-PAN-005",
+        "VAL-PAN-006",
+        "VAL-PAN-007",
+        "VAL-PAN-008",
+        "VAL-PAN-009",
+        "VAL-PAN-010",
+        "VAL-PAN-011",
+        "VAL-PAN-012"
+      ]
+    }
+  ],
+  "blockers": [
+    {
+      "description": "Could not establish authenticated session required for pantry management assertions.",
+      "details": "Observed /pantry -> /sign-in redirect; sign-up submit remained Loading; console included Private Access Token challenge message and 401; current URL remained on sign-up route.",
+      "affectedAssertions": [
+        "VAL-PAN-001",
+        "VAL-PAN-002",
+        "VAL-PAN-003",
+        "VAL-PAN-004",
+        "VAL-PAN-005",
+        "VAL-PAN-006",
+        "VAL-PAN-007",
+        "VAL-PAN-008",
+        "VAL-PAN-009",
+        "VAL-PAN-010",
+        "VAL-PAN-011",
+        "VAL-PAN-012"
+      ],
+      "quickFixAttempted": "Retried sign-up flow once in the same dedicated session, waited 12s after submit plus an additional 15s, and captured console/errors/network/header diagnostics; blocker persisted."
+    }
+  ],
+  "summary": "Tested VAL-PAN-001 through VAL-PAN-012: 0 passed, 0 failed, 12 blocked by external Clerk auth challenge preventing authenticated pantry access in this isolated session."
+}

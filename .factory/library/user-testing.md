@@ -33,6 +33,7 @@ Testing surface, required tools, resource cost classification, and runtime findi
 (Updated by validators during execution)
 - 2026-04-13 foundation validation run: observed ~810 MB free RAM with no swap and multiple active droid processes; reduced effective concurrent agent-browser validators from 2 to 1 for stability.
 - 2026-04-13 foundation validation run: Clerk sign-up in headless automation repeatedly stalled in loading state while console reported Private Access Token / Cloudflare challenge requests returning 401. Assertions requiring authenticated sessions were blocked by this external auth challenge.
+- 2026-04-14 conversion validation run: the same Clerk/PAT challenge behavior persisted across conversion, recipes, pantry, and cross-flow groups, blocking all assertions that require an authenticated session in headless browser automation.
 
 ## Flow Validator Guidance: agent-browser
 

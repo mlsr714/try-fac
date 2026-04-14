@@ -1,0 +1,473 @@
+{
+  "groupId": "conv-page",
+  "testedAt": "2026-04-14T12:38:21Z",
+  "isolation": {
+    "surface": "agent-browser",
+    "appUrl": "http://localhost:3100",
+    "missionDir": "/root/.factory/missions/1417e725-972e-4dd0-a683-c2965f2f6b3f",
+    "evidenceDir": "/root/.factory/missions/1417e725-972e-4dd0-a683-c2965f2f6b3f/evidence/conversion/conv-page",
+    "browserSession": "conv-page",
+    "notes": "Fresh dedicated session used for this assertion group only"
+  },
+  "toolsUsed": [
+    "agent-browser",
+    "curl"
+  ],
+  "assertionResults": [
+    {
+      "id": "VAL-CONV-001",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable.",
+      "evidence": [
+        "conversion/conv-page/convert-entry.png",
+        "conversion/conv-page/convert-redirect-url.txt",
+        "conversion/conv-page/sign-up-after-submit.png",
+        "conversion/conv-page/sign-in-error-account-not-found.png",
+        "conversion/conv-page/browser-console.txt",
+        "conversion/conv-page/network-requests.txt"
+      ]
+    },
+    {
+      "id": "VAL-CONV-002",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable.",
+      "evidence": [
+        "conversion/conv-page/convert-entry.png",
+        "conversion/conv-page/convert-redirect-url.txt",
+        "conversion/conv-page/sign-up-after-submit.png",
+        "conversion/conv-page/sign-in-error-account-not-found.png",
+        "conversion/conv-page/browser-console.txt",
+        "conversion/conv-page/network-requests.txt"
+      ]
+    },
+    {
+      "id": "VAL-CONV-003",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable.",
+      "evidence": [
+        "conversion/conv-page/convert-entry.png",
+        "conversion/conv-page/convert-redirect-url.txt",
+        "conversion/conv-page/sign-up-after-submit.png",
+        "conversion/conv-page/sign-in-error-account-not-found.png",
+        "conversion/conv-page/browser-console.txt",
+        "conversion/conv-page/network-requests.txt"
+      ]
+    },
+    {
+      "id": "VAL-CONV-004",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable.",
+      "evidence": [
+        "conversion/conv-page/convert-entry.png",
+        "conversion/conv-page/convert-redirect-url.txt",
+        "conversion/conv-page/sign-up-after-submit.png",
+        "conversion/conv-page/sign-in-error-account-not-found.png",
+        "conversion/conv-page/browser-console.txt",
+        "conversion/conv-page/network-requests.txt"
+      ]
+    },
+    {
+      "id": "VAL-CONV-005",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable.",
+      "evidence": [
+        "conversion/conv-page/convert-entry.png",
+        "conversion/conv-page/convert-redirect-url.txt",
+        "conversion/conv-page/sign-up-after-submit.png",
+        "conversion/conv-page/sign-in-error-account-not-found.png",
+        "conversion/conv-page/browser-console.txt",
+        "conversion/conv-page/network-requests.txt"
+      ]
+    },
+    {
+      "id": "VAL-CONV-006",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable.",
+      "evidence": [
+        "conversion/conv-page/convert-entry.png",
+        "conversion/conv-page/convert-redirect-url.txt",
+        "conversion/conv-page/sign-up-after-submit.png",
+        "conversion/conv-page/sign-in-error-account-not-found.png",
+        "conversion/conv-page/browser-console.txt",
+        "conversion/conv-page/network-requests.txt"
+      ]
+    },
+    {
+      "id": "VAL-CONV-007",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable.",
+      "evidence": [
+        "conversion/conv-page/convert-entry.png",
+        "conversion/conv-page/convert-redirect-url.txt",
+        "conversion/conv-page/sign-up-after-submit.png",
+        "conversion/conv-page/sign-in-error-account-not-found.png",
+        "conversion/conv-page/browser-console.txt",
+        "conversion/conv-page/network-requests.txt"
+      ]
+    },
+    {
+      "id": "VAL-CONV-008",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable.",
+      "evidence": [
+        "conversion/conv-page/convert-entry.png",
+        "conversion/conv-page/convert-redirect-url.txt",
+        "conversion/conv-page/sign-up-after-submit.png",
+        "conversion/conv-page/sign-in-error-account-not-found.png",
+        "conversion/conv-page/browser-console.txt",
+        "conversion/conv-page/network-requests.txt"
+      ]
+    },
+    {
+      "id": "VAL-CONV-009",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable.",
+      "evidence": [
+        "conversion/conv-page/convert-entry.png",
+        "conversion/conv-page/convert-redirect-url.txt",
+        "conversion/conv-page/sign-up-after-submit.png",
+        "conversion/conv-page/sign-in-error-account-not-found.png",
+        "conversion/conv-page/browser-console.txt",
+        "conversion/conv-page/network-requests.txt"
+      ]
+    },
+    {
+      "id": "VAL-CONV-010",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable.",
+      "evidence": [
+        "conversion/conv-page/convert-entry.png",
+        "conversion/conv-page/convert-redirect-url.txt",
+        "conversion/conv-page/sign-up-after-submit.png",
+        "conversion/conv-page/sign-in-error-account-not-found.png",
+        "conversion/conv-page/browser-console.txt",
+        "conversion/conv-page/network-requests.txt"
+      ]
+    },
+    {
+      "id": "VAL-CONV-011",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable.",
+      "evidence": [
+        "conversion/conv-page/convert-entry.png",
+        "conversion/conv-page/convert-redirect-url.txt",
+        "conversion/conv-page/sign-up-after-submit.png",
+        "conversion/conv-page/sign-in-error-account-not-found.png",
+        "conversion/conv-page/browser-console.txt",
+        "conversion/conv-page/network-requests.txt"
+      ]
+    },
+    {
+      "id": "VAL-CONV-012",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable.",
+      "evidence": [
+        "conversion/conv-page/convert-entry.png",
+        "conversion/conv-page/convert-redirect-url.txt",
+        "conversion/conv-page/sign-up-after-submit.png",
+        "conversion/conv-page/sign-in-error-account-not-found.png",
+        "conversion/conv-page/browser-console.txt",
+        "conversion/conv-page/network-requests.txt"
+      ]
+    },
+    {
+      "id": "VAL-CONV-013",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable.",
+      "evidence": [
+        "conversion/conv-page/convert-entry.png",
+        "conversion/conv-page/convert-redirect-url.txt",
+        "conversion/conv-page/sign-up-after-submit.png",
+        "conversion/conv-page/sign-in-error-account-not-found.png",
+        "conversion/conv-page/browser-console.txt",
+        "conversion/conv-page/network-requests.txt"
+      ]
+    },
+    {
+      "id": "VAL-CONV-014",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable.",
+      "evidence": [
+        "conversion/conv-page/convert-entry.png",
+        "conversion/conv-page/convert-redirect-url.txt",
+        "conversion/conv-page/sign-up-after-submit.png",
+        "conversion/conv-page/sign-in-error-account-not-found.png",
+        "conversion/conv-page/browser-console.txt",
+        "conversion/conv-page/network-requests.txt"
+      ]
+    },
+    {
+      "id": "VAL-CONV-015",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable.",
+      "evidence": [
+        "conversion/conv-page/convert-entry.png",
+        "conversion/conv-page/convert-redirect-url.txt",
+        "conversion/conv-page/sign-up-after-submit.png",
+        "conversion/conv-page/sign-in-error-account-not-found.png",
+        "conversion/conv-page/browser-console.txt",
+        "conversion/conv-page/network-requests.txt"
+      ]
+    },
+    {
+      "id": "VAL-CONV-016",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable.",
+      "evidence": [
+        "conversion/conv-page/convert-entry.png",
+        "conversion/conv-page/convert-redirect-url.txt",
+        "conversion/conv-page/sign-up-after-submit.png",
+        "conversion/conv-page/sign-in-error-account-not-found.png",
+        "conversion/conv-page/browser-console.txt",
+        "conversion/conv-page/network-requests.txt"
+      ]
+    },
+    {
+      "id": "VAL-CONV-017",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable.",
+      "evidence": [
+        "conversion/conv-page/convert-entry.png",
+        "conversion/conv-page/convert-redirect-url.txt",
+        "conversion/conv-page/sign-up-after-submit.png",
+        "conversion/conv-page/sign-in-error-account-not-found.png",
+        "conversion/conv-page/browser-console.txt",
+        "conversion/conv-page/network-requests.txt"
+      ]
+    },
+    {
+      "id": "VAL-CONV-018",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable.",
+      "evidence": [
+        "conversion/conv-page/convert-entry.png",
+        "conversion/conv-page/convert-redirect-url.txt",
+        "conversion/conv-page/sign-up-after-submit.png",
+        "conversion/conv-page/sign-in-error-account-not-found.png",
+        "conversion/conv-page/browser-console.txt",
+        "conversion/conv-page/network-requests.txt"
+      ]
+    },
+    {
+      "id": "VAL-CONV-019",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable.",
+      "evidence": [
+        "conversion/conv-page/convert-entry.png",
+        "conversion/conv-page/convert-redirect-url.txt",
+        "conversion/conv-page/sign-up-after-submit.png",
+        "conversion/conv-page/sign-in-error-account-not-found.png",
+        "conversion/conv-page/browser-console.txt",
+        "conversion/conv-page/network-requests.txt"
+      ]
+    },
+    {
+      "id": "VAL-CONV-020",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable.",
+      "evidence": [
+        "conversion/conv-page/convert-entry.png",
+        "conversion/conv-page/convert-redirect-url.txt",
+        "conversion/conv-page/sign-up-after-submit.png",
+        "conversion/conv-page/sign-in-error-account-not-found.png",
+        "conversion/conv-page/browser-console.txt",
+        "conversion/conv-page/network-requests.txt"
+      ]
+    },
+    {
+      "id": "VAL-CONV-021",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable.",
+      "evidence": [
+        "conversion/conv-page/convert-entry.png",
+        "conversion/conv-page/convert-redirect-url.txt",
+        "conversion/conv-page/sign-up-after-submit.png",
+        "conversion/conv-page/sign-in-error-account-not-found.png",
+        "conversion/conv-page/browser-console.txt",
+        "conversion/conv-page/network-requests.txt"
+      ]
+    },
+    {
+      "id": "VAL-CONV-022",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable.",
+      "evidence": [
+        "conversion/conv-page/convert-entry.png",
+        "conversion/conv-page/convert-redirect-url.txt",
+        "conversion/conv-page/sign-up-after-submit.png",
+        "conversion/conv-page/sign-in-error-account-not-found.png",
+        "conversion/conv-page/browser-console.txt",
+        "conversion/conv-page/network-requests.txt"
+      ]
+    },
+    {
+      "id": "VAL-CONV-023",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable.",
+      "evidence": [
+        "conversion/conv-page/convert-entry.png",
+        "conversion/conv-page/convert-redirect-url.txt",
+        "conversion/conv-page/sign-up-after-submit.png",
+        "conversion/conv-page/sign-in-error-account-not-found.png",
+        "conversion/conv-page/browser-console.txt",
+        "conversion/conv-page/network-requests.txt"
+      ]
+    },
+    {
+      "id": "VAL-CONV-024",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable.",
+      "evidence": [
+        "conversion/conv-page/convert-entry.png",
+        "conversion/conv-page/convert-redirect-url.txt",
+        "conversion/conv-page/sign-up-after-submit.png",
+        "conversion/conv-page/sign-in-error-account-not-found.png",
+        "conversion/conv-page/browser-console.txt",
+        "conversion/conv-page/network-requests.txt"
+      ]
+    },
+    {
+      "id": "VAL-CONV-025",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable.",
+      "evidence": [
+        "conversion/conv-page/convert-entry.png",
+        "conversion/conv-page/convert-redirect-url.txt",
+        "conversion/conv-page/sign-up-after-submit.png",
+        "conversion/conv-page/sign-in-error-account-not-found.png",
+        "conversion/conv-page/browser-console.txt",
+        "conversion/conv-page/network-requests.txt"
+      ]
+    },
+    {
+      "id": "VAL-CONV-026",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable.",
+      "evidence": [
+        "conversion/conv-page/convert-entry.png",
+        "conversion/conv-page/convert-redirect-url.txt",
+        "conversion/conv-page/sign-up-after-submit.png",
+        "conversion/conv-page/sign-in-error-account-not-found.png",
+        "conversion/conv-page/browser-console.txt",
+        "conversion/conv-page/network-requests.txt"
+      ]
+    },
+    {
+      "id": "VAL-CONV-027",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable.",
+      "evidence": [
+        "conversion/conv-page/convert-entry.png",
+        "conversion/conv-page/convert-redirect-url.txt",
+        "conversion/conv-page/sign-up-after-submit.png",
+        "conversion/conv-page/sign-in-error-account-not-found.png",
+        "conversion/conv-page/browser-console.txt",
+        "conversion/conv-page/network-requests.txt"
+      ]
+    },
+    {
+      "id": "VAL-CONV-028",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /convert redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remains stuck in loading state in headless automation while console logs a Private Access Token/Cloudflare challenge 401, so authenticated access to the conversion page was not achievable.",
+      "evidence": [
+        "conversion/conv-page/convert-entry.png",
+        "conversion/conv-page/convert-redirect-url.txt",
+        "conversion/conv-page/sign-up-after-submit.png",
+        "conversion/conv-page/sign-in-error-account-not-found.png",
+        "conversion/conv-page/browser-console.txt",
+        "conversion/conv-page/network-requests.txt"
+      ]
+    }
+  ],
+  "frictions": [
+    {
+      "description": "Clerk auth in headless agent-browser required Cloudflare/PAT challenge handling and sign-up stayed on Loading state instead of completing.",
+      "resolved": false,
+      "resolution": "Retried in the same dedicated session, waited for completion, then attempted sign-in with the just-submitted email to confirm account creation did not complete.",
+      "affectedAssertions": [
+        "VAL-CONV-001",
+        "VAL-CONV-002",
+        "VAL-CONV-003",
+        "VAL-CONV-004",
+        "VAL-CONV-005",
+        "VAL-CONV-006",
+        "VAL-CONV-007",
+        "VAL-CONV-008",
+        "VAL-CONV-009",
+        "VAL-CONV-010",
+        "VAL-CONV-011",
+        "VAL-CONV-012",
+        "VAL-CONV-013",
+        "VAL-CONV-014",
+        "VAL-CONV-015",
+        "VAL-CONV-016",
+        "VAL-CONV-017",
+        "VAL-CONV-018",
+        "VAL-CONV-019",
+        "VAL-CONV-020",
+        "VAL-CONV-021",
+        "VAL-CONV-022",
+        "VAL-CONV-023",
+        "VAL-CONV-024",
+        "VAL-CONV-025",
+        "VAL-CONV-026",
+        "VAL-CONV-027",
+        "VAL-CONV-028"
+      ]
+    }
+  ],
+  "blockers": [
+    {
+      "description": "Could not establish authenticated session required to reach /convert conversion UI.",
+      "details": "Observed redirect to /sign-in from /convert, sign-up submit stuck in Loading, console contained 'Request for the Private Access Token challenge' and 401, then sign-in returned account-not-found/422.",
+      "affectedAssertions": [
+        "VAL-CONV-001",
+        "VAL-CONV-002",
+        "VAL-CONV-003",
+        "VAL-CONV-004",
+        "VAL-CONV-005",
+        "VAL-CONV-006",
+        "VAL-CONV-007",
+        "VAL-CONV-008",
+        "VAL-CONV-009",
+        "VAL-CONV-010",
+        "VAL-CONV-011",
+        "VAL-CONV-012",
+        "VAL-CONV-013",
+        "VAL-CONV-014",
+        "VAL-CONV-015",
+        "VAL-CONV-016",
+        "VAL-CONV-017",
+        "VAL-CONV-018",
+        "VAL-CONV-019",
+        "VAL-CONV-020",
+        "VAL-CONV-021",
+        "VAL-CONV-022",
+        "VAL-CONV-023",
+        "VAL-CONV-024",
+        "VAL-CONV-025",
+        "VAL-CONV-026",
+        "VAL-CONV-027",
+        "VAL-CONV-028"
+      ],
+      "quickFixAttempted": "Retried sign-up flow, waited >20s, captured console/network evidence, and retried sign-in using same credentials."
+    }
+  ],
+  "evidence": {
+    "screenshots": [
+      "conversion/conv-page/convert-entry.png",
+      "conversion/conv-page/sign-up-form.png",
+      "conversion/conv-page/sign-up-after-wait.png",
+      "conversion/conv-page/sign-up-after-submit.png",
+      "conversion/conv-page/sign-in-after-signup-attempt.png",
+      "conversion/conv-page/sign-in-error-account-not-found.png"
+    ],
+    "logs": [
+      "conversion/conv-page/browser-console.txt",
+      "conversion/conv-page/browser-errors.txt",
+      "conversion/conv-page/network-requests.txt",
+      "conversion/conv-page/convert-redirect-url.txt"
+    ]
+  },
+  "summary": "Tested assigned conversion assertion group (VAL-CONV-001..028): 0 passed, 0 failed, 28 blocked by external auth challenge preventing authenticated access to /convert."
+}

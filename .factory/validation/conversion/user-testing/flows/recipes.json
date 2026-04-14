@@ -1,0 +1,275 @@
+{
+  "groupId": "recipes",
+  "testedAt": "2026-04-14T13:04:17Z",
+  "isolation": {
+    "surface": "agent-browser",
+    "appUrl": "http://localhost:3100",
+    "missionDir": "/root/.factory/missions/1417e725-972e-4dd0-a683-c2965f2f6b3f",
+    "evidenceDir": "/root/.factory/missions/1417e725-972e-4dd0-a683-c2965f2f6b3f/evidence/conversion/recipes",
+    "browserSession": "rec-recipes-1417",
+    "notes": "Dedicated session used only for assigned recipe-management assertion group."
+  },
+  "toolsUsed": [
+    "agent-browser",
+    "curl"
+  ],
+  "assertionResults": [
+    {
+      "id": "VAL-REC-001",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /recipes is protected and redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remained stuck in Loading in headless automation while console logged Private Access Token/Cloudflare challenge behavior with 401, so an authenticated recipes session could not be established for recipe-list/detail management validation.",
+      "evidence": [
+        "conversion/recipes/VAL-REC-auth-redirect-recipes.png",
+        "conversion/recipes/VAL-REC-signup-form.png",
+        "conversion/recipes/VAL-REC-signup-after-submit.png",
+        "conversion/recipes/browser-console.txt",
+        "conversion/recipes/browser-errors.txt",
+        "conversion/recipes/recipes-route-headers.txt",
+        "conversion/recipes/network-requests.txt",
+        "conversion/recipes/current-url.txt"
+      ]
+    },
+    {
+      "id": "VAL-REC-002",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /recipes is protected and redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remained stuck in Loading in headless automation while console logged Private Access Token/Cloudflare challenge behavior with 401, so an authenticated recipes session could not be established for recipe-list/detail management validation.",
+      "evidence": [
+        "conversion/recipes/VAL-REC-auth-redirect-recipes.png",
+        "conversion/recipes/VAL-REC-signup-form.png",
+        "conversion/recipes/VAL-REC-signup-after-submit.png",
+        "conversion/recipes/browser-console.txt",
+        "conversion/recipes/browser-errors.txt",
+        "conversion/recipes/recipes-route-headers.txt",
+        "conversion/recipes/network-requests.txt",
+        "conversion/recipes/current-url.txt"
+      ]
+    },
+    {
+      "id": "VAL-REC-003",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /recipes is protected and redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remained stuck in Loading in headless automation while console logged Private Access Token/Cloudflare challenge behavior with 401, so an authenticated recipes session could not be established for recipe-list/detail management validation.",
+      "evidence": [
+        "conversion/recipes/VAL-REC-auth-redirect-recipes.png",
+        "conversion/recipes/VAL-REC-signup-form.png",
+        "conversion/recipes/VAL-REC-signup-after-submit.png",
+        "conversion/recipes/browser-console.txt",
+        "conversion/recipes/browser-errors.txt",
+        "conversion/recipes/recipes-route-headers.txt",
+        "conversion/recipes/network-requests.txt",
+        "conversion/recipes/current-url.txt"
+      ]
+    },
+    {
+      "id": "VAL-REC-004",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /recipes is protected and redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remained stuck in Loading in headless automation while console logged Private Access Token/Cloudflare challenge behavior with 401, so an authenticated recipes session could not be established for recipe-list/detail management validation.",
+      "evidence": [
+        "conversion/recipes/VAL-REC-auth-redirect-recipes.png",
+        "conversion/recipes/VAL-REC-signup-form.png",
+        "conversion/recipes/VAL-REC-signup-after-submit.png",
+        "conversion/recipes/browser-console.txt",
+        "conversion/recipes/browser-errors.txt",
+        "conversion/recipes/recipes-route-headers.txt",
+        "conversion/recipes/network-requests.txt",
+        "conversion/recipes/current-url.txt"
+      ]
+    },
+    {
+      "id": "VAL-REC-005",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /recipes is protected and redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remained stuck in Loading in headless automation while console logged Private Access Token/Cloudflare challenge behavior with 401, so an authenticated recipes session could not be established for recipe-list/detail management validation.",
+      "evidence": [
+        "conversion/recipes/VAL-REC-auth-redirect-recipes.png",
+        "conversion/recipes/VAL-REC-signup-form.png",
+        "conversion/recipes/VAL-REC-signup-after-submit.png",
+        "conversion/recipes/browser-console.txt",
+        "conversion/recipes/browser-errors.txt",
+        "conversion/recipes/recipes-route-headers.txt",
+        "conversion/recipes/network-requests.txt",
+        "conversion/recipes/current-url.txt"
+      ]
+    },
+    {
+      "id": "VAL-REC-006",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /recipes is protected and redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remained stuck in Loading in headless automation while console logged Private Access Token/Cloudflare challenge behavior with 401, so an authenticated recipes session could not be established for recipe-list/detail management validation.",
+      "evidence": [
+        "conversion/recipes/VAL-REC-auth-redirect-recipes.png",
+        "conversion/recipes/VAL-REC-signup-form.png",
+        "conversion/recipes/VAL-REC-signup-after-submit.png",
+        "conversion/recipes/browser-console.txt",
+        "conversion/recipes/browser-errors.txt",
+        "conversion/recipes/recipes-route-headers.txt",
+        "conversion/recipes/network-requests.txt",
+        "conversion/recipes/current-url.txt"
+      ]
+    },
+    {
+      "id": "VAL-REC-007",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /recipes is protected and redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remained stuck in Loading in headless automation while console logged Private Access Token/Cloudflare challenge behavior with 401, so an authenticated recipes session could not be established for recipe-list/detail management validation.",
+      "evidence": [
+        "conversion/recipes/VAL-REC-auth-redirect-recipes.png",
+        "conversion/recipes/VAL-REC-signup-form.png",
+        "conversion/recipes/VAL-REC-signup-after-submit.png",
+        "conversion/recipes/browser-console.txt",
+        "conversion/recipes/browser-errors.txt",
+        "conversion/recipes/recipes-route-headers.txt",
+        "conversion/recipes/network-requests.txt",
+        "conversion/recipes/current-url.txt"
+      ]
+    },
+    {
+      "id": "VAL-REC-008",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /recipes is protected and redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remained stuck in Loading in headless automation while console logged Private Access Token/Cloudflare challenge behavior with 401, so an authenticated recipes session could not be established for recipe-list/detail management validation.",
+      "evidence": [
+        "conversion/recipes/VAL-REC-auth-redirect-recipes.png",
+        "conversion/recipes/VAL-REC-signup-form.png",
+        "conversion/recipes/VAL-REC-signup-after-submit.png",
+        "conversion/recipes/browser-console.txt",
+        "conversion/recipes/browser-errors.txt",
+        "conversion/recipes/recipes-route-headers.txt",
+        "conversion/recipes/network-requests.txt",
+        "conversion/recipes/current-url.txt"
+      ]
+    },
+    {
+      "id": "VAL-REC-009",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /recipes is protected and redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remained stuck in Loading in headless automation while console logged Private Access Token/Cloudflare challenge behavior with 401, so an authenticated recipes session could not be established for recipe-list/detail management validation.",
+      "evidence": [
+        "conversion/recipes/VAL-REC-auth-redirect-recipes.png",
+        "conversion/recipes/VAL-REC-signup-form.png",
+        "conversion/recipes/VAL-REC-signup-after-submit.png",
+        "conversion/recipes/browser-console.txt",
+        "conversion/recipes/browser-errors.txt",
+        "conversion/recipes/recipes-route-headers.txt",
+        "conversion/recipes/network-requests.txt",
+        "conversion/recipes/current-url.txt"
+      ]
+    },
+    {
+      "id": "VAL-REC-010",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /recipes is protected and redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remained stuck in Loading in headless automation while console logged Private Access Token/Cloudflare challenge behavior with 401, so an authenticated recipes session could not be established for recipe-list/detail management validation.",
+      "evidence": [
+        "conversion/recipes/VAL-REC-auth-redirect-recipes.png",
+        "conversion/recipes/VAL-REC-signup-form.png",
+        "conversion/recipes/VAL-REC-signup-after-submit.png",
+        "conversion/recipes/browser-console.txt",
+        "conversion/recipes/browser-errors.txt",
+        "conversion/recipes/recipes-route-headers.txt",
+        "conversion/recipes/network-requests.txt",
+        "conversion/recipes/current-url.txt"
+      ]
+    },
+    {
+      "id": "VAL-REC-011",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /recipes is protected and redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remained stuck in Loading in headless automation while console logged Private Access Token/Cloudflare challenge behavior with 401, so an authenticated recipes session could not be established for recipe-list/detail management validation.",
+      "evidence": [
+        "conversion/recipes/VAL-REC-auth-redirect-recipes.png",
+        "conversion/recipes/VAL-REC-signup-form.png",
+        "conversion/recipes/VAL-REC-signup-after-submit.png",
+        "conversion/recipes/browser-console.txt",
+        "conversion/recipes/browser-errors.txt",
+        "conversion/recipes/recipes-route-headers.txt",
+        "conversion/recipes/network-requests.txt",
+        "conversion/recipes/current-url.txt"
+      ]
+    },
+    {
+      "id": "VAL-REC-012",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /recipes is protected and redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remained stuck in Loading in headless automation while console logged Private Access Token/Cloudflare challenge behavior with 401, so an authenticated recipes session could not be established for recipe-list/detail management validation.",
+      "evidence": [
+        "conversion/recipes/VAL-REC-auth-redirect-recipes.png",
+        "conversion/recipes/VAL-REC-signup-form.png",
+        "conversion/recipes/VAL-REC-signup-after-submit.png",
+        "conversion/recipes/browser-console.txt",
+        "conversion/recipes/browser-errors.txt",
+        "conversion/recipes/recipes-route-headers.txt",
+        "conversion/recipes/network-requests.txt",
+        "conversion/recipes/current-url.txt"
+      ]
+    },
+    {
+      "id": "VAL-REC-013",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /recipes is protected and redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remained stuck in Loading in headless automation while console logged Private Access Token/Cloudflare challenge behavior with 401, so an authenticated recipes session could not be established for recipe-list/detail management validation.",
+      "evidence": [
+        "conversion/recipes/VAL-REC-auth-redirect-recipes.png",
+        "conversion/recipes/VAL-REC-signup-form.png",
+        "conversion/recipes/VAL-REC-signup-after-submit.png",
+        "conversion/recipes/browser-console.txt",
+        "conversion/recipes/browser-errors.txt",
+        "conversion/recipes/recipes-route-headers.txt",
+        "conversion/recipes/network-requests.txt",
+        "conversion/recipes/current-url.txt"
+      ]
+    },
+    {
+      "id": "VAL-REC-014",
+      "status": "blocked",
+      "reason": "Blocked by authentication prerequisite: /recipes is protected and redirects to /sign-in in a fresh dedicated session, and Clerk sign-up remained stuck in Loading in headless automation while console logged Private Access Token/Cloudflare challenge behavior with 401, so an authenticated recipes session could not be established for recipe-list/detail management validation.",
+      "evidence": [
+        "conversion/recipes/VAL-REC-auth-redirect-recipes.png",
+        "conversion/recipes/VAL-REC-signup-form.png",
+        "conversion/recipes/VAL-REC-signup-after-submit.png",
+        "conversion/recipes/browser-console.txt",
+        "conversion/recipes/browser-errors.txt",
+        "conversion/recipes/recipes-route-headers.txt",
+        "conversion/recipes/network-requests.txt",
+        "conversion/recipes/current-url.txt"
+      ]
+    }
+  ],
+  "frictions": [
+    {
+      "description": "Headless Clerk auth flow did not complete account creation in-session; submit stayed in Loading state and prevented reaching authenticated /recipes UI.",
+      "resolved": false,
+      "resolution": "Retried in the same dedicated session, waited for completion window, and captured redirect/auth diagnostics for blocker evidence.",
+      "affectedAssertions": [
+        "VAL-REC-001",
+        "VAL-REC-002",
+        "VAL-REC-003",
+        "VAL-REC-004",
+        "VAL-REC-005",
+        "VAL-REC-006",
+        "VAL-REC-007",
+        "VAL-REC-008",
+        "VAL-REC-009",
+        "VAL-REC-010",
+        "VAL-REC-011",
+        "VAL-REC-012",
+        "VAL-REC-013",
+        "VAL-REC-014"
+      ]
+    }
+  ],
+  "blockers": [
+    {
+      "description": "Could not establish authenticated session required for VAL-REC-001..014.",
+      "details": "Observed /recipes -> /sign-in redirect; sign-up submit remained loading; console reported Private Access Token challenge warning and 401 response; no authenticated recipes page access achieved.",
+      "affectedAssertions": [
+        "VAL-REC-001",
+        "VAL-REC-002",
+        "VAL-REC-003",
+        "VAL-REC-004",
+        "VAL-REC-005",
+        "VAL-REC-006",
+        "VAL-REC-007",
+        "VAL-REC-008",
+        "VAL-REC-009",
+        "VAL-REC-010",
+        "VAL-REC-011",
+        "VAL-REC-012",
+        "VAL-REC-013",
+        "VAL-REC-014"
+      ],
+      "quickFixAttempted": "Retried sign-up flow, waited >12s after submit, captured console/errors/network/header evidence, and confirmed blocker persisted."
+    }
+  ],
+  "summary": "Tested VAL-REC-001..014: 0 passed, 0 failed, 14 blocked by external auth challenge preventing authenticated recipe management flow access."
+}
