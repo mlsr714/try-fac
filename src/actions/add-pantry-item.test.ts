@@ -7,12 +7,16 @@ vi.mock("@clerk/nextjs/server", () => ({
 }));
 
 // Mock the database
+const mockSelectWhere = vi.fn();
+const mockSelectFrom = vi.fn(() => ({ where: mockSelectWhere }));
+const mockSelect = vi.fn(() => ({ from: mockSelectFrom }));
 const mockReturning = vi.fn();
 const mockValues = vi.fn(() => ({ returning: mockReturning }));
 const mockInsert = vi.fn(() => ({ values: mockValues }));
 
 vi.mock("@/db", () => ({
   db: {
+    select: () => mockSelect(),
     insert: () => mockInsert(),
   },
 }));
@@ -31,6 +35,7 @@ const mockAuth = vi.mocked(auth);
 describe("addPantryItem", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    mockSelectWhere.mockResolvedValue([]);
     mockAuth.mockResolvedValue({
       userId: "test-user-id",
     } as ReturnType<typeof auth> extends Promise<infer T> ? T : never);
@@ -83,6 +88,17 @@ describe("addPantryItem", () => {
         name: "Garlic",
       })
     );
+  });
+
+  it("returns error when duplicate ingredient already exists", async () => {
+    mockSelectWhere.mockResolvedValue([{ id: "item-uuid-1", name: "Salt" }]);
+
+    const result = await addPantryItem("  salt  ");
+
+    expect(result).toEqual({
+      error: "Ingredient already exists in your pantry",
+    });
+    expect(mockInsert).not.toHaveBeenCalled();
   });
 
   it("returns error when database insert fails", async () => {

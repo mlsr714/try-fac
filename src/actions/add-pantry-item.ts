@@ -1,8 +1,11 @@
 "use server";
 
 import { auth } from "@clerk/nextjs/server";
+import { eq } from "drizzle-orm";
 import { db } from "@/db";
 import { pantryItems } from "@/db/schema";
+
+const DUPLICATE_ERROR = "Ingredient already exists in your pantry";
 
 export async function addPantryItem(
   name: string
@@ -18,6 +21,20 @@ export async function addPantryItem(
 
     if (!userId) {
       return { error: "Not authenticated" };
+    }
+
+    const normalizedName = trimmedName.toLocaleLowerCase();
+    const existingItems = await db
+      .select({ id: pantryItems.id, name: pantryItems.name })
+      .from(pantryItems)
+      .where(eq(pantryItems.userId, userId));
+
+    const hasDuplicate = existingItems.some(
+      (item) => item.name.trim().toLocaleLowerCase() === normalizedName
+    );
+
+    if (hasDuplicate) {
+      return { error: DUPLICATE_ERROR };
     }
 
     const [item] = await db

@@ -7,6 +7,9 @@ vi.mock("@clerk/nextjs/server", () => ({
 }));
 
 // Mock the database
+const mockSelectWhere = vi.fn();
+const mockSelectFrom = vi.fn(() => ({ where: mockSelectWhere }));
+const mockSelect = vi.fn(() => ({ from: mockSelectFrom }));
 const mockReturning = vi.fn();
 const mockWhere = vi.fn(() => ({ returning: mockReturning }));
 const mockSet = vi.fn(() => ({ where: mockWhere }));
@@ -14,6 +17,7 @@ const mockUpdate = vi.fn(() => ({ set: mockSet }));
 
 vi.mock("@/db", () => ({
   db: {
+    select: () => mockSelect(),
     update: () => mockUpdate(),
   },
 }));
@@ -38,6 +42,7 @@ const mockAuth = vi.mocked(auth);
 describe("updatePantryItem", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    mockSelectWhere.mockResolvedValue([]);
     mockAuth.mockResolvedValue({
       userId: "test-user-id",
     } as ReturnType<typeof auth> extends Promise<infer T> ? T : never);
@@ -96,6 +101,17 @@ describe("updatePantryItem", () => {
 
     const result = await updatePantryItem("nonexistent-id", "New Name");
     expect(result).toEqual({ error: "Ingredient not found" });
+  });
+
+  it("returns error when duplicate ingredient name already exists", async () => {
+    mockSelectWhere.mockResolvedValue([{ id: "item-2", name: "Garlic" }]);
+
+    const result = await updatePantryItem("item-1", "  garlic  ");
+
+    expect(result).toEqual({
+      error: "Ingredient already exists in your pantry",
+    });
+    expect(mockUpdate).not.toHaveBeenCalled();
   });
 
   it("returns error when database update fails", async () => {

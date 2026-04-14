@@ -5,6 +5,8 @@ import { db } from "@/db";
 import { pantryItems } from "@/db/schema";
 import { eq, and } from "drizzle-orm";
 
+const DUPLICATE_ERROR = "Ingredient already exists in your pantry";
+
 export async function updatePantryItem(
   id: string,
   name: string
@@ -20,6 +22,22 @@ export async function updatePantryItem(
 
     if (!userId) {
       return { error: "Not authenticated" };
+    }
+
+    const normalizedName = trimmedName.toLocaleLowerCase();
+    const existingItems = await db
+      .select({ id: pantryItems.id, name: pantryItems.name })
+      .from(pantryItems)
+      .where(eq(pantryItems.userId, userId));
+
+    const hasDuplicate = existingItems.some(
+      (item) =>
+        item.id !== id &&
+        item.name.trim().toLocaleLowerCase() === normalizedName
+    );
+
+    if (hasDuplicate) {
+      return { error: DUPLICATE_ERROR };
     }
 
     const [item] = await db

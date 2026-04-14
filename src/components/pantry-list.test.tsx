@@ -287,9 +287,11 @@ describe("PantryList", () => {
   });
 
   // --- Duplicate names ---
-  it("allows adding duplicate ingredient name", async () => {
+  it("rejects duplicate ingredient names with a clear error", async () => {
     const user = userEvent.setup();
-    mockAdd.mockResolvedValue({ item: { id: "item-dup", name: "Salt" } });
+    mockAdd.mockResolvedValue({
+      error: "Ingredient already exists in your pantry",
+    });
 
     render(<PantryList initialItems={mockItems} />);
 
@@ -298,9 +300,39 @@ describe("PantryList", () => {
     await user.click(screen.getByTestId("add-ingredient-button"));
 
     await waitFor(() => {
-      const saltItems = screen.getAllByText("Salt");
-      expect(saltItems.length).toBeGreaterThanOrEqual(2);
+      expect(screen.getByTestId("add-error")).toBeInTheDocument();
     });
+
+    expect(
+      screen.getByText("Ingredient already exists in your pantry")
+    ).toBeInTheDocument();
+    expect(screen.getAllByText("Salt")).toHaveLength(1);
+  });
+
+  it("rejects editing an ingredient to a duplicate name", async () => {
+    const user = userEvent.setup();
+    mockUpdate.mockResolvedValue({
+      error: "Ingredient already exists in your pantry",
+    });
+
+    render(<PantryList initialItems={mockItems} />);
+
+    await user.click(screen.getByTestId("edit-button-item-1"));
+
+    const editInput = screen.getByTestId("edit-ingredient-input");
+    await user.clear(editInput);
+    await user.type(editInput, "Garlic");
+    await user.click(screen.getByTestId("save-edit-button"));
+
+    await waitFor(() => {
+      expect(screen.getByTestId("edit-error")).toBeInTheDocument();
+    });
+
+    expect(
+      screen.getByText("Ingredient already exists in your pantry")
+    ).toBeInTheDocument();
+    expect(mockUpdate).toHaveBeenCalledWith("item-1", "Garlic");
+    expect(screen.getByTestId("edit-ingredient-input")).toHaveValue("Garlic");
   });
 
   // --- Many items ---
