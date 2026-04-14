@@ -77,6 +77,16 @@ describe("POST /api/convert", () => {
     expect(data.error).toBe("Invalid request");
   });
 
+  it("returns 400 for whitespace-only recipeText", async () => {
+    const request = createRequest({ recipeText: "   \n\t   " });
+    const response = await POST(request);
+
+    expect(response.status).toBe(400);
+    const data = await response.json();
+    expect(data.error).toBe("Invalid request");
+    expect(mockStreamText).not.toHaveBeenCalled();
+  });
+
   it("includes Thermomix instructions in prompt", async () => {
     const request = createRequest(validRequest);
     await POST(request);

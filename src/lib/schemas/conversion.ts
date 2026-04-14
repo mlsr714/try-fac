@@ -2,7 +2,7 @@ import { z } from "zod";
 
 // Conversion input schema
 export const convertRequestSchema = z.object({
-  recipeText: z.string().min(1, "Recipe text is required"),
+  recipeText: z.string().trim().min(1, "Recipe text is required"),
 });
 
 export type ConvertRequest = z.infer<typeof convertRequestSchema>;
