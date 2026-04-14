@@ -1,0 +1,34 @@
+{
+  "featureId": "conversion-cross-flows",
+  "reviewedAt": "2026-04-14T09:13:08Z",
+  "commitId": "d4bbc34",
+  "transcriptSkeletonReviewed": true,
+  "diffReviewed": true,
+  "status": "fail",
+  "codeReview": {
+    "summary": "The commit adds a custom `/recipes/[id]/not-found` page and substantial component-level tests, but it does not fully verify several required cross-flow behaviors in the feature contract (notably persistence across refresh/session and true deleted-URL behavior after delete).",
+    "issues": [
+      {
+        "file": "src/__tests__/cross-flows.test.tsx",
+        "line": 334,
+        "severity": "blocking",
+        "description": "The \"Data Persistence Across Operations\" section only renders in-memory arrays and search UI; it does not validate required persistence behaviors (refresh, sign-out/sign-in, concurrency stability) expected by the feature (`features.json` expectedBehavior and VAL-CROSS-036/037/038/039)."
+      },
+      {
+        "file": "src/__tests__/cross-flows.test.tsx",
+        "line": 286,
+        "severity": "blocking",
+        "description": "The delete-flow suite claims \"Detail Returns 404\" but does not exercise navigation to `/recipes/[deleted-id]` after deletion to verify actual 404/redirect behavior. Current assertions only check delete action invocation, redirect push, and list rendering."
+      }
+    ]
+  },
+  "sharedStateObservations": [
+    {
+      "area": "skills",
+      "observation": "The `fullstack-worker` skill requires agent-browser verification for authenticated flows, but this mission/environment has a known Clerk Cloudflare challenge in headless mode; workers fall back to partial checks yet still mark procedure followed.",
+      "evidence": ".factory/skills/fullstack-worker/SKILL.md:63-72 requires agent-browser checks; .factory/library/user-testing.md:35 documents headless Clerk auth blockage; transcript skeleton (/tmp/conversion-cross-flows-skeleton.md:693) records fallback due Cloudflare."
+    }
+  ],
+  "addressesFailureFrom": null,
+  "summary": "Fail: implementation improves coverage and 404 UX, but required persistence/authenticated cross-flow verification remains incomplete and the deleted-recipe URL behavior is not validated end-to-end."
+}

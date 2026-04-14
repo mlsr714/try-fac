@@ -1,0 +1,79 @@
+{
+  "milestone": "conversion",
+  "round": 1,
+  "status": "fail",
+  "validatorsRun": {
+    "test": {
+      "passed": true,
+      "command": "npx vitest run --reporter=verbose",
+      "exitCode": 0
+    },
+    "typecheck": {
+      "passed": true,
+      "command": "npx tsc --noEmit",
+      "exitCode": 0
+    },
+    "lint": {
+      "passed": true,
+      "command": "npx eslint .",
+      "exitCode": 0
+    }
+  },
+  "reviewsSummary": {
+    "total": 4,
+    "passed": 2,
+    "failed": 2,
+    "failedFeatures": [
+      "pantry-management",
+      "conversion-cross-flows"
+    ]
+  },
+  "blockingIssues": [
+    {
+      "featureId": "pantry-management",
+      "severity": "blocking",
+      "description": "Duplicate pantry names are always inserted without a de-duplication or validation path (`src/actions/add-pantry-item.ts`), enabling confusing identical entries contrary to VAL-PAN-012."
+    },
+    {
+      "featureId": "pantry-management",
+      "severity": "blocking",
+      "description": "Pantry rows render name-only display (`src/components/pantry-list.tsx`), so duplicate entries appear indistinguishable with no explanatory differentiation, violating VAL-PAN-012."
+    },
+    {
+      "featureId": "conversion-cross-flows",
+      "severity": "blocking",
+      "description": "Cross-flow persistence checks in `src/__tests__/cross-flows.test.tsx` only assert in-memory render behavior and do not validate required refresh/sign-out/sign-in/concurrency persistence behaviors."
+    },
+    {
+      "featureId": "conversion-cross-flows",
+      "severity": "blocking",
+      "description": "Delete-flow tests in `src/__tests__/cross-flows.test.tsx` do not navigate to `/recipes/[deleted-id]` post-delete, so required deleted-detail 404/redirect behavior is not actually verified."
+    }
+  ],
+  "appliedUpdates": [],
+  "suggestedGuidanceUpdates": [
+    {
+      "target": "skill:fullstack-worker",
+      "suggestion": "Add an explicit fallback procedure for required authenticated agent-browser checks when Clerk/Cloudflare bot protection blocks headless sessions (e.g., mandated alternative evidence strategy and handoff wording).",
+      "evidence": "Shared-state observations in recipe-conversion-page, recipes-list-and-detail, and conversion-cross-flows reviews all reported the same mismatch; `.factory/library/user-testing.md` also documents recurring Clerk headless challenge blocking authenticated automation.",
+      "isSystemic": true
+    },
+    {
+      "target": "AGENTS.md",
+      "suggestion": "Document this repo's middleware location convention explicitly (`src/middleware.ts`) to reduce implementation friction and unnecessary file lookups.",
+      "evidence": "recipes-list-and-detail review observed initial failed lookup at repo root (`middleware.ts`) before discovering the actual file at `src/middleware.ts`.",
+      "isSystemic": false
+    }
+  ],
+  "rejectedObservations": [
+    {
+      "observation": "Repeated variants of the same agent-browser/Clerk headless challenge note across multiple review files.",
+      "reason": "duplicate"
+    },
+    {
+      "observation": "General restatement that Clerk headless auth is blocked.",
+      "reason": "already-documented"
+    }
+  ],
+  "previousRound": null
+}
