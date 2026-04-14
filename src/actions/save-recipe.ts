@@ -1,17 +1,20 @@
 "use server";
 
-import { auth } from "@clerk/nextjs/server";
+import { revalidatePath } from "next/cache";
 import { db } from "@/db";
 import { recipes } from "@/db/schema";
+import { syncUser } from "@/actions/sync-user";
 import type { FullRecipe } from "@/lib/schemas/generation";
 
 export async function saveRecipe(recipe: FullRecipe): Promise<{ id: string } | { error: string }> {
   try {
-    const { userId } = await auth();
+    const syncedUser = await syncUser();
 
-    if (!userId) {
+    if (!syncedUser) {
       return { error: "Not authenticated" };
     }
+
+    const userId = syncedUser.id;
 
     const [saved] = await db
       .insert(recipes)
@@ -30,6 +33,9 @@ export async function saveRecipe(recipe: FullRecipe): Promise<{ id: string } | {
         sourceType: "generated",
       })
       .returning({ id: recipes.id });
+
+    revalidatePath("/recipes");
+    revalidatePath(`/recipes/${saved.id}`);
 
     return { id: saved.id };
   } catch (error) {

@@ -18,6 +18,14 @@ vi.mock("@clerk/nextjs/server", () => ({
   auth: vi.fn(),
 }));
 
+vi.mock("@/actions/sync-user", () => ({
+  syncUser: vi.fn(),
+}));
+
+vi.mock("next/cache", () => ({
+  revalidatePath: vi.fn(),
+}));
+
 // Capture the values passed to insert
 let capturedValues: Record<string, unknown> | null = null;
 const mockReturning = vi.fn();
@@ -53,6 +61,8 @@ vi.mock("@/db/schema", () => ({
 
 const { auth } = await import("@clerk/nextjs/server");
 const mockAuth = vi.mocked(auth);
+const { syncUser } = await import("@/actions/sync-user");
+const mockSyncUser = vi.mocked(syncUser);
 
 describe("Conversion Data Mapping: ConvertedRecipe → DB → RecipeDetail", () => {
   beforeEach(() => {
@@ -61,6 +71,12 @@ describe("Conversion Data Mapping: ConvertedRecipe → DB → RecipeDetail", () 
     mockAuth.mockResolvedValue({
       userId: "test-user-id",
     } as ReturnType<typeof auth> extends Promise<infer T> ? T : never);
+    mockSyncUser.mockResolvedValue({
+      id: "test-user-id",
+      email: "chef@example.com",
+      name: "Test Chef",
+      imageUrl: "https://example.com/avatar.png",
+    });
     mockReturning.mockResolvedValue([{ id: "saved-uuid" }]);
   });
 

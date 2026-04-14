@@ -7,6 +7,14 @@ vi.mock("@clerk/nextjs/server", () => ({
   auth: vi.fn(),
 }));
 
+vi.mock("@/actions/sync-user", () => ({
+  syncUser: vi.fn(),
+}));
+
+vi.mock("next/cache", () => ({
+  revalidatePath: vi.fn(),
+}));
+
 // Mock the database
 const mockReturning = vi.fn();
 const mockValues = vi.fn(() => ({ returning: mockReturning }));
@@ -38,6 +46,10 @@ vi.mock("@/db/schema", () => ({
 
 const { auth } = await import("@clerk/nextjs/server");
 const mockAuth = vi.mocked(auth);
+const { syncUser } = await import("@/actions/sync-user");
+const mockSyncUser = vi.mocked(syncUser);
+const { revalidatePath } = await import("next/cache");
+const mockRevalidatePath = vi.mocked(revalidatePath);
 
 const mockRecipe: FullRecipe = {
   title: "Vegan Buddha Bowl",
@@ -67,6 +79,12 @@ describe("saveRecipe", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     mockAuth.mockResolvedValue({ userId: "test-user-id" } as ReturnType<typeof auth> extends Promise<infer T> ? T : never);
+    mockSyncUser.mockResolvedValue({
+      id: "test-user-id",
+      email: "chef@example.com",
+      name: "Test Chef",
+      imageUrl: "https://example.com/avatar.png",
+    });
     mockReturning.mockResolvedValue([{ id: "recipe-uuid-123" }]);
   });
 
@@ -84,10 +102,13 @@ describe("saveRecipe", () => {
         sourceType: "generated",
       })
     );
+    expect(mockSyncUser).toHaveBeenCalledTimes(1);
+    expect(mockRevalidatePath).toHaveBeenCalledWith("/recipes");
+    expect(mockRevalidatePath).toHaveBeenCalledWith("/recipes/recipe-uuid-123");
   });
 
   it("returns error when not authenticated", async () => {
-    mockAuth.mockResolvedValue({ userId: null } as ReturnType<typeof auth> extends Promise<infer T> ? T : never);
+    mockSyncUser.mockResolvedValue(null);
 
     const result = await saveRecipe(mockRecipe);
     expect(result).toEqual({ error: "Not authenticated" });

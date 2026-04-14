@@ -6,6 +6,14 @@ vi.mock("@clerk/nextjs/server", () => ({
   auth: vi.fn(),
 }));
 
+vi.mock("@/actions/sync-user", () => ({
+  syncUser: vi.fn(),
+}));
+
+vi.mock("next/cache", () => ({
+  revalidatePath: vi.fn(),
+}));
+
 // Mock the database
 const mockSelectWhere = vi.fn();
 const mockSelectFrom = vi.fn(() => ({ where: mockSelectWhere }));
@@ -31,6 +39,10 @@ vi.mock("@/db/schema", () => ({
 
 const { auth } = await import("@clerk/nextjs/server");
 const mockAuth = vi.mocked(auth);
+const { syncUser } = await import("@/actions/sync-user");
+const mockSyncUser = vi.mocked(syncUser);
+const { revalidatePath } = await import("next/cache");
+const mockRevalidatePath = vi.mocked(revalidatePath);
 
 describe("addPantryItem", () => {
   beforeEach(() => {
@@ -39,6 +51,12 @@ describe("addPantryItem", () => {
     mockAuth.mockResolvedValue({
       userId: "test-user-id",
     } as ReturnType<typeof auth> extends Promise<infer T> ? T : never);
+    mockSyncUser.mockResolvedValue({
+      id: "test-user-id",
+      email: "chef@example.com",
+      name: "Test Chef",
+      imageUrl: "https://example.com/avatar.png",
+    });
   });
 
   it("adds item and returns it", async () => {
@@ -54,12 +72,12 @@ describe("addPantryItem", () => {
         name: "Olive Oil",
       })
     );
+    expect(mockSyncUser).toHaveBeenCalledTimes(1);
+    expect(mockRevalidatePath).toHaveBeenCalledWith("/pantry");
   });
 
   it("returns error when not authenticated", async () => {
-    mockAuth.mockResolvedValue({
-      userId: null,
-    } as ReturnType<typeof auth> extends Promise<infer T> ? T : never);
+    mockSyncUser.mockResolvedValue(null);
 
     const result = await addPantryItem("Salt");
     expect(result).toEqual({ error: "Not authenticated" });

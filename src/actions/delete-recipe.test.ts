@@ -6,6 +6,10 @@ vi.mock("@clerk/nextjs/server", () => ({
   auth: vi.fn(),
 }));
 
+vi.mock("next/cache", () => ({
+  revalidatePath: vi.fn(),
+}));
+
 // Mock the database
 const mockReturning = vi.fn();
 const mockWhere = vi.fn(() => ({ returning: mockReturning }));
@@ -31,6 +35,8 @@ vi.mock("drizzle-orm", () => ({
 
 const { auth } = await import("@clerk/nextjs/server");
 const mockAuth = vi.mocked(auth);
+const { revalidatePath } = await import("next/cache");
+const mockRevalidatePath = vi.mocked(revalidatePath);
 
 describe("deleteRecipe", () => {
   beforeEach(() => {
@@ -47,6 +53,10 @@ describe("deleteRecipe", () => {
 
     expect(result).toEqual({ success: true });
     expect(mockDeleteFrom).toHaveBeenCalledTimes(1);
+    expect(mockRevalidatePath).toHaveBeenCalledWith("/recipes");
+    expect(mockRevalidatePath).toHaveBeenCalledWith(
+      "/recipes/recipe-uuid-123"
+    );
   });
 
   it("returns error when not authenticated", async () => {

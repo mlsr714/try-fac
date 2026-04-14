@@ -91,4 +91,32 @@ describe("getPantryItems", () => {
       b: "test-user-id",
     });
   });
+
+  it("returns the same user's pantry items after signing back in", async () => {
+    const persistedItems = [
+      { id: "item-1", name: "Garlic", createdAt: new Date("2024-01-01") },
+      { id: "item-2", name: "Rice", createdAt: new Date("2024-01-02") },
+    ];
+
+    mockAuth
+      .mockResolvedValueOnce({
+        userId: "test-user-id",
+      } as ReturnType<typeof auth> extends Promise<infer T> ? T : never)
+      .mockResolvedValueOnce({
+        userId: null,
+      } as ReturnType<typeof auth> extends Promise<infer T> ? T : never)
+      .mockResolvedValueOnce({
+        userId: "test-user-id",
+      } as ReturnType<typeof auth> extends Promise<infer T> ? T : never);
+    mockOrderBy.mockResolvedValue(persistedItems);
+
+    const firstSession = await getPantryItems();
+    const signedOut = await getPantryItems();
+    const secondSession = await getPantryItems();
+
+    expect(firstSession).toEqual({ items: persistedItems });
+    expect(signedOut).toEqual({ error: "Not authenticated" });
+    expect(secondSession).toEqual({ items: persistedItems });
+    expect(mockOrderBy).toHaveBeenCalledTimes(2);
+  });
 });

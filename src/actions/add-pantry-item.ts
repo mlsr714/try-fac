@@ -1,9 +1,10 @@
 "use server";
 
-import { auth } from "@clerk/nextjs/server";
+import { revalidatePath } from "next/cache";
 import { eq } from "drizzle-orm";
 import { db } from "@/db";
 import { pantryItems } from "@/db/schema";
+import { syncUser } from "@/actions/sync-user";
 
 const DUPLICATE_ERROR = "Ingredient already exists in your pantry";
 
@@ -17,12 +18,13 @@ export async function addPantryItem(
       return { error: "Ingredient name is required" };
     }
 
-    const { userId } = await auth();
+    const syncedUser = await syncUser();
 
-    if (!userId) {
+    if (!syncedUser) {
       return { error: "Not authenticated" };
     }
 
+    const userId = syncedUser.id;
     const normalizedName = trimmedName.toLocaleLowerCase();
     const existingItems = await db
       .select({ id: pantryItems.id, name: pantryItems.name })
@@ -44,6 +46,8 @@ export async function addPantryItem(
         name: trimmedName,
       })
       .returning({ id: pantryItems.id, name: pantryItems.name });
+
+    revalidatePath("/pantry");
 
     return { item };
   } catch (error) {
