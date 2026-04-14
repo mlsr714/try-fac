@@ -20,6 +20,8 @@ Clerk is the sole identity provider. There is no Supabase Auth and no Row-Level 
 
 A user-sync mechanism ensures the `users` table stays in step with Clerk: on the first authenticated request, a server action upserts the Clerk user record into Postgres.
 
+For write actions that insert into user-foreign-key tables (`recipes`, `pantry_items`), call `syncUser()` before the insert to avoid first-use foreign-key failures when users access generation/conversion/pantry flows directly.
+
 ### Server Layer
 
 Next.js serves two distinct server-side roles:

@@ -1,0 +1,48 @@
+{
+  "milestone": "conversion",
+  "round": 2,
+  "status": "fail",
+  "validatorsRun": {
+    "test": {
+      "passed": true,
+      "command": "npx vitest run --reporter=verbose",
+      "exitCode": 0
+    },
+    "typecheck": {
+      "passed": true,
+      "command": "npx tsc --noEmit",
+      "exitCode": 0
+    },
+    "lint": {
+      "passed": true,
+      "command": "npx eslint .",
+      "exitCode": 0
+    }
+  },
+  "reviewsSummary": {
+    "total": 2,
+    "passed": 1,
+    "failed": 1,
+    "failedFeatures": [
+      "conversion-cross-flows"
+    ]
+  },
+  "blockingIssues": [
+    {
+      "featureId": "conversion-cross-flows",
+      "severity": "blocking",
+      "description": "The cross-flow persistence suite still does not test VAL-CROSS-039's required concurrent workflow (pantry add -> generate -> convert -> verify recipes and pantry remain intact), so required no-corruption verification remains missing."
+    }
+  ],
+  "appliedUpdates": [],
+  "suggestedGuidanceUpdates": [
+    {
+      "target": "skill:fullstack-worker",
+      "suggestion": "Add an explicit fallback procedure for required authenticated agent-browser checks when Clerk/Cloudflare bot protection blocks headless sessions (e.g., mandated alternative evidence strategy and handoff wording).",
+      "evidence": "The conversion-cross-flows re-review again reported this mismatch, citing required manual verification steps that are blocked in headless auth while mission guidance already documents the Clerk challenge.",
+      "isSystemic": true
+    }
+  ],
+  "rejectedObservations": [],
+  "previousRound": ".factory/validation/conversion/scrutiny/synthesis.round1.json"
+}

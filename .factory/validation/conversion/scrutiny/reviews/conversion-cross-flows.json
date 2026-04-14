@@ -1,28 +1,21 @@
 {
   "featureId": "conversion-cross-flows",
-  "reviewedAt": "2026-04-14T11:52:06Z",
-  "commitId": "50c40619bea6b372ce674187c4ead311515b162e",
+  "reviewedAt": "2026-04-14T12:25:42Z",
+  "commitId": "0c0a440086fcd599bffec28863a5df870492267e",
   "transcriptSkeletonReviewed": true,
   "diffReviewed": true,
-  "status": "fail",
+  "status": "pass",
   "codeReview": {
-    "summary": "This fix commit adds meaningful regression coverage for deleted-detail handling and some persistence paths (refresh-style page loads and same-user re-auth checks), but one prior persistence blocker remains: the required concurrent cross-feature corruption scenario is still not verified.",
-    "issues": [
-      {
-        "file": "src/__tests__/cross-flows.test.tsx",
-        "line": 334,
-        "severity": "blocking",
-        "description": "The cross-flow persistence suite still does not test VAL-CROSS-039's required concurrent workflow (pantry add -> generate -> convert -> verify recipes and pantry remain intact). The existing \"Data Persistence Across Operations\" cases only assert list/search rendering with static in-memory inputs."
-      }
-    ]
+    "summary": "The fix addresses the prior blocker: it adds explicit VAL-CROSS-039 concurrent cross-flow coverage and hardens persistence paths by syncing users before first pantry/recipe writes plus revalidating affected routes after create/delete mutations.",
+    "issues": []
   },
   "sharedStateObservations": [
     {
-      "area": "skills",
-      "observation": "The `fullstack-worker` skill still mandates agent-browser flow verification without a documented fallback path for the known Clerk headless challenge, which continues to produce justified procedure deviations.",
-      "evidence": ".factory/skills/fullstack-worker/SKILL.md Step 7 requires manual agent-browser verification; mission AGENTS.md documents Clerk headless auth challenge; handoff 2026-04-14T11-45-00-431Z records skillFeedback.followedProcedure=false for this reason."
+      "area": "knowledge",
+      "observation": "Shared architecture guidance is currently high-level on user sync and does not explicitly call out that first-write server actions touching user-foreign-key tables should invoke `syncUser()` before inserts.",
+      "evidence": ".factory/library/architecture.md:21 describes sync on the first authenticated request; this fix had to add `syncUser()` in src/actions/add-pantry-item.ts:21, src/actions/save-recipe.ts:11, and src/actions/save-converted-recipe.ts:13."
     }
   ],
   "addressesFailureFrom": ".factory/validation/conversion/scrutiny/reviews/conversion-cross-flows.json",
-  "summary": "Re-review result: one prior blocker (deleted recipe detail 404 behavior) is now covered, and refresh/sign-in persistence coverage improved; however, required concurrent cross-feature no-corruption verification is still missing, so the feature remains failing."
+  "summary": "Re-review passed. The previous failure (missing explicit concurrent no-corruption verification) is now covered by src/__tests__/cross-flow-concurrent-usage.test.tsx:110-159 with pantry add -> generated+converted recipe coexistence -> pantry integrity checks, and related persistence hardening is reflected in sync/revalidation action changes and updated tests."
 }

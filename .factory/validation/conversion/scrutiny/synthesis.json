@@ -1,11 +1,11 @@
 {
   "milestone": "conversion",
-  "round": 2,
-  "status": "fail",
+  "round": 3,
+  "status": "pass",
   "validatorsRun": {
     "test": {
       "passed": true,
-      "command": "npx vitest run --reporter=verbose",
+      "command": "npm run test",
       "exitCode": 0
     },
     "typecheck": {
@@ -20,29 +20,32 @@
     }
   },
   "reviewsSummary": {
-    "total": 2,
+    "total": 1,
     "passed": 1,
-    "failed": 1,
-    "failedFeatures": [
-      "conversion-cross-flows"
-    ]
+    "failed": 0,
+    "failedFeatures": []
   },
-  "blockingIssues": [
+  "blockingIssues": [],
+  "appliedUpdates": [
     {
-      "featureId": "conversion-cross-flows",
-      "severity": "blocking",
-      "description": "The cross-flow persistence suite still does not test VAL-CROSS-039's required concurrent workflow (pantry add -> generate -> convert -> verify recipes and pantry remain intact), so required no-corruption verification remains missing."
+      "target": "library",
+      "description": "Added architecture guidance that first-write server actions inserting into user-foreign-key tables should call syncUser() before inserts.",
+      "sourceFeature": "conversion-cross-flows"
     }
   ],
-  "appliedUpdates": [],
   "suggestedGuidanceUpdates": [
     {
       "target": "skill:fullstack-worker",
-      "suggestion": "Add an explicit fallback procedure for required authenticated agent-browser checks when Clerk/Cloudflare bot protection blocks headless sessions (e.g., mandated alternative evidence strategy and handoff wording).",
-      "evidence": "The conversion-cross-flows re-review again reported this mismatch, citing required manual verification steps that are blocked in headless auth while mission guidance already documents the Clerk challenge.",
+      "suggestion": "Add an explicit fallback path when Clerk/Cloudflare blocks authenticated headless browser flows, including accepted alternative evidence and required handoff wording.",
+      "evidence": "Observed across multiple conversion reviews (`recipe-conversion-page`, `recipes-list-and-detail`) where required authenticated browser checks were blocked by known headless auth challenges.",
       "isSystemic": true
     }
   ],
-  "rejectedObservations": [],
-  "previousRound": ".factory/validation/conversion/scrutiny/synthesis.round1.json"
+  "rejectedObservations": [
+    {
+      "observation": "Document src/middleware.ts location as a special convention.",
+      "reason": "already-documented"
+    }
+  ],
+  "previousRound": ".factory/validation/conversion/scrutiny/synthesis.round2.json"
 }
