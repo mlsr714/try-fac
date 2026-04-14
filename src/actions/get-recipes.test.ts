@@ -93,4 +93,56 @@ describe("getRecipes", () => {
     const result = await getRecipes();
     expect(result).toEqual({ recipes: [] });
   });
+
+  it("filters recipes by the authenticated user ID", async () => {
+    mockOrderBy.mockResolvedValue([]);
+
+    await getRecipes();
+
+    expect(mockWhere).toHaveBeenCalledWith({
+      op: "eq",
+      a: "user_id",
+      b: "test-user-id",
+    });
+  });
+
+  it("returns the same user's recipes after signing back in", async () => {
+    const persistedRecipes = [
+      {
+        id: "recipe-1",
+        title: "Saved Across Sessions",
+        summary: "Still there after re-authentication",
+        sourceType: "generated",
+        createdAt: new Date("2024-01-02"),
+      },
+      {
+        id: "recipe-2",
+        title: "Converted Across Sessions",
+        summary: null,
+        sourceType: "converted",
+        createdAt: new Date("2024-01-01"),
+      },
+    ];
+
+    mockAuth
+      .mockResolvedValueOnce({
+        userId: "test-user-id",
+      } as ReturnType<typeof auth> extends Promise<infer T> ? T : never)
+      .mockResolvedValueOnce({
+        userId: null,
+      } as ReturnType<typeof auth> extends Promise<infer T> ? T : never)
+      .mockResolvedValueOnce({
+        userId: "test-user-id",
+      } as ReturnType<typeof auth> extends Promise<infer T> ? T : never);
+    mockOrderBy.mockResolvedValue(persistedRecipes);
+
+    const firstSession = await getRecipes();
+    const signedOut = await getRecipes();
+    const secondSession = await getRecipes();
+
+    expect(firstSession).toEqual({ recipes: persistedRecipes });
+    expect(signedOut).toEqual({ error: "Not authenticated" });
+    expect(secondSession).toEqual({ recipes: persistedRecipes });
+    expect(mockOrderBy).toHaveBeenCalledTimes(2);
+  });
 });

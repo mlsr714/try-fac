@@ -79,4 +79,16 @@ describe("getPantryItems", () => {
     const result = await getPantryItems();
     expect(result).toEqual({ items: [] });
   });
+
+  it("filters pantry items by the authenticated user ID", async () => {
+    mockOrderBy.mockResolvedValue([]);
+
+    await getPantryItems();
+
+    expect(mockWhere).toHaveBeenCalledWith({
+      op: "eq",
+      a: "user_id",
+      b: "test-user-id",
+    });
+  });
 });
